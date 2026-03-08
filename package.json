@@ -1,17 +1,39 @@
 {
   "name": "@singi-labs/sifa-lexicons",
   "version": "0.1.0",
-  "description": "AT Protocol lexicon schemas for Sifa professional profiles (id.sifa.*)",
+  "description": "AT Protocol lexicon schemas and generated TypeScript types for Sifa professional profiles (id.sifa.*)",
+  "type": "module",
   "license": "MIT",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/singi-labs/sifa-lexicons.git"
   },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "lexicons"
+  ],
   "scripts": {
-    "validate": "lex gen-api /tmp/sifa-lexicon-validate $(find ./lexicons -name '*.json' ! -name 'authProfileAccess.json' | sort) --yes && rm -rf /tmp/sifa-lexicon-validate",
-    "generate-types": "lex gen-api ./src/types $(find ./lexicons -name '*.json' ! -name 'authProfileAccess.json' | sort) --yes"
+    "build": "tsc",
+    "generate": "node scripts/generate.js",
+    "validate": "node scripts/generate.js"
+  },
+  "dependencies": {
+    "@atproto/lexicon": "^0.6.0",
+    "@atproto/xrpc": "^0.6.0",
+    "multiformats": "^13.0.0"
   },
   "devDependencies": {
-    "@atproto/lex-cli": "^0.5.0"
+    "@atproto/lex-cli": "^0.9.9",
+    "typescript": "^5.8.0"
   }
 }

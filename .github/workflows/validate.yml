@@ -18,11 +18,11 @@ jobs:
 
       - run: npm ci
 
-      - name: Validate lexicon schemas
-        run: |
-          npx lex gen-api /tmp/sifa-types \
-            $(find ./lexicons -name '*.json' ! -name 'authProfileAccess.json' | sort) \
-            --yes
+      - name: Generate types from lexicon schemas
+        run: npm run generate
+
+      - name: Build TypeScript
+        run: npm run build
 
       - name: Verify authProfileAccess.json is valid JSON
         run: python3 -c "import json, sys; json.load(open(sys.argv[1]))" lexicons/id/sifa/authProfileAccess.json

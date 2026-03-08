@@ -6,24 +6,24 @@ AT Protocol lexicon schemas for [Sifa](https://sifa.id) -- a decentralized profe
 
 All lexicons use the `id.sifa.*` namespace, resolved from the `sifa.id` domain.
 
-| NSID | Purpose |
-|------|---------|
-| `id.sifa.defs` | Shared tokens and types |
-| `id.sifa.profile.self` | Professional profile singleton |
-| `id.sifa.profile.position` | Work experience |
-| `id.sifa.profile.education` | Education |
-| `id.sifa.profile.skill` | Skills |
-| `id.sifa.profile.certification` | Certifications and licenses |
-| `id.sifa.profile.project` | Projects |
-| `id.sifa.profile.volunteering` | Volunteer experience |
-| `id.sifa.profile.publication` | Publications |
-| `id.sifa.profile.course` | Courses |
-| `id.sifa.profile.honor` | Honors and awards |
-| `id.sifa.profile.language` | Language proficiency |
-| `id.sifa.endorsement` | Skill endorsements |
-| `id.sifa.endorsement.confirmation` | Endorsement confirmations |
-| `id.sifa.graph.follow` | Professional follows |
-| `id.sifa.authProfileAccess` | OAuth permission set |
+| NSID                               | Purpose                        |
+| ---------------------------------- | ------------------------------ |
+| `id.sifa.defs`                     | Shared tokens and types        |
+| `id.sifa.profile.self`             | Professional profile singleton |
+| `id.sifa.profile.position`         | Work experience                |
+| `id.sifa.profile.education`        | Education                      |
+| `id.sifa.profile.skill`            | Skills                         |
+| `id.sifa.profile.certification`    | Certifications and licenses    |
+| `id.sifa.profile.project`          | Projects                       |
+| `id.sifa.profile.volunteering`     | Volunteer experience           |
+| `id.sifa.profile.publication`      | Publications                   |
+| `id.sifa.profile.course`           | Courses                        |
+| `id.sifa.profile.honor`            | Honors and awards              |
+| `id.sifa.profile.language`         | Language proficiency           |
+| `id.sifa.endorsement`              | Skill endorsements             |
+| `id.sifa.endorsement.confirmation` | Endorsement confirmations      |
+| `id.sifa.graph.follow`             | Professional follows           |
+| `id.sifa.authProfileAccess`        | OAuth permission set           |
 
 ## Usage
 

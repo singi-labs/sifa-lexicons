@@ -9,13 +9,13 @@ AT Protocol lexicon schemas for Sifa -- a decentralized professional identity an
 
 ## Tech Stack
 
-| Component | Technology |
-|-----------|-----------|
-| Runtime | Node.js 25 / TypeScript (strict) |
-| Schemas | AT Protocol Lexicon JSON |
-| Code gen | @atproto/lex-cli |
-| Validation | Zod (generated from lexicons) |
-| Testing | Vitest |
+| Component  | Technology                       |
+| ---------- | -------------------------------- |
+| Runtime    | Node.js 25 / TypeScript (strict) |
+| Schemas    | AT Protocol Lexicon JSON         |
+| Code gen   | @atproto/lex-cli                 |
+| Validation | Zod (generated from lexicons)    |
+| Testing    | Vitest                           |
 
 ## What This Repo Does
 

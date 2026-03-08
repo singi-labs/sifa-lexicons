@@ -52,11 +52,7 @@
           "workplaceType": {
             "type": "string",
             "description": "Workplace arrangement (on-site, remote, hybrid).",
-            "knownValues": [
-              "id.sifa.defs#onSite",
-              "id.sifa.defs#remote",
-              "id.sifa.defs#hybrid"
-            ]
+            "knownValues": ["id.sifa.defs#onSite", "id.sifa.defs#remote", "id.sifa.defs#hybrid"]
           },
           "location": {
             "type": "ref",

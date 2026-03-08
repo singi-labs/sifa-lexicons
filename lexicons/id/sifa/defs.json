@@ -23,17 +23,16 @@
     "freelance": { "type": "token", "description": "Freelance/independent work." },
     "internship": { "type": "token", "description": "Internship position." },
     "apprenticeship": { "type": "token", "description": "Apprenticeship position." },
-    "volunteer": { "type": "token", "description": "Volunteer work (when used as employment type)." },
+    "volunteer": {
+      "type": "token",
+      "description": "Volunteer work (when used as employment type)."
+    },
     "selfEmployed": { "type": "token", "description": "Self-employed." },
 
     "workplaceType": {
       "type": "string",
       "description": "The workplace arrangement.",
-      "knownValues": [
-        "id.sifa.defs#onSite",
-        "id.sifa.defs#remote",
-        "id.sifa.defs#hybrid"
-      ]
+      "knownValues": ["id.sifa.defs#onSite", "id.sifa.defs#remote", "id.sifa.defs#hybrid"]
     },
     "onSite": { "type": "token", "description": "On-site/in-office work." },
     "remote": { "type": "token", "description": "Fully remote work." },
@@ -87,8 +86,14 @@
         "id.sifa.defs#collaborations"
       ]
     },
-    "fullTimeRoles": { "type": "token", "description": "Open to full-time employment opportunities." },
-    "partTimeRoles": { "type": "token", "description": "Open to part-time employment opportunities." },
+    "fullTimeRoles": {
+      "type": "token",
+      "description": "Open to full-time employment opportunities."
+    },
+    "partTimeRoles": {
+      "type": "token",
+      "description": "Open to part-time employment opportunities."
+    },
     "contractRoles": { "type": "token", "description": "Open to contract or freelance work." },
     "boardPositions": { "type": "token", "description": "Open to advisory or board positions." },
     "mentoring": { "type": "token", "description": "Open to mentoring opportunities." },

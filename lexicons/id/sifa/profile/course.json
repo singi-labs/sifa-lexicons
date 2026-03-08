@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.profile.course",
+  "description": "A course completed by the user.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Record representing a single completed course.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["name", "createdAt"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxGraphemes": 200,
+            "maxLength": 2000,
+            "description": "Course name."
+          },
+          "number": {
+            "type": "string",
+            "maxGraphemes": 50,
+            "maxLength": 500,
+            "description": "Course number or code (e.g., 'CS101')."
+          },
+          "institution": {
+            "type": "string",
+            "maxGraphemes": 100,
+            "maxLength": 1000,
+            "description": "Institution or platform offering the course."
+          },
+          "education": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "Reference to the associated id.sifa.profile.education record, if applicable."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when this record was originally created."
+          }
+        }
+      }
+    }
+  }
+}

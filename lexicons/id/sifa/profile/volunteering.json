@@ -1,0 +1,62 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.profile.volunteering",
+  "description": "A volunteer experience entry in the user's professional profile.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Record representing a single volunteer role.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["organization", "createdAt"],
+        "properties": {
+          "organization": {
+            "type": "string",
+            "minLength": 1,
+            "maxGraphemes": 100,
+            "maxLength": 1000,
+            "description": "Organization name."
+          },
+          "organizationDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the organization's ATproto account, if one exists."
+          },
+          "role": {
+            "type": "string",
+            "maxGraphemes": 100,
+            "maxLength": 1000,
+            "description": "Volunteer role or title."
+          },
+          "cause": {
+            "type": "string",
+            "maxGraphemes": 100,
+            "maxLength": 1000,
+            "description": "Cause area (e.g., 'Education', 'Environment', 'Health')."
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 50000,
+            "description": "Description of volunteer activities and impact."
+          },
+          "startedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Start date of the volunteer role."
+          },
+          "endedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "End date. Omit if currently volunteering."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when this record was originally created."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.authProfileAccess",
+  "description": "Permission set for Sifa professional profile access. Grants ability to manage professional profile records and create endorsements.",
+  "defs": {
+    "main": {
+      "type": "permission-set",
+      "title": "Sifa Professional Profile",
+      "detail": "Manage your professional profile, work history, skills, and endorsements.",
+      "permissions": [
+        {
+          "type": "permission",
+          "resource": "repo",
+          "collection": [
+            "id.sifa.profile.self",
+            "id.sifa.profile.position",
+            "id.sifa.profile.education",
+            "id.sifa.profile.skill",
+            "id.sifa.profile.certification",
+            "id.sifa.profile.project",
+            "id.sifa.profile.volunteering",
+            "id.sifa.profile.publication",
+            "id.sifa.profile.course",
+            "id.sifa.profile.honor",
+            "id.sifa.profile.language",
+            "id.sifa.endorsement",
+            "id.sifa.endorsement.confirmation",
+            "id.sifa.graph.follow"
+          ]
+        }
+      ]
+    }
+  }
+}

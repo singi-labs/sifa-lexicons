@@ -1,0 +1,97 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.defs",
+  "description": "Shared type definitions for Sifa professional profile lexicons.",
+  "defs": {
+    "employmentType": {
+      "type": "string",
+      "description": "The type of employment arrangement.",
+      "knownValues": [
+        "id.sifa.defs#fullTime",
+        "id.sifa.defs#partTime",
+        "id.sifa.defs#contract",
+        "id.sifa.defs#freelance",
+        "id.sifa.defs#internship",
+        "id.sifa.defs#apprenticeship",
+        "id.sifa.defs#volunteer",
+        "id.sifa.defs#selfEmployed"
+      ]
+    },
+    "fullTime": { "type": "token", "description": "Full-time employment." },
+    "partTime": { "type": "token", "description": "Part-time employment." },
+    "contract": { "type": "token", "description": "Contract/temporary employment." },
+    "freelance": { "type": "token", "description": "Freelance/independent work." },
+    "internship": { "type": "token", "description": "Internship position." },
+    "apprenticeship": { "type": "token", "description": "Apprenticeship position." },
+    "volunteer": { "type": "token", "description": "Volunteer work (when used as employment type)." },
+    "selfEmployed": { "type": "token", "description": "Self-employed." },
+
+    "workplaceType": {
+      "type": "string",
+      "description": "The workplace arrangement.",
+      "knownValues": [
+        "id.sifa.defs#onSite",
+        "id.sifa.defs#remote",
+        "id.sifa.defs#hybrid"
+      ]
+    },
+    "onSite": { "type": "token", "description": "On-site/in-office work." },
+    "remote": { "type": "token", "description": "Fully remote work." },
+    "hybrid": { "type": "token", "description": "Hybrid on-site and remote work." },
+
+    "proficiency": {
+      "type": "string",
+      "description": "Language proficiency level. Maps to LinkedIn's five-level scale for lossless import.",
+      "knownValues": [
+        "id.sifa.defs#elementary",
+        "id.sifa.defs#limitedWorking",
+        "id.sifa.defs#professionalWorking",
+        "id.sifa.defs#fullProfessional",
+        "id.sifa.defs#native"
+      ]
+    },
+    "elementary": { "type": "token", "description": "Elementary proficiency." },
+    "limitedWorking": { "type": "token", "description": "Limited working proficiency." },
+    "professionalWorking": { "type": "token", "description": "Professional working proficiency." },
+    "fullProfessional": { "type": "token", "description": "Full professional proficiency." },
+    "native": { "type": "token", "description": "Native or bilingual proficiency." },
+
+    "skillCategory": {
+      "type": "string",
+      "description": "Broad category for grouping skills.",
+      "knownValues": [
+        "id.sifa.defs#technical",
+        "id.sifa.defs#business",
+        "id.sifa.defs#creative",
+        "id.sifa.defs#interpersonal",
+        "id.sifa.defs#language",
+        "id.sifa.defs#industry"
+      ]
+    },
+    "technical": { "type": "token", "description": "Technical/engineering skills." },
+    "business": { "type": "token", "description": "Business and management skills." },
+    "creative": { "type": "token", "description": "Creative and design skills." },
+    "interpersonal": { "type": "token", "description": "Interpersonal and communication skills." },
+    "language": { "type": "token", "description": "Language and linguistic skills." },
+    "industry": { "type": "token", "description": "Industry-specific domain knowledge." },
+
+    "openToWorkStatus": {
+      "type": "string",
+      "description": "The type of opportunity the user is open to.",
+      "knownValues": [
+        "id.sifa.defs#fullTimeRoles",
+        "id.sifa.defs#partTimeRoles",
+        "id.sifa.defs#contractRoles",
+        "id.sifa.defs#boardPositions",
+        "id.sifa.defs#mentoring",
+        "id.sifa.defs#collaborations"
+      ]
+    },
+    "fullTimeRoles": { "type": "token", "description": "Open to full-time employment opportunities." },
+    "partTimeRoles": { "type": "token", "description": "Open to part-time employment opportunities." },
+    "contractRoles": { "type": "token", "description": "Open to contract or freelance work." },
+    "boardPositions": { "type": "token", "description": "Open to advisory or board positions." },
+    "mentoring": { "type": "token", "description": "Open to mentoring opportunities." },
+    "collaborations": { "type": "token", "description": "Open to project collaborations." }
+  }
+}

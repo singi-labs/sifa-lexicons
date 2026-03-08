@@ -1,0 +1,39 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.endorsement",
+  "description": "An endorsement of another user's skill. Lives in the endorser's PDS; the endorser is implicit (whoever owns the repository).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Record representing an endorsement of another user's claimed skill.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["subject", "skill", "createdAt"],
+        "properties": {
+          "subject": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the user whose skill is being endorsed."
+          },
+          "skill": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "StrongRef to the id.sifa.profile.skill record being endorsed. The AT-URI identifies the skill, and the CID pins the version."
+          },
+          "comment": {
+            "type": "string",
+            "maxGraphemes": 300,
+            "maxLength": 3000,
+            "description": "Optional brief comment explaining the endorsement."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when this endorsement was created."
+          }
+        }
+      }
+    }
+  }
+}

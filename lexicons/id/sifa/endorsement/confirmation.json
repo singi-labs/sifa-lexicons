@@ -1,0 +1,28 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.endorsement.confirmation",
+  "description": "Confirmation that a skill endorsement should be displayed on the subject's profile. Lives in the subject's PDS. Without this record, the endorsement exists but is not shown on the profile.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Record confirming an endorsement for profile display. The subject creates this record to approve the endorsement.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["endorsement", "createdAt"],
+        "properties": {
+          "endorsement": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "StrongRef to the id.sifa.endorsement record being confirmed. The AT-URI identifies the endorsement, and the CID pins the version at confirmation time."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when this confirmation was created."
+          }
+        }
+      }
+    }
+  }
+}

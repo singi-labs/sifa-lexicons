@@ -1,0 +1,17 @@
+{
+  "name": "@singi-labs/sifa-lexicons",
+  "version": "0.1.0",
+  "description": "AT Protocol lexicon schemas for Sifa professional profiles (id.sifa.*)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/singi-labs/sifa-lexicons.git"
+  },
+  "scripts": {
+    "validate": "lex gen-api ./src/types $(find ./lexicons -name '*.json' ! -name 'authProfileAccess.json' | sort) --dry-run",
+    "generate-types": "lex gen-api ./src/types $(find ./lexicons -name '*.json' ! -name 'authProfileAccess.json' | sort)"
+  },
+  "devDependencies": {
+    "@atproto/lex-cli": "^0.5.0"
+  }
+}

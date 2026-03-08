@@ -1,0 +1,51 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.profile.honor",
+  "description": "An honor, award, or recognition received by the user.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Record representing a single honor or award.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["title", "createdAt"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxGraphemes": 200,
+            "maxLength": 2000,
+            "description": "Honor or award title."
+          },
+          "issuer": {
+            "type": "string",
+            "maxGraphemes": 100,
+            "maxLength": 1000,
+            "description": "Organization or entity that granted the honor."
+          },
+          "issuerDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the issuing entity's ATproto account, if one exists."
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 50000,
+            "description": "Description of the honor or award."
+          },
+          "awardedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Date the honor was awarded."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when this record was originally created."
+          }
+        }
+      }
+    }
+  }
+}

@@ -29,6 +29,7 @@
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
+    "test": "vitest run",
     "format:check": "prettier --check .",
     "prepare": "husky"
   },
@@ -45,6 +46,7 @@
     "husky": "9.1.7",
     "prettier": "3.5.3",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.56.1"
+    "typescript-eslint": "8.56.1",
+    "vitest": "3.2.1"
   }
 }

@@ -37,6 +37,7 @@
           },
           "description": {
             "type": "string",
+            "maxGraphemes": 5000,
             "maxLength": 50000,
             "description": "Description of volunteer activities and impact."
           },

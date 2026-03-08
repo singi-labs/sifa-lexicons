@@ -32,6 +32,7 @@
           },
           "description": {
             "type": "string",
+            "maxGraphemes": 5000,
             "maxLength": 50000,
             "description": "Description of responsibilities, achievements, and duties."
           },

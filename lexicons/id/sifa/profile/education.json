@@ -43,11 +43,13 @@
           },
           "activities": {
             "type": "string",
+            "maxGraphemes": 1000,
             "maxLength": 10000,
             "description": "Activities, societies, and extracurriculars."
           },
           "description": {
             "type": "string",
+            "maxGraphemes": 5000,
             "maxLength": 50000,
             "description": "Additional description or notes about the education."
           },

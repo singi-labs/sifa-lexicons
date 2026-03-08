@@ -19,6 +19,7 @@
           },
           "about": {
             "type": "string",
+            "maxGraphemes": 5000,
             "maxLength": 50000,
             "description": "Professional summary or about section. Longer-form than Bluesky's description field."
           },

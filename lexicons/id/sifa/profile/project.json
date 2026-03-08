@@ -20,6 +20,7 @@
           },
           "description": {
             "type": "string",
+            "maxGraphemes": 5000,
             "maxLength": 50000,
             "description": "Description of the project, the user's role, and outcomes."
           },

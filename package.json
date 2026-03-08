@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@atproto/lexicon": "^0.6.0",
-    "@atproto/xrpc": "^0.6.0",
+    "@atproto/xrpc": "^0.7.7",
     "multiformats": "^13.0.0"
   },
   "devDependencies": {

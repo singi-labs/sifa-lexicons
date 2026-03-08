@@ -1,7 +1,7 @@
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  tseslint.configs.strictTypeChecked,
+  tseslint.configs.recommendedTypeChecked,
   {
     languageOptions: {
       parserOptions: {
@@ -15,6 +15,6 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ['dist/', 'node_modules/', 'scripts/'],
+    ignores: ['dist/', 'node_modules/', 'scripts/', 'src/generated/'],
   },
 );

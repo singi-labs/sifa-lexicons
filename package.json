@@ -8,8 +8,8 @@
     "url": "https://github.com/singi-labs/sifa-lexicons.git"
   },
   "scripts": {
-    "validate": "lex gen-api ./src/types $(find ./lexicons -name '*.json' ! -name 'authProfileAccess.json' | sort) --dry-run",
-    "generate-types": "lex gen-api ./src/types $(find ./lexicons -name '*.json' ! -name 'authProfileAccess.json' | sort)"
+    "validate": "lex gen-api /tmp/sifa-lexicon-validate $(find ./lexicons -name '*.json' ! -name 'authProfileAccess.json' | sort) --yes && rm -rf /tmp/sifa-lexicon-validate",
+    "generate-types": "lex gen-api ./src/types $(find ./lexicons -name '*.json' ! -name 'authProfileAccess.json' | sort) --yes"
   },
   "devDependencies": {
     "@atproto/lex-cli": "^0.5.0"

@@ -25,15 +25,26 @@
   "scripts": {
     "build": "tsc",
     "generate": "node scripts/generate.js",
-    "validate": "node scripts/generate.js"
+    "validate": "node scripts/generate.js",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
   },
   "dependencies": {
-    "@atproto/lexicon": "^0.6.0",
-    "@atproto/xrpc": "^0.7.7",
-    "multiformats": "^13.0.0"
+    "@atproto/lexicon": "0.6.2",
+    "@atproto/xrpc": "0.7.7",
+    "multiformats": "13.4.2"
   },
   "devDependencies": {
-    "@atproto/lex-cli": "^0.9.9",
-    "typescript": "^5.8.0"
+    "@atproto/lex-cli": "0.9.9",
+    "@commitlint/cli": "19.8.1",
+    "@commitlint/config-conventional": "19.8.1",
+    "eslint": "10.0.3",
+    "husky": "9.1.7",
+    "prettier": "3.5.3",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.56.1"
   }
 }

@@ -1,0 +1,30 @@
+name: Validate Lexicons
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Validate lexicon schemas
+        run: |
+          # gen-api validates schemas during generation; --dry-run would be ideal
+          # but isn't supported, so we generate to a temp dir
+          npx lex gen-api /tmp/sifa-types \
+            $(find ./lexicons -name '*.json' ! -name 'authProfileAccess.json' | sort) \
+            <<< "y"
+
+      - name: Verify authProfileAccess.json is valid JSON
+        run: python3 -c "import json, sys; json.load(open(sys.argv[1]))" lexicons/id/sifa/authProfileAccess.json

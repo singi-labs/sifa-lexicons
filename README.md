@@ -142,4 +142,4 @@ See [LICENSE](LICENSE) for full terms.
 
 ---
 
-(c) 2026 Singi Labs
+Made with ♥ in 🇪🇺 by [Singi Labs](https://singi.dev)

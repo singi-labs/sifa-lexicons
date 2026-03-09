@@ -6,7 +6,7 @@
  */
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const LEXICONS_DIR = join(ROOT, 'lexicons');
@@ -34,8 +34,10 @@ const allFiles = [...ownFiles, ...externalFiles];
 
 console.log(`Found ${ownFiles.length} own + ${externalFiles.length} external lexicon files`);
 
-const cmd = `npx lex gen-server ${OUTPUT_DIR} ${allFiles.join(' ')} --yes`;
-execSync(cmd, { cwd: ROOT, stdio: 'inherit' });
+execFileSync('npx', ['lex', 'gen-server', OUTPUT_DIR, ...allFiles, '--yes'], {
+  cwd: ROOT,
+  stdio: 'inherit',
+});
 
 console.log('Running fixup script...');
-execSync('node scripts/fixup-generated.js', { cwd: ROOT, stdio: 'inherit' });
+execFileSync('node', ['scripts/fixup-generated.js'], { cwd: ROOT, stdio: 'inherit' });

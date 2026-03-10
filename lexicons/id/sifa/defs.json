@@ -97,6 +97,31 @@
     "contractRoles": { "type": "token", "description": "Open to contract or freelance work." },
     "boardPositions": { "type": "token", "description": "Open to advisory or board positions." },
     "mentoring": { "type": "token", "description": "Open to mentoring opportunities." },
-    "collaborations": { "type": "token", "description": "Open to project collaborations." }
+    "collaborations": { "type": "token", "description": "Open to project collaborations." },
+
+    "externalPlatform": {
+      "type": "string",
+      "description": "Platform type for an external account linked to a Sifa profile.",
+      "knownValues": [
+        "id.sifa.defs#platformRss",
+        "id.sifa.defs#platformFediverse",
+        "id.sifa.defs#platformTwitter",
+        "id.sifa.defs#platformInstagram",
+        "id.sifa.defs#platformGithub",
+        "id.sifa.defs#platformYoutube",
+        "id.sifa.defs#platformLinkedin",
+        "id.sifa.defs#platformWebsite",
+        "id.sifa.defs#platformOther"
+      ]
+    },
+    "platformRss": { "type": "token", "description": "RSS or Atom feed (blog, newsletter, podcast)." },
+    "platformFediverse": { "type": "token", "description": "Fediverse account (Mastodon, Misskey, Pleroma, etc.)." },
+    "platformTwitter": { "type": "token", "description": "Twitter/X account." },
+    "platformInstagram": { "type": "token", "description": "Instagram account." },
+    "platformGithub": { "type": "token", "description": "GitHub account." },
+    "platformYoutube": { "type": "token", "description": "YouTube channel." },
+    "platformLinkedin": { "type": "token", "description": "LinkedIn profile." },
+    "platformWebsite": { "type": "token", "description": "Personal or professional website." },
+    "platformOther": { "type": "token", "description": "Other platform not covered by specific tokens." }
   }
 }

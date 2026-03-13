@@ -42,6 +42,10 @@
             "format": "uri",
             "description": "Optional RSS or Atom feed URL. Auto-discovered or manually provided. Used for content rendering in the ATmosphere Stream."
           },
+          "isPrimary": {
+            "type": "boolean",
+            "description": "Whether this is the user's primary external link, displayed prominently on the profile card."
+          },
           "createdAt": {
             "type": "string",
             "format": "datetime",

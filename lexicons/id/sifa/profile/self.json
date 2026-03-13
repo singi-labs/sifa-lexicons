@@ -34,11 +34,6 @@
             "ref": "community.lexicon.location.address",
             "description": "Professional location (city, region, country). Uses community location lexicon."
           },
-          "website": {
-            "type": "string",
-            "format": "uri",
-            "description": "Professional website URL. Distinct from Bluesky profile website if needed."
-          },
           "openTo": {
             "type": "array",
             "maxLength": 10,

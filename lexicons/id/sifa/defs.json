@@ -114,14 +114,23 @@
         "id.sifa.defs#platformOther"
       ]
     },
-    "platformRss": { "type": "token", "description": "RSS or Atom feed (blog, newsletter, podcast)." },
-    "platformFediverse": { "type": "token", "description": "Fediverse account (Mastodon, Misskey, Pleroma, etc.)." },
+    "platformRss": {
+      "type": "token",
+      "description": "RSS or Atom feed (blog, newsletter, podcast)."
+    },
+    "platformFediverse": {
+      "type": "token",
+      "description": "Fediverse account (Mastodon, Misskey, Pleroma, etc.)."
+    },
     "platformTwitter": { "type": "token", "description": "Twitter/X account." },
     "platformInstagram": { "type": "token", "description": "Instagram account." },
     "platformGithub": { "type": "token", "description": "GitHub account." },
     "platformYoutube": { "type": "token", "description": "YouTube channel." },
     "platformLinkedin": { "type": "token", "description": "LinkedIn profile." },
     "platformWebsite": { "type": "token", "description": "Personal or professional website." },
-    "platformOther": { "type": "token", "description": "Other platform not covered by specific tokens." }
+    "platformOther": {
+      "type": "token",
+      "description": "Other platform not covered by specific tokens."
+    }
   }
 }

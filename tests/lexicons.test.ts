@@ -212,6 +212,35 @@ describe('All lexicons have a top-level description', () => {
   });
 });
 
+describe('Position skills field', () => {
+  const positionLexicon = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.position');
+  const properties = positionLexicon?.doc.defs.main.record?.properties;
+  const required = positionLexicon?.doc.defs.main.record?.required ?? [];
+
+  it('position lexicon exists', () => {
+    expect(positionLexicon).toBeDefined();
+  });
+
+  it('skills field exists and is an optional array', () => {
+    expect(properties?.skills).toBeDefined();
+    expect(properties?.skills?.type).toBe('array');
+    expect(required).not.toContain('skills');
+  });
+
+  it('skills items are strongRef references', () => {
+    expect(properties?.skills?.items?.type).toBe('ref');
+    expect(properties?.skills?.items?.ref).toBe('com.atproto.repo.strongRef');
+  });
+
+  it('skills array has maxLength 50', () => {
+    expect(properties?.skills?.maxLength).toBe(50);
+  });
+
+  it('position without skills field is still valid (backward compatible)', () => {
+    expect(required).toEqual(['company', 'title', 'startedAt', 'createdAt']);
+  });
+});
+
 describe('External lexicon references exist', () => {
   // Collect all external refs (not starting with # or id.sifa.)
   const externalRefs = new Set<string>();

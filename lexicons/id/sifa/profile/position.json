@@ -70,6 +70,15 @@
             "format": "datetime",
             "description": "End date of the position. Omit if this is a current position."
           },
+          "skills": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "com.atproto.repo.strongRef"
+            },
+            "description": "Skills used in this position. Each entry is a strongRef to an id.sifa.profile.skill record owned by the same DID.",
+            "maxLength": 50
+          },
           "labels": {
             "type": "union",
             "description": "Self-label values for this position record.",

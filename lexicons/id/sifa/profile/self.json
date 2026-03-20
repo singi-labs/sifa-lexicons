@@ -44,7 +44,8 @@
                 "id.sifa.defs#partTimeRoles",
                 "id.sifa.defs#contractRoles",
                 "id.sifa.defs#boardPositions",
-                "id.sifa.defs#mentoring",
+                "id.sifa.defs#mentoringOthers",
+                "id.sifa.defs#beingMentored",
                 "id.sifa.defs#collaborations"
               ]
             },

@@ -1,0 +1,31 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.meeting",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "Attestation of a face-to-face meeting with another user. Both participants create this record in their own PDS. The meeting is only displayed when both records exist (mutual confirmation). Either party can delete their record to remove the meeting.",
+      "record": {
+        "type": "object",
+        "required": ["subject", "meetingToken", "createdAt"],
+        "properties": {
+          "subject": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the other participant in the meeting."
+          },
+          "meetingToken": {
+            "type": "string",
+            "maxLength": 512,
+            "description": "Server-issued JWT proving both parties were authenticated at the time of meeting. Contains both DIDs, timestamp, and server signature."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}

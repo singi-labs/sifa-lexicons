@@ -112,6 +112,7 @@
         "id.sifa.defs#platformGithub",
         "id.sifa.defs#platformYoutube",
         "id.sifa.defs#platformLinkedin",
+        "id.sifa.defs#platformSubstack",
         "id.sifa.defs#platformWebsite",
         "id.sifa.defs#platformOther"
       ]
@@ -129,6 +130,7 @@
     "platformGithub": { "type": "token", "description": "GitHub account." },
     "platformYoutube": { "type": "token", "description": "YouTube channel." },
     "platformLinkedin": { "type": "token", "description": "LinkedIn profile." },
+    "platformSubstack": { "type": "token", "description": "Substack newsletter." },
     "platformWebsite": { "type": "token", "description": "Personal or professional website." },
     "platformOther": {
       "type": "token",

@@ -79,6 +79,10 @@
             "description": "Skills used in this position. Each entry is a strongRef to an id.sifa.profile.skill record owned by the same DID.",
             "maxLength": 50
           },
+          "isPrimary": {
+            "type": "boolean",
+            "description": "Whether this is the user's primary current position, displayed on the identity card."
+          },
           "labels": {
             "type": "union",
             "description": "Self-label values for this position record.",

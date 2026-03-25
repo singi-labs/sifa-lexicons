@@ -101,7 +101,6 @@ const USER_TEXT_FIELDS = new Set([
   'companyName',
   'title',
   'institution',
-  'skillName',
   'name',
   'comment',
   'role',

@@ -13,7 +13,11 @@ const LEXICONS_DIR = join(ROOT, 'lexicons');
 const EXTERNAL_DIR = join(ROOT, 'external-lexicons');
 const OUTPUT_DIR = join(ROOT, 'src', 'generated');
 
-const EXCLUDED_FILES = ['authProfileAccess.json'];
+const EXCLUDED_FILES = [
+  'authProfileAccess.json',
+  'authProfile.json', // permission-set lexicon (not supported by lex-cli codegen)
+  'authMeet.json', // permission-set lexicon (not supported by lex-cli codegen)
+];
 
 function findJsonFiles(dir) {
   const results = [];

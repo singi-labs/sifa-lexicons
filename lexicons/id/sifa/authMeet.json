@@ -1,0 +1,18 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.authMeet",
+  "defs": {
+    "main": {
+      "type": "permission-set",
+      "title": "Meeting attestation",
+      "detail": "Record verified face-to-face meetings with other users.",
+      "permissions": [
+        {
+          "type": "permission",
+          "resource": "repo",
+          "collection": ["id.sifa.meeting"]
+        }
+      ]
+    }
+  }
+}

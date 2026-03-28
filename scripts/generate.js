@@ -15,8 +15,8 @@ const OUTPUT_DIR = join(ROOT, 'src', 'generated');
 
 const EXCLUDED_FILES = [
   'authProfileAccess.json',
-  'authProfile.json',  // permission-set lexicon (not supported by lex-cli codegen)
-  'authMeet.json',     // permission-set lexicon (not supported by lex-cli codegen)
+  'authProfile.json', // permission-set lexicon (not supported by lex-cli codegen)
+  'authMeet.json', // permission-set lexicon (not supported by lex-cli codegen)
 ];
 
 function findJsonFiles(dir) {

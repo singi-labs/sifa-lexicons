@@ -14,14 +14,14 @@
           "name": {
             "type": "string",
             "minLength": 1,
-            "maxGraphemes": 100,
-            "maxLength": 1000,
+            "maxGraphemes": 256,
+            "maxLength": 2560,
             "description": "Certification or license name."
           },
           "authority": {
             "type": "string",
-            "maxGraphemes": 100,
-            "maxLength": 1000,
+            "maxGraphemes": 256,
+            "maxLength": 2560,
             "description": "Issuing organization or authority."
           },
           "authorityDid": {
@@ -31,8 +31,8 @@
           },
           "credentialId": {
             "type": "string",
-            "maxGraphemes": 100,
-            "maxLength": 1000,
+            "maxGraphemes": 256,
+            "maxLength": 2560,
             "description": "Credential ID or license number."
           },
           "credentialUrl": {

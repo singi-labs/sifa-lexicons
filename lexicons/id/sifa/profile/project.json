@@ -14,8 +14,8 @@
           "name": {
             "type": "string",
             "minLength": 1,
-            "maxGraphemes": 100,
-            "maxLength": 1000,
+            "maxGraphemes": 256,
+            "maxLength": 2560,
             "description": "Project name."
           },
           "description": {

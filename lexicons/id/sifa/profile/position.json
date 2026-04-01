@@ -14,8 +14,8 @@
           "company": {
             "type": "string",
             "minLength": 1,
-            "maxGraphemes": 100,
-            "maxLength": 1000,
+            "maxGraphemes": 256,
+            "maxLength": 2560,
             "description": "Company or organization name."
           },
           "companyDid": {
@@ -26,8 +26,8 @@
           "title": {
             "type": "string",
             "minLength": 1,
-            "maxGraphemes": 100,
-            "maxLength": 1000,
+            "maxGraphemes": 256,
+            "maxLength": 2560,
             "description": "Job title or role name."
           },
           "description": {

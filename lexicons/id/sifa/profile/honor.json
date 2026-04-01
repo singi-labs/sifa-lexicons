@@ -20,8 +20,8 @@
           },
           "issuer": {
             "type": "string",
-            "maxGraphemes": 100,
-            "maxLength": 1000,
+            "maxGraphemes": 256,
+            "maxLength": 2560,
             "description": "Organization or entity that granted the honor."
           },
           "issuerDid": {

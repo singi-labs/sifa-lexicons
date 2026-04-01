@@ -20,8 +20,8 @@
           },
           "publisher": {
             "type": "string",
-            "maxGraphemes": 100,
-            "maxLength": 1000,
+            "maxGraphemes": 256,
+            "maxLength": 2560,
             "description": "Publisher, journal, or venue name."
           },
           "url": {

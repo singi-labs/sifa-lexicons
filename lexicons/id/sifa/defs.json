@@ -114,6 +114,7 @@
         "id.sifa.defs#platformLinkedin",
         "id.sifa.defs#platformSubstack",
         "id.sifa.defs#platformWebsite",
+        "id.sifa.defs#platformOrcid",
         "id.sifa.defs#platformOther"
       ]
     },
@@ -132,6 +133,7 @@
     "platformLinkedin": { "type": "token", "description": "LinkedIn profile." },
     "platformSubstack": { "type": "token", "description": "Substack newsletter." },
     "platformWebsite": { "type": "token", "description": "Personal or professional website." },
+    "platformOrcid": { "type": "token", "description": "ORCID researcher identifier." },
     "platformOther": {
       "type": "token",
       "description": "Other platform not covered by specific tokens."

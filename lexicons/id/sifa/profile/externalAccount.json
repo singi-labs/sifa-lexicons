@@ -23,6 +23,7 @@
               "id.sifa.defs#platformYoutube",
               "id.sifa.defs#platformLinkedin",
               "id.sifa.defs#platformWebsite",
+              "id.sifa.defs#platformOrcid",
               "id.sifa.defs#platformOther"
             ]
           },

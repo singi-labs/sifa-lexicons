@@ -137,6 +137,28 @@
     "platformOther": {
       "type": "token",
       "description": "Other platform not covered by specific tokens."
+    },
+
+    "locationType": {
+      "type": "string",
+      "description": "The role a location plays in a user's professional profile.",
+      "knownValues": [
+        "id.sifa.defs#locationPrimary",
+        "id.sifa.defs#locationBusiness",
+        "id.sifa.defs#locationTravel"
+      ]
+    },
+    "locationPrimary": {
+      "type": "token",
+      "description": "Primary residence or home location."
+    },
+    "locationBusiness": {
+      "type": "token",
+      "description": "Business or operational location."
+    },
+    "locationTravel": {
+      "type": "token",
+      "description": "Frequent travel or temporary location."
     }
   }
 }

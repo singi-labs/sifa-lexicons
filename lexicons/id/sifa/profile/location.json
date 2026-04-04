@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.profile.location",
+  "description": "A location associated with the user's professional profile. Supports multiple locations per user (e.g. residential, business, travel).",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A single location entry in the user's profile.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["address", "type", "createdAt"],
+        "properties": {
+          "address": {
+            "type": "ref",
+            "ref": "community.lexicon.location.address",
+            "description": "Location address using community location lexicon."
+          },
+          "type": {
+            "type": "string",
+            "description": "The role of this location.",
+            "knownValues": [
+              "id.sifa.defs#locationPrimary",
+              "id.sifa.defs#locationBusiness",
+              "id.sifa.defs#locationTravel"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "maxGraphemes": 60,
+            "maxLength": 600,
+            "description": "Optional user-defined label for this location."
+          },
+          "isPrimary": {
+            "type": "boolean",
+            "description": "Whether this is the primary/display location."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when this record was created."
+          }
+        }
+      }
+    }
+  }
+}

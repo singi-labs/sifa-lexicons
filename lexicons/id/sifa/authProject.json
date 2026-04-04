@@ -1,0 +1,23 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.authProject",
+  "description": "OAuth permission set for creating and managing collaborative projects and team memberships.",
+  "defs": {
+    "main": {
+      "type": "permission-set",
+      "title": "Collaborative projects",
+      "detail": "Create and manage collaborative projects, invite team members, and accept project invitations.",
+      "permissions": [
+        {
+          "type": "permission",
+          "resource": "repo",
+          "collection": [
+            "id.sifa.project.self",
+            "id.sifa.project.member",
+            "id.sifa.project.membership"
+          ]
+        }
+      ]
+    }
+  }
+}

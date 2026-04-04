@@ -1,0 +1,33 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.project.membership",
+  "description": "Acceptance of a project team invitation. Written by the invited user in their own PDS. References the id.sifa.project.member invitation record. Both records existing = confirmed team member. Either party can delete their record to revoke membership.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Record representing acceptance of a project team invitation. Lives in the invited user's PDS.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["project", "invitation", "createdAt"],
+        "properties": {
+          "project": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "StrongRef to the id.sifa.project.self record being joined."
+          },
+          "invitation": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "StrongRef to the id.sifa.project.member invitation record that this acceptance corresponds to."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when this acceptance was created."
+          }
+        }
+      }
+    }
+  }
+}

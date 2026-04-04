@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.project.member",
+  "description": "An invitation to join a project team, written by a project owner in their PDS. The invited user must create a corresponding id.sifa.project.membership record to confirm. Both records existing = confirmed team member.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Record representing a team membership invitation. Written by a project owner to invite a user to the project team.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["project", "subject", "role", "createdAt"],
+        "properties": {
+          "project": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "StrongRef to the id.sifa.project.self record. The AT-URI identifies the project, and the CID pins the version."
+          },
+          "subject": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the user being invited to the project team."
+          },
+          "role": {
+            "type": "ref",
+            "ref": "id.sifa.defs#projectRole",
+            "description": "Role assigned to the invited member."
+          },
+          "title": {
+            "type": "string",
+            "maxGraphemes": 128,
+            "maxLength": 1280,
+            "description": "Optional title or role description within the project (e.g. 'Lead Designer', 'Backend Engineer')."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when this invitation was created."
+          }
+        }
+      }
+    }
+  }
+}

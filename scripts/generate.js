@@ -18,6 +18,7 @@ const EXCLUDED_FILES = [
   'authProfile.json', // permission-set lexicon (not supported by lex-cli codegen)
   'authMeet.json', // permission-set lexicon (not supported by lex-cli codegen)
   'authConnection.json', // permission-set lexicon (not supported by lex-cli codegen)
+  'authProject.json', // permission-set lexicon (not supported by lex-cli codegen)
 ];
 
 function findJsonFiles(dir) {

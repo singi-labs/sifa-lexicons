@@ -159,6 +159,50 @@
     "locationTravel": {
       "type": "token",
       "description": "Frequent travel or temporary location."
+    },
+
+    "projectRole": {
+      "type": "string",
+      "description": "Role within a collaborative project.",
+      "knownValues": [
+        "id.sifa.defs#projectOwner",
+        "id.sifa.defs#projectCore",
+        "id.sifa.defs#projectContributor"
+      ]
+    },
+    "projectOwner": {
+      "type": "token",
+      "description": "Project owner with full management permissions. Multiple owners are supported."
+    },
+    "projectCore": {
+      "type": "token",
+      "description": "Core team member with elevated involvement."
+    },
+    "projectContributor": {
+      "type": "token",
+      "description": "Project contributor."
+    },
+
+    "projectStatus": {
+      "type": "string",
+      "description": "Current status of a collaborative project.",
+      "knownValues": [
+        "id.sifa.defs#projectActive",
+        "id.sifa.defs#projectCompleted",
+        "id.sifa.defs#projectArchived"
+      ]
+    },
+    "projectActive": {
+      "type": "token",
+      "description": "Project is actively maintained or in development."
+    },
+    "projectCompleted": {
+      "type": "token",
+      "description": "Project has been completed."
+    },
+    "projectArchived": {
+      "type": "token",
+      "description": "Project is archived and no longer active."
     }
   }
 }

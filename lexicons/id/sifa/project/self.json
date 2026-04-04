@@ -1,11 +1,11 @@
 {
   "lexicon": 1,
-  "id": "id.sifa.profile.project",
-  "description": "A project the user has worked on.",
+  "id": "id.sifa.project.self",
+  "description": "A collaborative project record. Lives in the project creator's PDS. TID-keyed so one user can create multiple projects. Supports multiple owners — the creator is the first owner, and any owner can promote core members.",
   "defs": {
     "main": {
       "type": "record",
-      "description": "Record representing a single project.",
+      "description": "Record representing a collaborative project. The rkey is a TID, not a literal 'self' — each user can create many projects.",
       "key": "tid",
       "record": {
         "type": "object",
@@ -22,22 +22,28 @@
             "type": "string",
             "maxGraphemes": 5000,
             "maxLength": 50000,
-            "description": "Description of the project, the user's role, and outcomes."
+            "description": "Description of the project, its goals, and scope."
           },
           "url": {
             "type": "string",
             "format": "uri",
-            "description": "URL of the project (website, repository, demo, etc.)."
+            "description": "Primary URL of the project (website, repository, etc.)."
           },
-          "projectRef": {
-            "type": "ref",
-            "ref": "com.atproto.repo.strongRef",
-            "description": "Reference to the first-class id.sifa.project.self record, if this personal project entry corresponds to a collaborative project."
+          "avatar": {
+            "type": "blob",
+            "accept": ["image/png", "image/jpeg"],
+            "maxSize": 1000000,
+            "description": "Project avatar image. Max 1 MB, PNG or JPEG."
           },
-          "position": {
+          "organizationDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the organization this project belongs to, if any. Bridges to future company entities."
+          },
+          "status": {
             "type": "ref",
-            "ref": "com.atproto.repo.strongRef",
-            "description": "Reference to the associated id.sifa.profile.position record, if applicable."
+            "ref": "id.sifa.defs#projectStatus",
+            "description": "Current project status."
           },
           "startedAt": {
             "type": "string",

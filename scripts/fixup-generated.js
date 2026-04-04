@@ -14,6 +14,8 @@ const LEXICONS_DIR = new URL('../lexicons', import.meta.url).pathname;
 
 const EXCLUDED_LEXICONS = [
   { file: 'id/sifa/authProfileAccess.json', dictKey: 'IdSifaAuthProfileAccess' },
+  { file: 'id/sifa/authMeet.json', dictKey: 'IdSifaAuthMeet' },
+  { file: 'id/sifa/authConnection.json', dictKey: 'IdSifaAuthConnection' },
 ];
 
 async function getTypeFiles(dir) {

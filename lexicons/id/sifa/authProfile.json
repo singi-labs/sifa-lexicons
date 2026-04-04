@@ -1,6 +1,7 @@
 {
   "lexicon": 1,
   "id": "id.sifa.authProfile",
+  "description": "OAuth permission set for editing professional profiles and following other users.",
   "defs": {
     "main": {
       "type": "permission-set",

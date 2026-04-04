@@ -1,6 +1,7 @@
 {
   "lexicon": 1,
   "id": "id.sifa.meeting",
+  "description": "Attestation of a verified face-to-face meeting between two users, requiring mutual confirmation.",
   "defs": {
     "main": {
       "type": "record",

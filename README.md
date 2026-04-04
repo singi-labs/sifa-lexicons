@@ -47,7 +47,11 @@ This package defines the `id.sifa.*` namespace -- the data contract between a us
 | `id.sifa.endorsement`              | Skill endorsements             |
 | `id.sifa.endorsement.confirmation` | Endorsement confirmations      |
 | `id.sifa.graph.follow`             | Professional follows           |
+| `id.sifa.graph.connection`         | Mutual professional connections |
+| `id.sifa.meeting`                  | Face-to-face meeting attestation |
 | `id.sifa.authProfileAccess`        | OAuth permission set           |
+| `id.sifa.authMeet`                 | Meeting attestation permission |
+| `id.sifa.authConnection`           | Connection management permission |
 
 ---
 

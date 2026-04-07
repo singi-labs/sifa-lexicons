@@ -60,16 +60,16 @@
             "ref": "community.lexicon.location.address",
             "description": "Work location. Uses community location lexicon."
           },
-          "startedAt": {
-            "type": "string",
-            "format": "datetime",
-            "description": "Start date of the position. For month-precision imports, use first day of month at midnight UTC."
-          },
-          "endedAt": {
-            "type": "string",
-            "format": "datetime",
-            "description": "End date of the position. Omit if this is a current position."
-          },
+           "startedAt": {
+             "type": "string",
+             "format": "date",
+             "description": "Start date of the position. For month-precision imports, use first day of month at midnight UTC."
+           },
+           "endedAt": {
+             "type": "string",
+             "format": "date",
+             "description": "End date of the position. Omit if this is a current position."
+           },
           "skills": {
             "type": "array",
             "items": {

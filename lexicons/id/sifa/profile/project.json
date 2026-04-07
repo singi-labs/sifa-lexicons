@@ -39,16 +39,16 @@
             "ref": "com.atproto.repo.strongRef",
             "description": "Reference to the associated id.sifa.profile.position record, if applicable."
           },
-          "startedAt": {
-            "type": "string",
-            "format": "datetime",
-            "description": "Project start date."
-          },
-          "endedAt": {
-            "type": "string",
-            "format": "datetime",
-            "description": "Project end date. Omit if ongoing."
-          },
+           "startedAt": {
+             "type": "string",
+             "format": "date",
+             "description": "Project start date."
+           },
+           "endedAt": {
+             "type": "string",
+             "format": "date",
+             "description": "Project end date. Omit if ongoing."
+           },
           "labels": {
             "type": "union",
             "description": "Self-label values for this project record.",

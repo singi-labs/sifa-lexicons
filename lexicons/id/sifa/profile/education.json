@@ -58,16 +58,16 @@
             "ref": "community.lexicon.location.address",
             "description": "Institution location."
           },
-          "startedAt": {
-            "type": "string",
-            "format": "datetime",
-            "description": "Start date. For month-precision imports, use first day of month at midnight UTC."
-          },
-          "endedAt": {
-            "type": "string",
-            "format": "datetime",
-            "description": "End date (graduation or expected graduation). Omit if currently enrolled."
-          },
+           "startedAt": {
+             "type": "string",
+             "format": "date",
+             "description": "Start date. For month-precision imports, use first day of month at midnight UTC."
+           },
+           "endedAt": {
+             "type": "string",
+             "format": "date",
+             "description": "End date (graduation or expected graduation). Omit if currently enrolled."
+           },
           "labels": {
             "type": "union",
             "description": "Self-label values for this education record.",

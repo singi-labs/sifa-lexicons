@@ -41,16 +41,16 @@
             "maxLength": 50000,
             "description": "Description of volunteer activities and impact."
           },
-          "startedAt": {
-            "type": "string",
-            "format": "datetime",
-            "description": "Start date of the volunteer role."
-          },
-          "endedAt": {
-            "type": "string",
-            "format": "datetime",
-            "description": "End date. Omit if currently volunteering."
-          },
+           "startedAt": {
+             "type": "string",
+             "format": "date",
+             "description": "Start date of the volunteer role."
+           },
+           "endedAt": {
+             "type": "string",
+             "format": "date",
+             "description": "End date. Omit if currently volunteering."
+           },
           "createdAt": {
             "type": "string",
             "format": "datetime",

@@ -55,8 +55,8 @@
           },
           "location": {
             "type": "ref",
-            "ref": "community.lexicon.location.address",
-            "description": "Institution location."
+            "ref": "id.sifa.defs#locationAddressFree",
+            "description": "Institution location. Free-text entry; all fields are optional."
           },
           "startedAt": {
             "type": "string",

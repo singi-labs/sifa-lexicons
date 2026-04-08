@@ -57,8 +57,8 @@
           },
           "location": {
             "type": "ref",
-            "ref": "community.lexicon.location.address",
-            "description": "Work location. Uses community location lexicon."
+            "ref": "id.sifa.defs#locationAddressFree",
+            "description": "Work location. Free-text entry; all fields are optional."
           },
           "startedAt": {
             "type": "string",

@@ -163,7 +163,7 @@
 
     "locationAddress": {
       "type": "object",
-      "description": "A structured location address. countryCode is the single source of truth for the country; AppViews resolve it to a display name.",
+      "description": "A structured location address for profile locations. countryCode is required and is the single source of truth for the country; AppViews resolve it to a display name at index time.",
       "required": ["countryCode"],
       "properties": {
         "countryCode": {
@@ -183,6 +183,37 @@
           "description": "City or locality name. Free text.",
           "maxGraphemes": 100,
           "maxLength": 1000
+        }
+      }
+    },
+
+    "locationAddressFree": {
+      "type": "object",
+      "description": "A loosely structured work or institution location for career records (positions, education). All fields are optional because these are typically entered as free text without a structured location picker. AppViews display the fields as-is.",
+      "properties": {
+        "city": {
+          "type": "string",
+          "description": "City or locality name.",
+          "maxGraphemes": 100,
+          "maxLength": 1000
+        },
+        "region": {
+          "type": "string",
+          "description": "Administrative region (state, province, etc.).",
+          "maxGraphemes": 100,
+          "maxLength": 1000
+        },
+        "country": {
+          "type": "string",
+          "description": "Country name or ISO 3166-1 alpha-2 code. May be a display name for legacy records.",
+          "maxGraphemes": 100,
+          "maxLength": 1000
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code, if available.",
+          "minLength": 2,
+          "maxLength": 2
         }
       }
     },

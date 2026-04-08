@@ -31,8 +31,8 @@
           },
           "location": {
             "type": "ref",
-            "ref": "community.lexicon.location.address",
-            "description": "Professional location (city, region, country). Uses community location lexicon."
+            "ref": "id.sifa.defs#locationAddressFree",
+            "description": "Professional location. Superseded by id.sifa.profile.location records; retained for backwards compatibility with existing PDS data."
           },
           "openTo": {
             "type": "array",

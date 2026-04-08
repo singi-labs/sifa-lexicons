@@ -32,28 +32,28 @@ This package defines the `id.sifa.*` namespace -- the data contract between a us
 
 **Profile records**
 
-| NSID                              | Purpose                                       |
-| --------------------------------- | --------------------------------------------- |
-| `id.sifa.profile.self`            | Professional profile singleton                |
-| `id.sifa.profile.position`        | Work experience                               |
-| `id.sifa.profile.education`       | Education                                     |
-| `id.sifa.profile.skill`           | Skills                                        |
-| `id.sifa.profile.certification`   | Certifications and licenses                   |
-| `id.sifa.profile.project`         | Projects                                      |
-| `id.sifa.profile.volunteering`    | Volunteer experience                          |
-| `id.sifa.profile.publication`     | Publications                                  |
-| `id.sifa.profile.course`          | Courses                                       |
-| `id.sifa.profile.honor`           | Honors and awards                             |
-| `id.sifa.profile.language`        | Language proficiency                          |
-| `id.sifa.profile.location`        | Locations (residential, business, travel)     |
-| `id.sifa.profile.externalAccount` | Linked external accounts and websites         |
+| NSID                              | Purpose                                   |
+| --------------------------------- | ----------------------------------------- |
+| `id.sifa.profile.self`            | Professional profile singleton            |
+| `id.sifa.profile.position`        | Work experience                           |
+| `id.sifa.profile.education`       | Education                                 |
+| `id.sifa.profile.skill`           | Skills                                    |
+| `id.sifa.profile.certification`   | Certifications and licenses               |
+| `id.sifa.profile.project`         | Projects                                  |
+| `id.sifa.profile.volunteering`    | Volunteer experience                      |
+| `id.sifa.profile.publication`     | Publications                              |
+| `id.sifa.profile.course`          | Courses                                   |
+| `id.sifa.profile.honor`           | Honors and awards                         |
+| `id.sifa.profile.language`        | Language proficiency                      |
+| `id.sifa.profile.location`        | Locations (residential, business, travel) |
+| `id.sifa.profile.externalAccount` | Linked external accounts and websites     |
 
 **Social graph**
 
-| NSID                               | Purpose                         |
-| ---------------------------------- | ------------------------------- |
-| `id.sifa.graph.follow`             | Professional follows            |
-| `id.sifa.graph.connection`         | Mutual professional connections |
+| NSID                       | Purpose                         |
+| -------------------------- | ------------------------------- |
+| `id.sifa.graph.follow`     | Professional follows            |
+| `id.sifa.graph.connection` | Mutual professional connections |
 
 **Collaborative projects**
 
@@ -73,19 +73,19 @@ This package defines the `id.sifa.*` namespace -- the data contract between a us
 
 **OAuth permission sets**
 
-| NSID                        | Purpose                                      |
-| --------------------------- | -------------------------------------------- |
-| `id.sifa.authProfile`       | Profile editing and follows                  |
-| `id.sifa.authProfileAccess` | Profile access (legacy permission set)       |
-| `id.sifa.authMeet`          | Meeting attestation                          |
-| `id.sifa.authConnection`    | Connection management                        |
-| `id.sifa.authProject`       | Project creation and team management         |
+| NSID                        | Purpose                                |
+| --------------------------- | -------------------------------------- |
+| `id.sifa.authProfile`       | Profile editing and follows            |
+| `id.sifa.authProfileAccess` | Profile access (legacy permission set) |
+| `id.sifa.authMeet`          | Meeting attestation                    |
+| `id.sifa.authConnection`    | Connection management                  |
+| `id.sifa.authProject`       | Project creation and team management   |
 
 **Shared types**
 
-| NSID             | Purpose                 |
-| ---------------- | ----------------------- |
-| `id.sifa.defs`   | Shared tokens and types |
+| NSID           | Purpose                 |
+| -------------- | ----------------------- |
+| `id.sifa.defs` | Shared tokens and types |
 
 ---
 

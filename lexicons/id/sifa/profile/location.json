@@ -13,8 +13,8 @@
         "properties": {
           "address": {
             "type": "ref",
-            "ref": "community.lexicon.location.address",
-            "description": "Location address using community location lexicon."
+            "ref": "id.sifa.defs#locationAddress",
+            "description": "Structured location address. countryCode is ISO 3166-1 alpha-2."
           },
           "type": {
             "type": "string",

@@ -57,8 +57,8 @@
           },
           "location": {
             "type": "ref",
-            "ref": "community.lexicon.location.address",
-            "description": "Work location. Uses community location lexicon."
+            "ref": "id.sifa.defs#locationAddress",
+            "description": "Work location."
           },
           "startedAt": {
             "type": "string",
@@ -74,9 +74,9 @@
             "type": "array",
             "items": {
               "type": "ref",
-              "ref": "com.atproto.repo.strongRef"
+              "ref": "id.sifa.defs#skillRef"
             },
-            "description": "Skills used in this position. Each entry is a strongRef to an id.sifa.profile.skill record owned by the same DID.",
+            "description": "Skills used in this position. Each entry is a URI reference to an id.sifa.profile.skill record owned by the same DID.",
             "maxLength": 50
           },
           "isPrimary": {

@@ -145,12 +145,12 @@ See [CONTRIBUTING.md](https://github.com/singi-labs/.github/blob/main/CONTRIBUTI
 
 ## Related Repositories
 
-| Repository                                                     | Description                              | License          |
-| -------------------------------------------------------------- | ---------------------------------------- | ---------------- |
-| [sifa-api](https://github.com/singi-labs/sifa-api)             | AppView backend (Fastify, AT Protocol)   | Source-available |
-| [sifa-web](https://github.com/singi-labs/sifa-web)             | Frontend (Next.js, React, TailwindCSS)   | Source-available |
-| [sifa-deploy](https://github.com/singi-labs/sifa-deploy)       | Docker Compose + Caddy deployment config | Source-available |
-| [sifa-workspace](https://github.com/singi-labs/sifa-workspace) | Project coordination and issue tracking  | Source-available |
+| Repository                                                     | Description                              |
+| -------------------------------------------------------------- | ---------------------------------------- |
+| sifa-api                                                       | AppView backend (Fastify, AT Protocol)   |
+| sifa-web                                                       | Frontend (Next.js, React, TailwindCSS)   |
+| sifa-deploy                                                    | Docker Compose + Caddy deployment config |
+| [sifa-workspace](https://github.com/singi-labs/sifa-workspace) | Project coordination and issue tracking  |
 
 ---
 

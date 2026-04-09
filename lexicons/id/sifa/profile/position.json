@@ -62,13 +62,11 @@
           },
           "startedAt": {
             "type": "string",
-            "format": "datetime",
-            "description": "Start date of the position. For month-precision imports, use first day of month at midnight UTC."
+            "description": "Start date of the position in YYYY-MM or YYYY-MM-DD format."
           },
           "endedAt": {
             "type": "string",
-            "format": "datetime",
-            "description": "End date of the position. Omit if this is a current position."
+            "description": "End date of the position in YYYY-MM or YYYY-MM-DD format. Omit if this is a current position."
           },
           "skills": {
             "type": "array",

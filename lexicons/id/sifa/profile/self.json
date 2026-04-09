@@ -31,8 +31,8 @@
           },
           "location": {
             "type": "ref",
-            "ref": "community.lexicon.location.address",
-            "description": "Professional location (city, region, country). Uses community location lexicon."
+            "ref": "id.sifa.defs#locationAddress",
+            "description": "Professional location (city, region, country)."
           },
           "openTo": {
             "type": "array",

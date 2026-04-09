@@ -187,6 +187,19 @@
       }
     },
 
+    "skillRef": {
+      "type": "object",
+      "description": "A reference to an id.sifa.profile.skill record by AT-URI. No CID is required because skills are mutable records in the same user's repo.",
+      "required": ["uri"],
+      "properties": {
+        "uri": {
+          "type": "string",
+          "format": "at-uri",
+          "description": "AT-URI of the id.sifa.profile.skill record."
+        }
+      }
+    },
+
     "projectRole": {
       "type": "string",
       "description": "Role within a collaborative project.",

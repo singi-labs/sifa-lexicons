@@ -53,12 +53,31 @@
           },
           "preferredWorkplace": {
             "type": "array",
-            "maxLength": 3,
+            "maxLength": 5,
             "items": {
               "type": "string",
-              "knownValues": ["id.sifa.defs#onSite", "id.sifa.defs#remote", "id.sifa.defs#hybrid"]
+              "knownValues": [
+                "id.sifa.defs#onSite",
+                "id.sifa.defs#remote",
+                "id.sifa.defs#hybrid",
+                "id.sifa.defs#remoteLocal",
+                "id.sifa.defs#remoteRegion",
+                "id.sifa.defs#remoteGlobal"
+              ]
             },
-            "description": "Preferred workplace arrangements. Orthogonal to openTo. Empty array or omitted means no preference."
+            "description": "Preferred workplace arrangements. Orthogonal to openTo. Empty array or omitted means no preference. Prefer the scoped remote variants (remoteLocal, remoteRegion, remoteGlobal) over the generic 'remote' token."
+          },
+          "availableFromUtc": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23,
+            "description": "Start of typical working hours in UTC (0-23). Used with availableToUtc for search filtering by work-hours overlap. Set via local-time UI, converted to UTC by the client."
+          },
+          "availableToUtc": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23,
+            "description": "End of typical working hours in UTC (0-23). May wrap around midnight (e.g., from 22 to 06 for someone in Asia working US hours)."
           },
           "langs": {
             "type": "array",

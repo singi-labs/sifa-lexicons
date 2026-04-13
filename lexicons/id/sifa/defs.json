@@ -32,11 +32,33 @@
     "workplaceType": {
       "type": "string",
       "description": "The workplace arrangement.",
-      "knownValues": ["id.sifa.defs#onSite", "id.sifa.defs#remote", "id.sifa.defs#hybrid"]
+      "knownValues": [
+        "id.sifa.defs#onSite",
+        "id.sifa.defs#remote",
+        "id.sifa.defs#hybrid",
+        "id.sifa.defs#remoteLocal",
+        "id.sifa.defs#remoteRegion",
+        "id.sifa.defs#remoteGlobal"
+      ]
     },
     "onSite": { "type": "token", "description": "On-site/in-office work." },
-    "remote": { "type": "token", "description": "Fully remote work." },
+    "remote": {
+      "type": "token",
+      "description": "Fully remote work (unspecified scope). Treated as remoteGlobal by AppViews. Prefer the scoped variants for new records."
+    },
     "hybrid": { "type": "token", "description": "Hybrid on-site and remote work." },
+    "remoteLocal": {
+      "type": "token",
+      "description": "Remote work within the same country as the employer."
+    },
+    "remoteRegion": {
+      "type": "token",
+      "description": "Remote work within the same timezone region or continent."
+    },
+    "remoteGlobal": {
+      "type": "token",
+      "description": "Remote work from anywhere worldwide."
+    },
 
     "proficiency": {
       "type": "string",

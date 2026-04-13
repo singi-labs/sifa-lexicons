@@ -67,11 +67,17 @@
             },
             "description": "Preferred workplace arrangements. Orthogonal to openTo. Empty array or omitted means no preference. Prefer the scoped remote variants (remoteLocal, remoteRegion, remoteGlobal) over the generic 'remote' token."
           },
-          "timezone": {
-            "type": "string",
-            "maxGraphemes": 50,
-            "maxLength": 500,
-            "description": "IANA timezone identifier (e.g., 'Europe/Amsterdam', 'America/New_York'). Used for work-hours visibility and search filtering."
+          "availableFromUtc": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23,
+            "description": "Start of typical working hours in UTC (0-23). Used with availableToUtc for search filtering by work-hours overlap. Set via local-time UI, converted to UTC by the client."
+          },
+          "availableToUtc": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23,
+            "description": "End of typical working hours in UTC (0-23). May wrap around midnight (e.g., from 22 to 06 for someone in Asia working US hours)."
           },
           "langs": {
             "type": "array",

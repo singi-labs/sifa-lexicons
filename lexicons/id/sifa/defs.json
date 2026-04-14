@@ -222,7 +222,10 @@
     "domainTextileManufacturing": { "type": "token", "description": "Textile Manufacturing." },
     "domainShipping": { "type": "token", "description": "Shipping & Freight." },
     "domainPortOperations": { "type": "token", "description": "Port & Terminal Operations." },
-    "domainNavalArchitecture": { "type": "token", "description": "Naval Architecture & Marine Engineering." },
+    "domainNavalArchitecture": {
+      "type": "token",
+      "description": "Naval Architecture & Marine Engineering."
+    },
 
     "industryDomain": {
       "type": "object",

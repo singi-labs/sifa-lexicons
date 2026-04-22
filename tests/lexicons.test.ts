@@ -10,6 +10,9 @@ interface LexiconProperty {
   format?: string;
   maxGraphemes?: number;
   maxLength?: number;
+  maxSize?: number;
+  accept?: string[];
+  description?: string;
   ref?: string;
   refs?: string[];
   items?: LexiconProperty;
@@ -237,6 +240,67 @@ describe('Position skills field', () => {
 
   it('position without skills field is still valid (backward compatible)', () => {
     expect(required).toEqual(['company', 'title', 'startedAt', 'createdAt']);
+  });
+});
+
+describe('id.sifa.profile.self presentation overrides', () => {
+  const selfLexicon = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.self');
+  const properties = selfLexicon?.doc.defs.main.record?.properties;
+  const required = selfLexicon?.doc.defs.main.record?.required ?? [];
+
+  it('lexicon exists', () => {
+    expect(selfLexicon).toBeDefined();
+  });
+
+  it('description no longer claims fields are non-duplicative of app.bsky.actor.profile', () => {
+    expect(selfLexicon?.doc.description).toBeDefined();
+    expect(selfLexicon!.doc.description).not.toMatch(/does not duplicate/i);
+  });
+
+  describe('displayName', () => {
+    it('exists as an optional string field', () => {
+      expect(properties?.displayName).toBeDefined();
+      expect(properties?.displayName?.type).toBe('string');
+      expect(required).not.toContain('displayName');
+    });
+
+    it('matches app.bsky.actor.profile.displayName constraints (64/640)', () => {
+      expect(properties?.displayName?.maxGraphemes).toBe(64);
+      expect(properties?.displayName?.maxLength).toBe(640);
+    });
+  });
+
+  describe('avatar', () => {
+    it('exists as an optional blob field', () => {
+      expect(properties?.avatar).toBeDefined();
+      expect(properties?.avatar?.type).toBe('blob');
+      expect(required).not.toContain('avatar');
+    });
+
+    it('matches app.bsky.actor.profile.avatar accept list (png, jpeg)', () => {
+      expect(properties?.avatar?.accept).toEqual(['image/png', 'image/jpeg']);
+    });
+
+    it('matches app.bsky.actor.profile.avatar size limit (1MB)', () => {
+      expect(properties?.avatar?.maxSize).toBe(1000000);
+    });
+  });
+
+  describe('pronouns', () => {
+    it('exists as an optional string field', () => {
+      expect(properties?.pronouns).toBeDefined();
+      expect(properties?.pronouns?.type).toBe('string');
+      expect(required).not.toContain('pronouns');
+    });
+
+    it('matches app.bsky.actor.profile.pronouns constraints (20/200)', () => {
+      expect(properties?.pronouns?.maxGraphemes).toBe(20);
+      expect(properties?.pronouns?.maxLength).toBe(200);
+    });
+
+    it('description identifies the field as a professional-context override', () => {
+      expect(properties?.pronouns?.description).toMatch(/professional/i);
+    });
   });
 });
 

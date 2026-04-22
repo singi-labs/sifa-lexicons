@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "id.sifa.profile.self",
-  "description": "Professional profile summary. Singleton record providing professional identity beyond the base ATproto profile. Does not duplicate displayName, avatar, or bio from app.bsky.actor.profile.",
+  "description": "Professional profile summary. Singleton record providing professional identity beyond the base ATproto profile. Fields overlapping app.bsky.actor.profile (displayName, avatar, pronouns) act as optional professional-context overrides; absence means fall back to the bsky record.",
   "defs": {
     "main": {
       "type": "record",
@@ -11,6 +11,24 @@
         "type": "object",
         "required": ["createdAt"],
         "properties": {
+          "displayName": {
+            "type": "string",
+            "maxGraphemes": 64,
+            "maxLength": 640,
+            "description": "Professional-context display name. Overrides app.bsky.actor.profile.displayName when present."
+          },
+          "avatar": {
+            "type": "blob",
+            "accept": ["image/png", "image/jpeg"],
+            "maxSize": 1000000,
+            "description": "Professional-context avatar image. Overrides app.bsky.actor.profile.avatar when present."
+          },
+          "pronouns": {
+            "type": "string",
+            "maxGraphemes": 20,
+            "maxLength": 200,
+            "description": "Free-form pronouns text. Professional-context override for app.bsky.actor.profile.pronouns."
+          },
           "headline": {
             "type": "string",
             "maxGraphemes": 120,

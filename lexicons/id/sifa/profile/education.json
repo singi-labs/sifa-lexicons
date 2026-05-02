@@ -55,7 +55,7 @@
           },
           "location": {
             "type": "ref",
-            "ref": "id.sifa.defs#locationAddress",
+            "ref": "community.lexicon.location.address",
             "description": "Institution location."
           },
           "startedAt": {

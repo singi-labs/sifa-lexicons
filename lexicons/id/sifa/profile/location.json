@@ -14,7 +14,7 @@
           "address": {
             "type": "ref",
             "ref": "community.lexicon.location.address",
-            "description": "Structured location address. Sifa enforces ISO 3166-1 alpha-2 at the app layer."
+            "description": "Structured location address. Sifa enforces ISO 3166-1 alpha-2 country codes at the app layer."
           },
           "type": {
             "type": "string",

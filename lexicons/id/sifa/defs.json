@@ -365,6 +365,7 @@
         "id.sifa.defs#fullTimeRoles",
         "id.sifa.defs#partTimeRoles",
         "id.sifa.defs#contractRoles",
+        "id.sifa.defs#commissions",
         "id.sifa.defs#boardPositions",
         "id.sifa.defs#mentoringOthers",
         "id.sifa.defs#beingMentored",
@@ -379,7 +380,14 @@
       "type": "token",
       "description": "Open to part-time employment opportunities."
     },
-    "contractRoles": { "type": "token", "description": "Open to contract or freelance work." },
+    "contractRoles": {
+      "type": "token",
+      "description": "Open to B2B contract or project-based freelance work, consulting, contract development."
+    },
+    "commissions": {
+      "type": "token",
+      "description": "Open to commissioned creative work (illustration, design, voice work, music, etc.)."
+    },
     "boardPositions": { "type": "token", "description": "Open to advisory or board positions." },
     "mentoringOthers": { "type": "token", "description": "Open to mentoring others." },
     "beingMentored": { "type": "token", "description": "Open to being mentored." },

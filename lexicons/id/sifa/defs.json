@@ -445,32 +445,6 @@
       "description": "Frequent travel or temporary location."
     },
 
-    "locationAddress": {
-      "type": "object",
-      "description": "A structured location address. countryCode is the single source of truth for the country; AppViews resolve it to a display name.",
-      "required": ["countryCode"],
-      "properties": {
-        "countryCode": {
-          "type": "string",
-          "description": "ISO 3166-1 alpha-2 country code (e.g. 'NL', 'US').",
-          "minLength": 2,
-          "maxLength": 2
-        },
-        "region": {
-          "type": "string",
-          "description": "Administrative region (state, province, etc.). Free text — AppViews display as-is.",
-          "maxGraphemes": 100,
-          "maxLength": 1000
-        },
-        "city": {
-          "type": "string",
-          "description": "City or locality name. Free text.",
-          "maxGraphemes": 100,
-          "maxLength": 1000
-        }
-      }
-    },
-
     "skillRef": {
       "type": "object",
       "description": "A reference to an id.sifa.profile.skill record by AT-URI. No CID is required because skills are mutable records in the same user's repo.",

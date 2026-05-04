@@ -334,3 +334,18 @@ describe('External lexicon references exist', () => {
     },
   );
 });
+
+describe('community location adoption', () => {
+  const profilesWithLocation = ['self.json', 'position.json', 'education.json', 'location.json'];
+  for (const file of profilesWithLocation) {
+    it(`${file} references community.lexicon.location.address`, () => {
+      const lex = JSON.parse(
+        readFileSync(join(LEXICONS_DIR, 'profile', file), 'utf-8'),
+      ) as LexiconDoc;
+      const properties = lex.defs.main.record?.properties ?? {};
+      const refs = collectRefs(properties);
+      expect(refs).toContain('community.lexicon.location.address');
+      expect(refs).not.toContain('id.sifa.defs#locationAddress');
+    });
+  }
+});

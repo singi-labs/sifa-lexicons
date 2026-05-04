@@ -52,8 +52,8 @@
           },
           "location": {
             "type": "ref",
-            "ref": "id.sifa.defs#locationAddress",
-            "description": "Professional location (city, region, country)."
+            "ref": "community.lexicon.location.address",
+            "description": "Professional location. Sifa enforces ISO 3166-1 alpha-2 country codes at the app layer."
           },
           "openTo": {
             "type": "array",

@@ -349,3 +349,57 @@ describe('community location adoption', () => {
     });
   }
 });
+
+describe('openToWorkStatus commissions token', () => {
+  interface DefsDoc {
+    defs: {
+      openToWorkStatus: { knownValues: string[] };
+      commissions?: { type: string; description: string };
+      contractRoles?: { type: string; description: string };
+    };
+  }
+  interface SelfDoc {
+    defs: {
+      main: {
+        record: {
+          properties: {
+            openTo: { items: { knownValues: string[] } };
+          };
+        };
+      };
+    };
+  }
+  const defs = JSON.parse(readFileSync(join(LEXICONS_DIR, 'defs.json'), 'utf-8')) as DefsDoc;
+  const self = JSON.parse(
+    readFileSync(join(LEXICONS_DIR, 'profile', 'self.json'), 'utf-8'),
+  ) as SelfDoc;
+
+  it('defs.json declares a commissions token', () => {
+    expect(defs.defs.commissions).toBeDefined();
+    expect(defs.defs.commissions?.type).toBe('token');
+    expect(defs.defs.commissions?.description).toMatch(/commissioned creative work/i);
+  });
+
+  it('openToWorkStatus knownValues includes id.sifa.defs#commissions', () => {
+    expect(defs.defs.openToWorkStatus.knownValues).toContain('id.sifa.defs#commissions');
+  });
+
+  it('profile/self.json openTo knownValues includes id.sifa.defs#commissions', () => {
+    expect(self.defs.main.record.properties.openTo.items.knownValues).toContain(
+      'id.sifa.defs#commissions',
+    );
+  });
+
+  it('profile/self.json openTo knownValues stays in sync with defs.json openToWorkStatus', () => {
+    expect([...self.defs.main.record.properties.openTo.items.knownValues].sort()).toEqual(
+      [...defs.defs.openToWorkStatus.knownValues].sort(),
+    );
+  });
+
+  it('contractRoles description distinguishes B2B contract from individual commissions', () => {
+    expect(defs.defs.contractRoles?.description).toMatch(/B2B|consulting|project-based/i);
+    expect(defs.defs.contractRoles?.description).not.toMatch(
+      /^Open to contract or freelance work\.$/,
+    );
+  });
+});

@@ -42,12 +42,16 @@
             "knownValues": [
               "id.sifa.defs#fullTime",
               "id.sifa.defs#partTime",
+              "id.sifa.defs#temporary",
+              "id.sifa.defs#seasonal",
               "id.sifa.defs#contract",
               "id.sifa.defs#freelance",
+              "id.sifa.defs#selfEmployed",
               "id.sifa.defs#internship",
               "id.sifa.defs#apprenticeship",
-              "id.sifa.defs#volunteer",
-              "id.sifa.defs#selfEmployed"
+              "id.sifa.defs#fellowship",
+              "id.sifa.defs#trainee",
+              "id.sifa.defs#volunteer"
             ]
           },
           "workplaceType": {

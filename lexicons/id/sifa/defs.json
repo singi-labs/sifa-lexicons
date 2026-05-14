@@ -9,25 +9,66 @@
       "knownValues": [
         "id.sifa.defs#fullTime",
         "id.sifa.defs#partTime",
+        "id.sifa.defs#temporary",
+        "id.sifa.defs#seasonal",
         "id.sifa.defs#contract",
         "id.sifa.defs#freelance",
+        "id.sifa.defs#selfEmployed",
         "id.sifa.defs#internship",
         "id.sifa.defs#apprenticeship",
-        "id.sifa.defs#volunteer",
-        "id.sifa.defs#selfEmployed"
+        "id.sifa.defs#fellowship",
+        "id.sifa.defs#trainee",
+        "id.sifa.defs#volunteer"
       ]
     },
-    "fullTime": { "type": "token", "description": "Full-time employment." },
-    "partTime": { "type": "token", "description": "Part-time employment." },
-    "contract": { "type": "token", "description": "Contract/temporary employment." },
-    "freelance": { "type": "token", "description": "Freelance/independent work." },
-    "internship": { "type": "token", "description": "Internship position." },
-    "apprenticeship": { "type": "token", "description": "Apprenticeship position." },
+    "fullTime": {
+      "type": "token",
+      "description": "Full-time employee of the organization."
+    },
+    "partTime": {
+      "type": "token",
+      "description": "Part-time employee of the organization."
+    },
+    "temporary": {
+      "type": "token",
+      "description": "Fixed-end-date role as a direct employee of the organization."
+    },
+    "seasonal": {
+      "type": "token",
+      "description": "Recurring role tied to a season or peak period."
+    },
+    "contract": {
+      "type": "token",
+      "description": "Fixed-scope engagement as an independent contractor."
+    },
+    "freelance": {
+      "type": "token",
+      "description": "Solo service provider working with multiple clients on a project basis. No employees."
+    },
+    "selfEmployed": {
+      "type": "token",
+      "description": "Operating your own business or practice. May have employees."
+    },
+    "internship": {
+      "type": "token",
+      "description": "Structured early-career work experience, often tied to studies."
+    },
+    "apprenticeship": {
+      "type": "token",
+      "description": "Formal training-to-certification program combining paid work and education."
+    },
+    "fellowship": {
+      "type": "token",
+      "description": "Funded research, academic, or mission-driven position, typically selective."
+    },
+    "trainee": {
+      "type": "token",
+      "description": "Structured early-career rotation or graduate program."
+    },
     "volunteer": {
       "type": "token",
       "description": "Volunteer work (when used as employment type)."
     },
-    "selfEmployed": { "type": "token", "description": "Self-employed." },
 
     "workplaceType": {
       "type": "string",

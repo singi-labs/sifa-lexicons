@@ -14,6 +14,7 @@
         "id.sifa.defs#contract",
         "id.sifa.defs#freelance",
         "id.sifa.defs#selfEmployed",
+        "id.sifa.defs#independentWork",
         "id.sifa.defs#internship",
         "id.sifa.defs#apprenticeship",
         "id.sifa.defs#fellowship",
@@ -48,6 +49,10 @@
     "selfEmployed": {
       "type": "token",
       "description": "Operating your own business or practice. May have employees."
+    },
+    "independentWork": {
+      "type": "token",
+      "description": "Self-initiated, sustained work I lead — community building, content creation, ecosystem contribution, or similar. May involve a registered entity but does not pay me personally. Often run alongside other employment."
     },
     "internship": {
       "type": "token",

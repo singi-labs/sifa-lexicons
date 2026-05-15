@@ -167,7 +167,7 @@ See [CONTRIBUTING.md](https://github.com/singi-labs/.github/blob/main/CONTRIBUTI
 ## Community
 
 - **Website:** [sifa.id](https://sifa.id)
-- **Discussions:** [GitHub Discussions](https://github.com/orgs/singi-labs/discussions)
+- **Bluesky:** [@sifa.id](https://bsky.app/profile/sifa.id)
 - **Issues:** [Report bugs](https://github.com/singi-labs/sifa-lexicons/issues)
 
 ---

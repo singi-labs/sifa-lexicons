@@ -47,6 +47,7 @@
               "id.sifa.defs#contract",
               "id.sifa.defs#freelance",
               "id.sifa.defs#selfEmployed",
+              "id.sifa.defs#independentWork",
               "id.sifa.defs#internship",
               "id.sifa.defs#apprenticeship",
               "id.sifa.defs#fellowship",

@@ -115,6 +115,10 @@
             "description": "Self-label values for the professional profile.",
             "refs": ["com.atproto.label.defs#selfLabels"]
           },
+          "discoverable": {
+            "type": "boolean",
+            "description": "Whether the rendered profile page may be indexed by search engines and AI tools. Default true when absent. When false, the rendering app emits noindex directives and excludes the page from any sitemap or push-indexing protocol. Does not affect the public visibility of the underlying ATproto records, which remain readable by any client."
+          },
           "createdAt": {
             "type": "string",
             "format": "datetime",

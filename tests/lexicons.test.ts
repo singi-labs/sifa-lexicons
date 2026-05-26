@@ -187,6 +187,20 @@ describe('User-facing text fields have maxGraphemes', () => {
   }
 });
 
+// Fields whose name ends in `At`/`Date` but which are intentionally calendar
+// dates (YYYY-MM or YYYY-MM-DD), not ISO 8601 timestamps. Users typically
+// remember only month/year for job and education history. AT Protocol's
+// `datetime` format requires a time component, so these stay as plain strings
+// and the description documents the accepted shape.
+const DATE_ONLY_FIELDS = new Set([
+  'id.sifa.profile.position.startedAt',
+  'id.sifa.profile.position.endedAt',
+  'id.sifa.profile.education.startedAt',
+  'id.sifa.profile.education.endedAt',
+  'id.sifa.profile.project.startedAt',
+  'id.sifa.profile.project.endedAt',
+]);
+
 describe('Timestamps use datetime format', () => {
   for (const { doc } of recordLexicons) {
     const properties = doc.defs.main.record?.properties;
@@ -197,6 +211,13 @@ describe('Timestamps use datetime format', () => {
         prop.type === 'string' &&
         (fieldName === 'createdAt' || fieldName.endsWith('At') || fieldName.endsWith('Date'))
       ) {
+        if (DATE_ONLY_FIELDS.has(`${doc.id}.${fieldName}`)) {
+          it(`${doc.id}.${fieldName} is a date-only string with YYYY-MM documentation`, () => {
+            expect(prop.format).toBeUndefined();
+            expect(prop.description).toMatch(/YYYY-MM/);
+          });
+          continue;
+        }
         it(`${doc.id}.${fieldName} has format "datetime"`, () => {
           expect(prop.format).toBe('datetime');
         });
@@ -229,9 +250,12 @@ describe('Position skills field', () => {
     expect(required).not.toContain('skills');
   });
 
-  it('skills items are strongRef references', () => {
+  // Skills use id.sifa.defs#skillRef (URI-only) rather than com.atproto.repo.strongRef.
+  // CIDs aren't available at write time and skill records are mutable in the same repo;
+  // see sifa-lexicons#31 for the migration rationale.
+  it('skills items are id.sifa.defs#skillRef references', () => {
     expect(properties?.skills?.items?.type).toBe('ref');
-    expect(properties?.skills?.items?.ref).toBe('com.atproto.repo.strongRef');
+    expect(properties?.skills?.items?.ref).toBe('id.sifa.defs#skillRef');
   });
 
   it('skills array has maxLength 50', () => {
@@ -300,6 +324,42 @@ describe('id.sifa.profile.self presentation overrides', () => {
 
     it('description identifies the field as a professional-context override', () => {
       expect(properties?.pronouns?.description).toMatch(/professional/i);
+    });
+  });
+
+  describe('givenName', () => {
+    it('exists as an optional string field', () => {
+      expect(properties?.givenName).toBeDefined();
+      expect(properties?.givenName?.type).toBe('string');
+      expect(required).not.toContain('givenName');
+    });
+
+    it('has maxGraphemes 64 and maxLength 640', () => {
+      expect(properties?.givenName?.maxGraphemes).toBe(64);
+      expect(properties?.givenName?.maxLength).toBe(640);
+    });
+
+    it('description references Schema.org Person.givenName', () => {
+      expect(properties?.givenName?.description ?? '').toContain('Schema.org');
+      expect(properties?.givenName?.description ?? '').toContain('Person.givenName');
+    });
+  });
+
+  describe('familyName', () => {
+    it('exists as an optional string field', () => {
+      expect(properties?.familyName).toBeDefined();
+      expect(properties?.familyName?.type).toBe('string');
+      expect(required).not.toContain('familyName');
+    });
+
+    it('has maxGraphemes 64 and maxLength 640', () => {
+      expect(properties?.familyName?.maxGraphemes).toBe(64);
+      expect(properties?.familyName?.maxLength).toBe(640);
+    });
+
+    it('description references Schema.org Person.familyName', () => {
+      expect(properties?.familyName?.description ?? '').toContain('Schema.org');
+      expect(properties?.familyName?.description ?? '').toContain('Person.familyName');
     });
   });
 });

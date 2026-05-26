@@ -340,8 +340,8 @@ describe('id.sifa.profile.self presentation overrides', () => {
     });
 
     it('description references Schema.org Person.givenName', () => {
-      expect(properties?.givenName?.description).toMatch(/schema\.org/i);
-      expect(properties?.givenName?.description).toMatch(/givenName/);
+      expect(properties?.givenName?.description ?? '').toContain('Schema.org');
+      expect(properties?.givenName?.description ?? '').toContain('Person.givenName');
     });
   });
 
@@ -358,8 +358,8 @@ describe('id.sifa.profile.self presentation overrides', () => {
     });
 
     it('description references Schema.org Person.familyName', () => {
-      expect(properties?.familyName?.description).toMatch(/schema\.org/i);
-      expect(properties?.familyName?.description).toMatch(/familyName/);
+      expect(properties?.familyName?.description ?? '').toContain('Schema.org');
+      expect(properties?.familyName?.description ?? '').toContain('Person.familyName');
     });
   });
 });

@@ -302,6 +302,42 @@ describe('id.sifa.profile.self presentation overrides', () => {
       expect(properties?.pronouns?.description).toMatch(/professional/i);
     });
   });
+
+  describe('givenName', () => {
+    it('exists as an optional string field', () => {
+      expect(properties?.givenName).toBeDefined();
+      expect(properties?.givenName?.type).toBe('string');
+      expect(required).not.toContain('givenName');
+    });
+
+    it('has maxGraphemes 64 and maxLength 640', () => {
+      expect(properties?.givenName?.maxGraphemes).toBe(64);
+      expect(properties?.givenName?.maxLength).toBe(640);
+    });
+
+    it('description references Schema.org Person.givenName', () => {
+      expect(properties?.givenName?.description).toMatch(/schema\.org/i);
+      expect(properties?.givenName?.description).toMatch(/givenName/);
+    });
+  });
+
+  describe('familyName', () => {
+    it('exists as an optional string field', () => {
+      expect(properties?.familyName).toBeDefined();
+      expect(properties?.familyName?.type).toBe('string');
+      expect(required).not.toContain('familyName');
+    });
+
+    it('has maxGraphemes 64 and maxLength 640', () => {
+      expect(properties?.familyName?.maxGraphemes).toBe(64);
+      expect(properties?.familyName?.maxLength).toBe(640);
+    });
+
+    it('description references Schema.org Person.familyName', () => {
+      expect(properties?.familyName?.description).toMatch(/schema\.org/i);
+      expect(properties?.familyName?.description).toMatch(/familyName/);
+    });
+  });
 });
 
 describe('External lexicon references exist', () => {

@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "id.sifa.profile.self",
-  "description": "Professional profile summary. Singleton record providing professional identity beyond the base ATproto profile. Fields overlapping app.bsky.actor.profile (displayName, avatar, pronouns) act as optional professional-context overrides; absence means fall back to the bsky record.",
+  "description": "Professional profile summary. Singleton record providing professional identity beyond the base ATproto profile. Fields overlapping app.bsky.actor.profile (displayName, avatar, pronouns) act as optional professional-context overrides; absence means fall back to the bsky record. Structured name fields (givenName, familyName) extend rather than override displayName, since app.bsky.actor.profile has no structured-name primitive.",
   "defs": {
     "main": {
       "type": "record",
@@ -16,6 +16,18 @@
             "maxGraphemes": 64,
             "maxLength": 640,
             "description": "Professional-context display name. Overrides app.bsky.actor.profile.displayName when present."
+          },
+          "givenName": {
+            "type": "string",
+            "maxGraphemes": 64,
+            "maxLength": 640,
+            "description": "Given (first) name. Maps to Schema.org Person.givenName. Optional; if absent, displayName is used for rendering."
+          },
+          "familyName": {
+            "type": "string",
+            "maxGraphemes": 64,
+            "maxLength": 640,
+            "description": "Family (last) name. Maps to Schema.org Person.familyName. Optional."
           },
           "avatar": {
             "type": "blob",

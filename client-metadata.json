@@ -1,0 +1,15 @@
+{
+  "client_id": "https://sifa.id/.well-known/sifa-lexicon-publisher/client-metadata.json",
+  "client_name": "Sifa Lexicon Publisher",
+  "client_uri": "https://sifa.id",
+  "logo_uri": "https://sifa.id/icon.png",
+  "tos_uri": "https://sifa.id/terms",
+  "policy_uri": "https://sifa.id/privacy",
+  "redirect_uris": ["http://127.0.0.1:8765/callback"],
+  "scope": "atproto transition:generic",
+  "grant_types": ["authorization_code", "refresh_token"],
+  "response_types": ["code"],
+  "token_endpoint_auth_method": "none",
+  "dpop_bound_access_tokens": true,
+  "application_type": "native"
+}

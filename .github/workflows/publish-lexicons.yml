@@ -1,0 +1,45 @@
+name: Publish lexicons
+
+# Republishes every lexicons/**/*.json as a com.atproto.lexicon.schema record
+# on the authority DID's PDS whenever lexicon JSON changes land on main.
+# Idempotent: scripts/publish-lexicons.ts skips unchanged records.
+#
+# Secrets required (set on singi-labs/sifa-lexicons):
+#   LEXICON_PUBLISHER_DID
+#   LEXICON_PUBLISHER_REFRESH_TOKEN
+#   LEXICON_PUBLISHER_DPOP_KEY_JWK
+#   LEXICON_PUBLISHER_TOKEN_SET
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'lexicons/**/*.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-lexicons
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 25
+          cache: npm
+
+      - run: npm ci
+
+      - name: Publish lexicons to authority PDS
+        env:
+          LEXICON_PUBLISHER_DID: ${{ secrets.LEXICON_PUBLISHER_DID }}
+          LEXICON_PUBLISHER_REFRESH_TOKEN: ${{ secrets.LEXICON_PUBLISHER_REFRESH_TOKEN }}
+          LEXICON_PUBLISHER_DPOP_KEY_JWK: ${{ secrets.LEXICON_PUBLISHER_DPOP_KEY_JWK }}
+          LEXICON_PUBLISHER_TOKEN_SET: ${{ secrets.LEXICON_PUBLISHER_TOKEN_SET }}
+        run: npm run publish:lexicons

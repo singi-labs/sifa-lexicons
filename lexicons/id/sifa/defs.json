@@ -448,6 +448,10 @@
         "id.sifa.defs#platformTwitter",
         "id.sifa.defs#platformInstagram",
         "id.sifa.defs#platformGithub",
+        "id.sifa.defs#platformCodeberg",
+        "id.sifa.defs#platformGitlab",
+        "id.sifa.defs#platformForgejo",
+        "id.sifa.defs#platformGitea",
         "id.sifa.defs#platformYoutube",
         "id.sifa.defs#platformLinkedin",
         "id.sifa.defs#platformSubstack",
@@ -467,6 +471,16 @@
     "platformTwitter": { "type": "token", "description": "Twitter/X account." },
     "platformInstagram": { "type": "token", "description": "Instagram account." },
     "platformGithub": { "type": "token", "description": "GitHub account." },
+    "platformCodeberg": { "type": "token", "description": "Codeberg account." },
+    "platformGitlab": {
+      "type": "token",
+      "description": "GitLab account (gitlab.com or self-hosted)."
+    },
+    "platformForgejo": {
+      "type": "token",
+      "description": "Forgejo account on a self-hosted instance other than Codeberg."
+    },
+    "platformGitea": { "type": "token", "description": "Gitea account on a self-hosted instance." },
     "platformYoutube": { "type": "token", "description": "YouTube channel." },
     "platformLinkedin": { "type": "token", "description": "LinkedIn profile." },
     "platformSubstack": { "type": "token", "description": "Substack newsletter." },

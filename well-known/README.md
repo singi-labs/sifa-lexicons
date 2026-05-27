@@ -12,11 +12,11 @@ data; it only governs Sifa's own rendering choices.
 
 ## The three tiers
 
-| Tier | Label | Public profile? | What goes here |
-|------|-------|-----------------|----------------|
-| `creation` | "Made" | yes | Substantive authored records: posts, articles, repos, galleries, livestreams, CV entries, RSVPs, comments. |
-| `action` | "Did" | no, owner-only | Engagement: likes, reposts, follows, votes, stars, reactions, short replies. Visible to the actor on `/me/activity`; not shown to others on Sifa. |
-| `filtered` | (none) | no | Infrastructure, configuration, moderation (blocks/mutes/flags), ephemeral consumption signals (bookmarks, highlights), game state, OAuth scope records. Not shown anywhere in Sifa. |
+| Tier       | Label  | Public profile? | What goes here                                                                                                                                                                      |
+| ---------- | ------ | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `creation` | "Made" | yes             | Substantive authored records: posts, articles, repos, galleries, livestreams, CV entries, RSVPs, comments.                                                                          |
+| `action`   | "Did"  | no, owner-only  | Engagement: likes, reposts, follows, votes, stars, reactions, short replies. Visible to the actor on `/me/activity`; not shown to others on Sifa.                                   |
+| `filtered` | (none) | no              | Infrastructure, configuration, moderation (blocks/mutes/flags), ephemeral consumption signals (bookmarks, highlights), game state, OAuth scope records. Not shown anywhere in Sifa. |
 
 Records in `action` and `filtered` still exist on the author's PDS and may be
 displayed by other apps. Sifa simply opts out of rendering them on its own
@@ -62,6 +62,7 @@ const tier = spec.lexicons[nsid]?.tier ?? 'filtered';
 ```
 
 Suggested defaults for NSIDs not listed in the file:
+
 - If the NSID's parent app is registered in `sifa-api`'s registry and not in
   `EXCLUDED_COLLECTIONS`, treat it as `creation`.
 - Otherwise treat it as `filtered`.
@@ -87,10 +88,10 @@ breaking change for consumers and must go through a major bump.
 
 The `version` field follows semver:
 
-| Change | Bump |
-|--------|------|
-| Tier renamed, tier removed, NSID moved between tiers | major |
-| New NSID added, new tier added | minor |
+| Change                                                   | Bump  |
+| -------------------------------------------------------- | ----- |
+| Tier renamed, tier removed, NSID moved between tiers     | major |
+| New NSID added, new tier added                           | minor |
 | Note/typo fix, `app` field change, `updated` field touch | patch |
 
 The current version is `1.0.0`. The `$schema` URL is reserved for a future

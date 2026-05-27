@@ -172,10 +172,7 @@ async function publish() {
   const requiredKeys = ['industries', 'availableFromUtc', 'availableToUtc'];
   const missingKeys = requiredKeys.filter((k) => !selfProps || !(k in selfProps));
   if (missingKeys.length > 0) {
-    console.error(
-      'Verification failed: id.sifa.profile.self missing keys on PDS:',
-      missingKeys,
-    );
+    console.error('Verification failed: id.sifa.profile.self missing keys on PDS:', missingKeys);
     process.exit(1);
   }
   console.log('Verified: id.sifa.profile.self contains', requiredKeys.join(', '));

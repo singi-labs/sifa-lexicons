@@ -46,13 +46,11 @@ async function main() {
     sessionStore,
   });
 
-  const state = `bootstrap-${Date.now()}`;
   const authUrl = await client.authorize(subject, {
     scope: 'atproto transition:generic',
-    state,
   });
 
-  const codePromise = waitForCallback(state);
+  const codePromise = waitForCallback();
   console.log('Open this URL in your browser to authorize:');
   console.log(authUrl.toString());
   openInBrowser(authUrl.toString());
@@ -111,20 +109,15 @@ function makeMemoryStore<V extends NonNullable<unknown> | null>() {
   };
 }
 
-function waitForCallback(expectedState: string): Promise<URLSearchParams> {
-  return new Promise((resolve, reject) => {
+function waitForCallback(): Promise<URLSearchParams> {
+  // State validation is handled by @atproto/oauth-client via its stateStore;
+  // we just forward the callback params to client.callback().
+  return new Promise((resolve) => {
     const server = createServer((req, res) => {
       if (!req.url) return;
       const url = new URL(req.url, `http://127.0.0.1:${REDIRECT_PORT}`);
       if (url.pathname !== REDIRECT_PATH) {
         res.writeHead(404).end();
-        return;
-      }
-      const stateParam = url.searchParams.get('state');
-      if (stateParam !== expectedState) {
-        res.writeHead(400).end('State mismatch');
-        server.close();
-        reject(new Error('State mismatch'));
         return;
       }
       res

@@ -7,13 +7,13 @@ the `id.sifa.*` namespace at runtime.
 
 ## Identity
 
-| | |
-|--|--|
-| Authority DID | `did:plc:2f2ahswozqy4v5lvu676375y` |
-| PDS | `https://eurosky.social` |
-| DNS proof | `_lexicon.sifa.id TXT did=did:plc:2f2ahswozqy4v5lvu676375y` (already configured) |
-| Client metadata | `https://sifa.id/.well-known/sifa-lexicon-publisher/client-metadata.json` (served by sifa-api) |
-| Auth | OAuth 2.0 public native client (`token_endpoint_auth_method=none`), DPoP. atproto OAuth requires native clients to use `none` auth — confidential `private_key_jwt` is only available for `application_type=web` with HTTPS redirects. No app passwords. |
+|                 |                                                                                                                                                                                                                                                          |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Authority DID   | `did:plc:2f2ahswozqy4v5lvu676375y`                                                                                                                                                                                                                       |
+| PDS             | `https://eurosky.social`                                                                                                                                                                                                                                 |
+| DNS proof       | `_lexicon.sifa.id TXT did=did:plc:2f2ahswozqy4v5lvu676375y` (already configured)                                                                                                                                                                         |
+| Client metadata | `https://sifa.id/.well-known/sifa-lexicon-publisher/client-metadata.json` (served by sifa-api)                                                                                                                                                           |
+| Auth            | OAuth 2.0 public native client (`token_endpoint_auth_method=none`), DPoP. atproto OAuth requires native clients to use `none` auth — confidential `private_key_jwt` is only available for `application_type=web` with HTTPS redirects. No app passwords. |
 
 ## One-time bootstrap (manual, done once per service identity)
 
@@ -46,12 +46,12 @@ The script:
 
 Set these as GitHub Actions secrets on `singi-labs/sifa-lexicons`:
 
-| Secret | Source field |
-|--------|--------------|
-| `LEXICON_PUBLISHER_DID` | `did` |
-| `LEXICON_PUBLISHER_REFRESH_TOKEN` | `refreshToken` |
-| `LEXICON_PUBLISHER_DPOP_KEY_JWK` | `dpopJwk` (full JSON object) |
-| `LEXICON_PUBLISHER_TOKEN_SET` | `tokenSet` (full JSON object) |
+| Secret                            | Source field                  |
+| --------------------------------- | ----------------------------- |
+| `LEXICON_PUBLISHER_DID`           | `did`                         |
+| `LEXICON_PUBLISHER_REFRESH_TOKEN` | `refreshToken`                |
+| `LEXICON_PUBLISHER_DPOP_KEY_JWK`  | `dpopJwk` (full JSON object)  |
+| `LEXICON_PUBLISHER_TOKEN_SET`     | `tokenSet` (full JSON object) |
 
 Then delete `.oauth-bootstrap-result.json`.
 

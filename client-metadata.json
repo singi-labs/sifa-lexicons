@@ -9,21 +9,7 @@
   "scope": "atproto transition:generic",
   "grant_types": ["authorization_code", "refresh_token"],
   "response_types": ["code"],
-  "token_endpoint_auth_method": "private_key_jwt",
-  "token_endpoint_auth_signing_alg": "ES256",
+  "token_endpoint_auth_method": "none",
   "dpop_bound_access_tokens": true,
-  "application_type": "native",
-  "jwks": {
-    "keys": [
-      {
-        "kty": "EC",
-        "crv": "P-256",
-        "x": "REPLACE_WITH_PUBLIC_X",
-        "y": "REPLACE_WITH_PUBLIC_Y",
-        "kid": "lexicon-publisher-1",
-        "use": "sig",
-        "alg": "ES256"
-      }
-    ]
-  }
+  "application_type": "native"
 }

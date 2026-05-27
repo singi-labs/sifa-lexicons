@@ -1,26 +1,22 @@
 /**
  * One-time interactive OAuth bootstrap for the lexicon publisher service identity.
  *
- * Generates an ES256 keypair, runs the browser-based OAuth authorization code flow
- * against the authority DID's PDS (PAR + PKCE + DPoP, handled by
- * @atproto/oauth-client-node), and prints the resulting refresh token + private
- * JWKs so they can be stored as GitHub Actions secrets.
+ * Runs the browser-based OAuth authorization code flow (PAR + PKCE + DPoP,
+ * handled by @atproto/oauth-client-node) against the authority DID's PDS as a
+ * public native client (atproto OAuth requires native clients to use
+ * token_endpoint_auth_method=none). Prints the resulting refresh token + DPoP
+ * key so they can be stored as GitHub Actions secrets.
  *
  * Usage:
- *   pnpm tsx scripts/oauth-bootstrap.ts <handle-or-did>
+ *   pnpm publish:bootstrap <handle-or-did>
  *
  * Example:
- *   pnpm tsx scripts/oauth-bootstrap.ts did:plc:2f2ahswozqy4v5lvu676375y
- *
- * Prerequisites:
- *   - client-metadata.json (with the public JWK printed by this script) must be
- *     hosted at the client_id URL BEFORE the browser flow can succeed. This script
- *     prints the public JWK, waits for confirmation, then opens the browser.
+ *   pnpm publish:bootstrap did:plc:2f2ahswozqy4v5lvu676375y
  */
 import { createServer } from 'node:http';
 import { exec } from 'node:child_process';
 import { readFile, writeFile } from 'node:fs/promises';
-import { JoseKey, NodeOAuthClient } from '@atproto/oauth-client-node';
+import { NodeOAuthClient } from '@atproto/oauth-client-node';
 import type {
   NodeSavedSession,
   NodeSavedSessionStore,
@@ -34,41 +30,18 @@ const REDIRECT_PATH = '/callback';
 async function main() {
   const subject = process.argv[2];
   if (!subject) {
-    console.error('Usage: pnpm tsx scripts/oauth-bootstrap.ts <handle-or-did>');
+    console.error('Usage: pnpm publish:bootstrap <handle-or-did>');
     process.exit(1);
-  }
-
-  console.log('Generating ES256 signing key (kid=lexicon-publisher-1)...');
-  const signingKey = await JoseKey.generate(['ES256'], 'lexicon-publisher-1');
-  const privateJwk = signingKey.privateJwk;
-  const publicJwk = signingKey.publicJwk;
-  if (!privateJwk || !publicJwk) {
-    throw new Error('Key generation failed to produce JWKs');
   }
 
   const clientMetadataPath = new URL('../client-metadata.json', import.meta.url);
   const clientMetadata = JSON.parse(await readFile(clientMetadataPath, 'utf8'));
-  clientMetadata.jwks = { keys: [publicJwk] };
-
-  console.log('\n=== ACTION REQUIRED ===');
-  console.log(
-    'Update the hosted client-metadata.json (sifa-web) so its "jwks.keys[0]" matches:',
-  );
-  console.log(JSON.stringify(publicJwk, null, 2));
-  console.log(
-    '\nThe metadata at',
-    clientMetadata.client_id,
-    'MUST be live with this exact key before continuing.',
-  );
-  console.log('Press Enter when the hosted metadata has been deployed...');
-  await waitForEnter();
 
   const stateStore: NodeSavedStateStore = makeMemoryStore<NodeSavedState>();
   const sessionStore: NodeSavedSessionStore = makeMemoryStore<NodeSavedSession>();
 
   const client = new NodeOAuthClient({
     clientMetadata,
-    keyset: [signingKey],
     stateStore,
     sessionStore,
   });
@@ -80,7 +53,7 @@ async function main() {
   });
 
   const codePromise = waitForCallback(state);
-  console.log('\nOpen this URL in your browser to authorize:');
+  console.log('Open this URL in your browser to authorize:');
   console.log(authUrl.toString());
   openInBrowser(authUrl.toString());
 
@@ -102,7 +75,6 @@ async function main() {
   const out = {
     did,
     refreshToken,
-    signingKeyJwk: privateJwk,
     dpopJwk: stored.dpopJwk,
     tokenSet: stored.tokenSet,
     clientId: clientMetadata.client_id,
@@ -115,11 +87,11 @@ async function main() {
   console.log('Authorized as DID:', did);
   console.log('Wrote bootstrap result to:', outPath.pathname);
   console.log('\nNow set these as GitHub Actions secrets:');
-  console.log('  LEXICON_PUBLISHER_DID              = ' + did);
-  console.log('  LEXICON_PUBLISHER_REFRESH_TOKEN    = (out.refreshToken)');
-  console.log('  LEXICON_PUBLISHER_SIGNING_KEY_JWK  = (out.signingKeyJwk, full JSON)');
-  console.log('  LEXICON_PUBLISHER_DPOP_KEY_JWK     = (out.dpopJwk, full JSON)');
-  console.log('\nAlso save these to a local .env for the first manual publish run.');
+  console.log('  LEXICON_PUBLISHER_DID            = ' + did);
+  console.log('  LEXICON_PUBLISHER_REFRESH_TOKEN  = (out.refreshToken)');
+  console.log('  LEXICON_PUBLISHER_DPOP_KEY_JWK   = (out.dpopJwk, full JSON)');
+  console.log('  LEXICON_PUBLISHER_TOKEN_SET      = (out.tokenSet, full JSON)');
+  console.log('\nAlso export them locally for the first manual publish run.');
   console.log('Delete .oauth-bootstrap-result.json after secrets are saved.');
   process.exit(0);
 }
@@ -137,18 +109,6 @@ function makeMemoryStore<V extends NonNullable<unknown> | null>() {
       map.delete(key);
     },
   };
-}
-
-function waitForEnter(): Promise<void> {
-  return new Promise((resolve) => {
-    const onData = () => {
-      process.stdin.off('data', onData);
-      process.stdin.pause();
-      resolve();
-    };
-    process.stdin.resume();
-    process.stdin.on('data', onData);
-  });
 }
 
 function waitForCallback(expectedState: string): Promise<URLSearchParams> {

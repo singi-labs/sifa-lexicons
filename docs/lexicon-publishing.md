@@ -12,20 +12,16 @@ the `id.sifa.*` namespace at runtime.
 | Authority DID | `did:plc:2f2ahswozqy4v5lvu676375y` |
 | PDS | `https://eurosky.social` |
 | DNS proof | `_lexicon.sifa.id TXT did=did:plc:2f2ahswozqy4v5lvu676375y` (already configured) |
-| Client metadata | `https://sifa.id/.well-known/sifa-lexicon-publisher/client-metadata.json` (hosted by sifa-web) |
-| Auth | OAuth 2.0 confidential client, `private_key_jwt`, ES256, DPoP. No app passwords. |
+| Client metadata | `https://sifa.id/.well-known/sifa-lexicon-publisher/client-metadata.json` (served by sifa-api) |
+| Auth | OAuth 2.0 public native client (`token_endpoint_auth_method=none`), DPoP. atproto OAuth requires native clients to use `none` auth — confidential `private_key_jwt` is only available for `application_type=web` with HTTPS redirects. No app passwords. |
 
 ## One-time bootstrap (manual, done once per service identity)
 
 Prerequisites:
 
-1. The OAuth client metadata file must already be live at
-   `https://sifa.id/.well-known/sifa-lexicon-publisher/client-metadata.json`.
-   The hosted copy is shipped from the sifa-web repo (see
-   `sifa-web/public/.well-known/sifa-lexicon-publisher/client-metadata.json`).
-   On first run the public JWK inside it is a placeholder — you'll replace it
-   with the real public JWK generated below.
-
+1. The OAuth client metadata is served by sifa-api at
+   `https://sifa.id/.well-known/sifa-lexicon-publisher/client-metadata.json`
+   (see `sifa-api/src/routes/well-known.ts`).
 2. You can sign into eurosky.social as the authority DID (handle + password).
 
 Steps:
@@ -38,16 +34,13 @@ pnpm publish:bootstrap did:plc:2f2ahswozqy4v5lvu676375y
 
 The script:
 
-1. Generates an ES256 keypair (kid `lexicon-publisher-1`).
-2. Prints the public JWK. Update the sifa-web `client-metadata.json` so its
-   `jwks.keys[0]` equals this public JWK, deploy, then press Enter.
-3. Opens your browser at the eurosky.social authorize endpoint.
-4. Captures the callback at `http://127.0.0.1:8765/callback`.
-5. Exchanges the code for an access + refresh token bound to the DPoP key.
-6. Writes `.oauth-bootstrap-result.json` (gitignored, mode 0600) containing:
+1. Opens your browser at the eurosky.social authorize endpoint.
+2. Captures the callback at `http://127.0.0.1:8765/callback`.
+3. Exchanges the code for an access + refresh token bound to the DPoP key
+   (generated internally by `@atproto/oauth-client-node`).
+4. Writes `.oauth-bootstrap-result.json` (gitignored, mode 0600) containing:
    - `did`
    - `refreshToken`
-   - `signingKeyJwk` (private ES256 JWK)
    - `dpopJwk` (private DPoP JWK)
    - `tokenSet` (full token set including expiry)
 
@@ -57,7 +50,6 @@ Set these as GitHub Actions secrets on `singi-labs/sifa-lexicons`:
 |--------|--------------|
 | `LEXICON_PUBLISHER_DID` | `did` |
 | `LEXICON_PUBLISHER_REFRESH_TOKEN` | `refreshToken` |
-| `LEXICON_PUBLISHER_SIGNING_KEY_JWK` | `signingKeyJwk` (full JSON object) |
 | `LEXICON_PUBLISHER_DPOP_KEY_JWK` | `dpopJwk` (full JSON object) |
 | `LEXICON_PUBLISHER_TOKEN_SET` | `tokenSet` (full JSON object) |
 
@@ -70,7 +62,6 @@ After bootstrap, with the env vars exported locally:
 ```bash
 export LEXICON_PUBLISHER_DID=did:plc:2f2ahswozqy4v5lvu676375y
 export LEXICON_PUBLISHER_REFRESH_TOKEN=...
-export LEXICON_PUBLISHER_SIGNING_KEY_JWK='{"kty":"EC",...}'
 export LEXICON_PUBLISHER_DPOP_KEY_JWK='{"kty":"EC",...}'
 export LEXICON_PUBLISHER_TOKEN_SET='{"access_token":"...","refresh_token":"...","token_type":"DPoP","expires_at":...}'
 
@@ -100,12 +91,16 @@ serialize. Secrets come from the repo's Actions secrets store.
 
 ## Rotating credentials
 
-If the refresh token is revoked or the signing key is compromised:
+If the refresh token is revoked, lost, or expires from disuse:
 
-1. Run `pnpm publish:bootstrap` again to mint new credentials.
-2. Update the hosted `client-metadata.json` with the new public JWK.
-3. Replace the GitHub Actions secrets with the new values.
-4. (Optional) Revoke the old refresh token via the PDS revocation endpoint.
+1. Run `pnpm publish:bootstrap` again to obtain new credentials.
+2. Replace the GitHub Actions secrets with the new values.
+3. (Optional) Revoke the old refresh token via the PDS revocation endpoint.
+
+Note: refresh tokens for public clients are shorter-lived than for
+confidential clients. As long as CI publishes at least once per refresh
+token lifetime, automatic rotation keeps the session alive. If lexicons
+go untouched for a long stretch, you may need to re-bootstrap.
 
 ## Verification
 

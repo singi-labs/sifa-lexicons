@@ -26,6 +26,12 @@
 
 This package defines the `id.sifa.*` namespace -- the data contract between a user's PDS and the Sifa AppView. Because the schemas live on the protocol layer, all professional profile data (positions, education, skills, endorsements) is portable: users own their data and can move between services without loss.
 
+### Verified authority
+
+Every schema in this repo is published as a `com.atproto.lexicon.schema` record on the namespace authority DID's PDS, with the DNS proof `_lexicon.sifa.id TXT did=did:plc:2f2ahswozqy4v5lvu676375y` in place. Third-party tools that resolve `id.sifa.*` lexicons at runtime get the canonical schema directly from the protocol -- no dependency on this repo being reachable.
+
+[**Browse on lexicon.garden →**](https://lexicon.garden/identity/did:plc:2f2ahswozqy4v5lvu676375y)
+
 ---
 
 ## Lexicon Schemas

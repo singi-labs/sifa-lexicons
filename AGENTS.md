@@ -11,7 +11,7 @@ AT Protocol lexicon schemas for Sifa -- a decentralized professional identity an
 
 | Component  | Technology                       |
 | ---------- | -------------------------------- |
-| Runtime    | Node.js 25 / TypeScript (strict) |
+| Runtime    | Node.js 26 / TypeScript (strict) |
 | Schemas    | AT Protocol Lexicon JSON         |
 | Code gen   | @atproto/lex-cli                 |
 | Validation | Zod (generated from lexicons)    |

@@ -127,7 +127,7 @@ These lexicons reference types from:
 
 ## Quick Start
 
-**Prerequisites:** Node.js 25+, npm.
+**Prerequisites:** Node.js 26+, npm.
 
 ```bash
 git clone https://github.com/singi-labs/sifa-lexicons.git

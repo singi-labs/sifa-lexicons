@@ -61,6 +61,14 @@ Every schema in this repo is published as a `com.atproto.lexicon.schema` record 
 | `id.sifa.graph.follow`     | Professional follows            |
 | `id.sifa.graph.connection` | Mutual professional connections |
 
+> **`id.sifa.graph.follow` is a distinct graph, not a Bluesky superset.**
+> Sifa's follow graph captures the intent "I want to see this person's professional
+> content on Sifa." It is **not** a superset, mirror, or extension of
+> `app.bsky.graph.follow`. A Bluesky-only client must not assume the two are
+> interchangeable: following on Bluesky does not imply a Sifa follow, and vice
+> versa. Each graph is owned by its own AppView contract. Users who want both
+> relationships create both records.
+
 **Collaborative projects**
 
 | NSID                         | Purpose                                 |

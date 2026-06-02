@@ -38,6 +38,16 @@
             "type": "string",
             "format": "datetime",
             "description": "Client-declared timestamp when this endorsement was created."
+          },
+          "positionRef": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Optional AT-URI of the id.sifa.position record this endorsement relates to. When present, indicates the endorsement is contextualised to a specific role rather than a general skill."
+          },
+          "credentialRef": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Optional AT-URI of an education or credential record this endorsement confirms. Mutually exclusive with positionRef in intent, though both are permitted."
           }
         }
       }

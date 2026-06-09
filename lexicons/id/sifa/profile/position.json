@@ -9,14 +9,14 @@
       "key": "tid",
       "record": {
         "type": "object",
-        "required": ["company", "title", "startedAt", "createdAt"],
+        "required": ["title", "startedAt", "createdAt"],
         "properties": {
           "company": {
             "type": "string",
             "minLength": 1,
             "maxGraphemes": 256,
             "maxLength": 2560,
-            "description": "Company or organization name."
+            "description": "Company or organization name. Optional: omit for self-employed, freelance, contract, or independent work that has no separately named or registered entity."
           },
           "companyDid": {
             "type": "string",

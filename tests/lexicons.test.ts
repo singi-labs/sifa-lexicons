@@ -10,6 +10,7 @@ interface LexiconProperty {
   format?: string;
   maxGraphemes?: number;
   maxLength?: number;
+  minLength?: number;
   maxSize?: number;
   accept?: string[];
   description?: string;
@@ -263,7 +264,17 @@ describe('Position skills field', () => {
   });
 
   it('position without skills field is still valid (backward compatible)', () => {
-    expect(required).toEqual(['company', 'title', 'startedAt', 'createdAt']);
+    expect(required).toEqual(['title', 'startedAt', 'createdAt']);
+  });
+
+  it('company is no longer required (self-employed/freelance may omit it)', () => {
+    expect(required).not.toContain('company');
+  });
+
+  it('company remains a defined, non-empty string property when present', () => {
+    expect(properties?.company).toBeDefined();
+    expect(properties?.company?.type).toBe('string');
+    expect(properties?.company?.minLength).toBe(1);
   });
 });
 

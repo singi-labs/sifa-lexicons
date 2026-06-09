@@ -38,7 +38,19 @@ function makeMemoryStore<V extends NonNullable<unknown> | null>() {
   };
 }
 
-export async function restoreOAuthSession(): Promise<OAuthSession> {
+export interface RestoredSession {
+  session: OAuthSession;
+  did: string;
+  /**
+   * Reads the current saved session from the in-memory store. The OAuth client
+   * writes the rotated token set here whenever it refreshes, so calling this
+   * AFTER the publish work captures the new (single-use) refresh token that
+   * must be persisted for the next run.
+   */
+  readSavedSession: () => Promise<NodeSavedSession | undefined>;
+}
+
+export async function restoreOAuthSession(): Promise<RestoredSession> {
   const did = requireEnv('LEXICON_PUBLISHER_DID');
   const dpopJwk = JSON.parse(requireEnv('LEXICON_PUBLISHER_DPOP_KEY_JWK'));
   const tokenSet = JSON.parse(requireEnv('LEXICON_PUBLISHER_TOKEN_SET'));
@@ -62,5 +74,10 @@ export async function restoreOAuthSession(): Promise<OAuthSession> {
     sessionStore,
   });
 
-  return await client.restore(did, 'auto');
+  const session = await client.restore(did, 'auto');
+  return {
+    session,
+    did,
+    readSavedSession: async () => sessionStore.get(did),
+  };
 }

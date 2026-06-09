@@ -13,6 +13,7 @@ import { Agent } from '@atproto/api';
 import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { restoreOAuthSession } from './oauth-session.js';
+import { persistRotatedTokenSet } from './persist-token.js';
 
 const LEXICONS_DIR = new URL('../lexicons/', import.meta.url).pathname;
 const COLLECTION = 'com.atproto.lexicon.schema';
@@ -85,10 +86,15 @@ async function publish() {
   const check = process.argv.includes('--check');
 
   console.log('Restoring OAuth session...');
-  const session = await restoreOAuthSession();
+  const { session, did, readSavedSession } = await restoreOAuthSession();
   const agent = new Agent(session);
-  const repo = session.did;
+  const repo = did;
   console.log('Authenticated as', repo);
+
+  // restore() may have rotated the single-use refresh token. Persist the new
+  // token set back to the GitHub secret now, before any publish work, so a
+  // later failure can't strand it and replay on the next run (sifa-lexicons#58).
+  await persistRotatedTokenSet((await readSavedSession())?.tokenSet);
 
   const local = await loadLocalLexicons();
   console.log(`Loaded ${local.size} local lexicons`);

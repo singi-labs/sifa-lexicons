@@ -42,4 +42,10 @@ jobs:
           LEXICON_PUBLISHER_REFRESH_TOKEN: ${{ secrets.LEXICON_PUBLISHER_REFRESH_TOKEN }}
           LEXICON_PUBLISHER_DPOP_KEY_JWK: ${{ secrets.LEXICON_PUBLISHER_DPOP_KEY_JWK }}
           LEXICON_PUBLISHER_TOKEN_SET: ${{ secrets.LEXICON_PUBLISHER_TOKEN_SET }}
+          # Optional: a fine-grained PAT with Secrets: read+write on this repo.
+          # When present, the publish script writes the rotated (single-use)
+          # refresh token back to the LEXICON_PUBLISHER_* secrets so the next
+          # run authenticates cleanly. Without it, the job warns and the token
+          # must be re-bootstrapped manually. See sifa-lexicons#58.
+          LEXICON_PUBLISHER_SECRETS_PAT: ${{ secrets.LEXICON_PUBLISHER_SECRETS_PAT }}
         run: npm run publish:lexicons

@@ -35,6 +35,11 @@
             "ref": "com.atproto.repo.strongRef",
             "description": "Reference to the associated id.sifa.profile.education record, if applicable."
           },
+          "credential": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT-URI of the associated id.sifa.profile.certification record (the credential earned from this course), if applicable. A plain at-uri rather than a strongRef so the link tracks the live certification across edits."
+          },
           "createdAt": {
             "type": "string",
             "format": "datetime",

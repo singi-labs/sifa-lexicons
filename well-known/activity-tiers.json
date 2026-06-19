@@ -284,6 +284,8 @@
     "id.sifa.profile.language": { "tier": "creation", "app": "sifa" },
     "id.sifa.profile.externalAccount": { "tier": "creation", "app": "sifa" },
     "id.sifa.profile.location": { "tier": "creation", "app": "sifa" },
+    "id.sifa.profile.presentation": { "tier": "creation", "app": "sifa" },
+    "id.sifa.profile.presentationDelivery": { "tier": "creation", "app": "sifa" },
     "id.sifa.endorsement": {
       "tier": "creation",
       "app": "sifa",

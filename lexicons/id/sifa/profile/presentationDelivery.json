@@ -1,0 +1,98 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.profile.presentationDelivery",
+  "description": "An occasion on which a person delivered a presentation: a specific talk, panel, workshop, or demo at an event. References the reusable id.sifa.profile.presentation content and, optionally, the calendar event.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Record representing a single occasion on which a presentation was delivered. This is the entry shown on a profile's activity timeline. At least one of presentationRef, title, or eventName is expected, enforced at the app layer.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["createdAt"],
+        "properties": {
+          "presentationRef": {
+            "type": "ref",
+            "ref": "id.sifa.defs#externalRecordRef",
+            "description": "Optional reference to the id.sifa.profile.presentation (the content) delivered here. When set, title, duration, and audiences are taken from it."
+          },
+          "title": {
+            "type": "string",
+            "maxGraphemes": 300,
+            "maxLength": 3000,
+            "description": "Fallback title for this delivery, used when no presentationRef is set."
+          },
+          "role": {
+            "type": "string",
+            "maxGraphemes": 64,
+            "maxLength": 640,
+            "description": "The presenter's role in this delivery. Open set; see id.sifa.defs#presentationRole.",
+            "knownValues": [
+              "id.sifa.defs#presenter",
+              "id.sifa.defs#panelist",
+              "id.sifa.defs#keynote",
+              "id.sifa.defs#workshop",
+              "id.sifa.defs#host"
+            ]
+          },
+          "eventName": {
+            "type": "string",
+            "maxGraphemes": 300,
+            "maxLength": 3000,
+            "description": "Name of the event or venue. On the linked branch, hydrated from the calendar event's name."
+          },
+          "date": {
+            "type": "string",
+            "maxLength": 10,
+            "description": "Calendar date of this delivery as YYYY-MM-DD (day only, no time). Future dates are allowed for upcoming deliveries. The day-only shape is enforced at the app layer. On the linked branch, derived from the event's startsAt in the event's own offset."
+          },
+          "location": {
+            "type": "string",
+            "maxGraphemes": 256,
+            "maxLength": 2560,
+            "description": "Display location (city, country, or venue). On the linked branch, composed from the calendar event's structured locations."
+          },
+          "mode": {
+            "type": "string",
+            "description": "Whether this delivery was in person, virtual, or hybrid. Stores the full community.lexicon.calendar.event mode token; absent means in person.",
+            "knownValues": [
+              "community.lexicon.calendar.event#inperson",
+              "community.lexicon.calendar.event#virtual",
+              "community.lexicon.calendar.event#hybrid"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "description": "Scheduling status of this delivery, typically hydrated from a linked calendar event. Stores the full community.lexicon.calendar.event status token. Consumers should surface cancelled and postponed states.",
+            "knownValues": [
+              "community.lexicon.calendar.event#scheduled",
+              "community.lexicon.calendar.event#cancelled",
+              "community.lexicon.calendar.event#postponed",
+              "community.lexicon.calendar.event#rescheduled",
+              "community.lexicon.calendar.event#planned"
+            ]
+          },
+          "links": {
+            "type": "array",
+            "maxLength": 20,
+            "items": {
+              "type": "ref",
+              "ref": "id.sifa.defs#presentationLink"
+            },
+            "description": "Links specific to this delivery, such as the recording of this occasion."
+          },
+          "eventRef": {
+            "type": "ref",
+            "ref": "id.sifa.defs#externalRecordRef",
+            "description": "Optional reference to a community.lexicon.calendar.event for this occasion. Display fields are hydrated live from the target by AT-URI, with the stored fields as a fallback when the target is unavailable."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when this record was originally created."
+          }
+        }
+      }
+    }
+  }
+}

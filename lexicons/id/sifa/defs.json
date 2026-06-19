@@ -568,6 +568,100 @@
     "projectArchived": {
       "type": "token",
       "description": "Project is archived and no longer active."
+    },
+
+    "externalRecordRef": {
+      "type": "object",
+      "description": "A reference to a record in another repository or lexicon by AT-URI. The CID is optional: it pins a specific version as an integrity hint, but consumers should resolve the AT-URI live so the reference tracks edits to the target.",
+      "required": ["uri"],
+      "properties": {
+        "uri": {
+          "type": "string",
+          "format": "at-uri",
+          "description": "AT-URI of the referenced record."
+        },
+        "cid": {
+          "type": "string",
+          "format": "cid",
+          "description": "Optional CID of a specific version of the referenced record. Used as an integrity hint only; live resolution is by AT-URI."
+        }
+      }
+    },
+
+    "presentationRole": {
+      "type": "string",
+      "description": "The user's role in a presentation or session. Open set.",
+      "knownValues": [
+        "id.sifa.defs#presenter",
+        "id.sifa.defs#panelist",
+        "id.sifa.defs#keynote",
+        "id.sifa.defs#workshop",
+        "id.sifa.defs#host"
+      ]
+    },
+    "presenter": {
+      "type": "token",
+      "description": "Delivered the session as the speaker or presenter (spoken or non-spoken)."
+    },
+    "panelist": { "type": "token", "description": "Participated as a member of a panel." },
+    "keynote": { "type": "token", "description": "Gave a keynote address." },
+    "workshop": { "type": "token", "description": "Led or facilitated a workshop or tutorial." },
+    "host": { "type": "token", "description": "Hosted or moderated the session." },
+
+    "presentationLinkType": {
+      "type": "string",
+      "description": "The category of a related link on a presentation. Open set.",
+      "knownValues": [
+        "id.sifa.defs#linkSlides",
+        "id.sifa.defs#linkRecording",
+        "id.sifa.defs#linkEvent",
+        "id.sifa.defs#linkRegistration",
+        "id.sifa.defs#linkWriteup",
+        "id.sifa.defs#linkOther"
+      ]
+    },
+    "linkSlides": { "type": "token", "description": "Slides or presentation deck." },
+    "linkRecording": {
+      "type": "token",
+      "description": "Video or audio recording of the presentation."
+    },
+    "linkEvent": { "type": "token", "description": "The event or session page." },
+    "linkRegistration": { "type": "token", "description": "Registration or ticket page." },
+    "linkWriteup": {
+      "type": "token",
+      "description": "A long-form write-up, article, or transcript of the talk."
+    },
+    "linkOther": { "type": "token", "description": "Other related link." },
+
+    "presentationLink": {
+      "type": "object",
+      "description": "A related link for a presentation or one of its deliveries.",
+      "required": ["uri"],
+      "properties": {
+        "uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "The link URL."
+        },
+        "label": {
+          "type": "string",
+          "maxGraphemes": 64,
+          "maxLength": 640,
+          "description": "Optional display label (e.g., 'Watch recording', 'Slides')."
+        },
+        "type": {
+          "type": "string",
+          "description": "Optional link category, used to pick an icon. Open set; see id.sifa.defs#presentationLinkType.",
+          "knownValues": [
+            "id.sifa.defs#linkSlides",
+            "id.sifa.defs#linkRecording",
+            "id.sifa.defs#linkEvent",
+            "id.sifa.defs#linkRegistration",
+            "id.sifa.defs#linkWriteup",
+            "id.sifa.defs#linkOther"
+          ]
+        }
+      }
     }
   }
 }

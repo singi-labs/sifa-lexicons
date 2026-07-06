@@ -86,6 +86,15 @@
             "ref": "id.sifa.defs#externalRecordRef",
             "description": "Optional reference to a community.lexicon.calendar.event for this occasion. Display fields are hydrated live from the target by AT-URI, with the stored fields as a fallback when the target is unavailable."
           },
+          "coSpeakers": {
+            "type": "array",
+            "maxLength": 20,
+            "items": {
+              "type": "string",
+              "format": "did"
+            },
+            "description": "DIDs of co-speakers who presented alongside the author at this occasion. Any atproto account is allowed; hydrated to profile cards on read and linked to the co-speaker's Sifa profile."
+          },
           "createdAt": {
             "type": "string",
             "format": "datetime",

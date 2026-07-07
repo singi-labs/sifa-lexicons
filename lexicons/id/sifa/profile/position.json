@@ -23,6 +23,11 @@
             "format": "did",
             "description": "DID of the company's ATproto account, if one exists. Enables verified company linking."
           },
+          "entityRef": {
+            "type": "string",
+            "format": "uri",
+            "description": "Portable, app-neutral identifier for the organization the user selected from a resolver dropdown: a Wikidata Q-ID URI (http://www.wikidata.org/entity/Q...), a ROR URI, or an LEI URI. Enables deterministic resolution to a canonical entity even before the org claims an ATproto account. Absent for free-text or independent/self-employed positions."
+          },
           "title": {
             "type": "string",
             "minLength": 1,

@@ -278,6 +278,27 @@ describe('Position skills field', () => {
   });
 });
 
+describe('Position entityRef field', () => {
+  const positionLexicon = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.position');
+  const properties = positionLexicon?.doc.defs.main.record?.properties;
+  const required = positionLexicon?.doc.defs.main.record?.required ?? [];
+
+  it('entityRef exists as an optional string with uri format', () => {
+    expect(properties?.entityRef).toBeDefined();
+    expect(properties?.entityRef?.type).toBe('string');
+    expect(properties?.entityRef?.format).toBe('uri');
+  });
+
+  it('entityRef is not required (absent for freetext/Independent positions)', () => {
+    expect(required).not.toContain('entityRef');
+  });
+
+  it('entityRef has a description mentioning the portable entity identifier', () => {
+    expect(properties?.entityRef?.description).toBeDefined();
+    expect(properties?.entityRef?.description!.length).toBeGreaterThan(0);
+  });
+});
+
 describe('id.sifa.profile.self presentation overrides', () => {
   const selfLexicon = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.self');
   const properties = selfLexicon?.doc.defs.main.record?.properties;

@@ -18,6 +18,12 @@
             "maxLength": 2000,
             "description": "Publication title."
           },
+          "subtitle": {
+            "type": "string",
+            "maxGraphemes": 200,
+            "maxLength": 2000,
+            "description": "Publication subtitle. Carries the distinguishing part of a title that sources such as Crossref and ORCID store separately from the main title -- for example the volume/part designation and descriptive clause of a multi-part paper series (\"III. Using cluster masses to create a cleaned catalogue\"). Absent for publications with no subtitle."
+          },
           "publisher": {
             "type": "string",
             "maxGraphemes": 256,

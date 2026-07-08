@@ -104,6 +104,7 @@ const USER_TEXT_FIELDS = new Set([
   'company',
   'companyName',
   'title',
+  'subtitle',
   'institution',
   'name',
   'comment',
@@ -296,6 +297,31 @@ describe('Position entityRef field', () => {
   it('entityRef has a description mentioning the portable entity identifier', () => {
     expect(properties?.entityRef?.description).toBeDefined();
     expect(properties?.entityRef?.description!.length).toBeGreaterThan(0);
+  });
+});
+
+describe('Publication subtitle field', () => {
+  const publicationLexicon = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.publication');
+  const properties = publicationLexicon?.doc.defs.main.record?.properties;
+  const required = publicationLexicon?.doc.defs.main.record?.required ?? [];
+
+  it('subtitle exists as an optional string', () => {
+    expect(properties?.subtitle).toBeDefined();
+    expect(properties?.subtitle?.type).toBe('string');
+  });
+
+  it('subtitle matches title length constraints (200/2000)', () => {
+    expect(properties?.subtitle?.maxGraphemes).toBe(200);
+    expect(properties?.subtitle?.maxLength).toBe(2000);
+  });
+
+  it('subtitle is not required (many publications have none)', () => {
+    expect(required).not.toContain('subtitle');
+  });
+
+  it('subtitle has a description', () => {
+    expect(properties?.subtitle?.description).toBeDefined();
+    expect(properties?.subtitle?.description!.length).toBeGreaterThan(0);
   });
 });
 

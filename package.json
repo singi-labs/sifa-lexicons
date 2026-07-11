@@ -1,6 +1,6 @@
 {
   "name": "@singi-labs/sifa-lexicons",
-  "version": "0.8.4",
+  "version": "0.9.0",
   "description": "AT Protocol lexicon schemas and generated TypeScript types for Sifa professional profiles (id.sifa.*)",
   "type": "module",
   "license": "MIT",

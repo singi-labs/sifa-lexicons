@@ -662,6 +662,76 @@
           ]
         }
       }
+    },
+
+    "involvementKind": {
+      "type": "string",
+      "description": "The nature of an involvement record.",
+      "knownValues": [
+        "id.sifa.defs#involvementOpenSource",
+        "id.sifa.defs#involvementCommunity",
+        "id.sifa.defs#involvementCharity",
+        "id.sifa.defs#involvementCivic",
+        "id.sifa.defs#involvementOther"
+      ]
+    },
+    "involvementOpenSource": {
+      "type": "token",
+      "description": "Open-source contribution or maintainership."
+    },
+    "involvementCommunity": {
+      "type": "token",
+      "description": "Community organizing, moderation, or meetup/event running."
+    },
+    "involvementCharity": {
+      "type": "token",
+      "description": "Charitable or volunteer work for a cause or person."
+    },
+    "involvementCivic": {
+      "type": "token",
+      "description": "Board membership, policy, advisory, or public-consultation work."
+    },
+    "involvementOther": {
+      "type": "token",
+      "description": "Other uncompensated involvement."
+    },
+
+    "artifactLink": {
+      "type": "object",
+      "description": "A public artifact proving a piece of work. Reusable across involvement, and later projects/publications.",
+      "required": ["url"],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the artifact."
+        },
+        "kind": {
+          "type": "string",
+          "description": "What this link points to.",
+          "knownValues": [
+            "pull-request",
+            "issue",
+            "commit",
+            "review",
+            "release",
+            "talk",
+            "video",
+            "slides",
+            "article",
+            "thread",
+            "dataset",
+            "edit",
+            "other"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "maxGraphemes": 200,
+          "maxLength": 2000,
+          "description": "Optional human-readable label (e.g. 'Merged PR #1234: keep-alive support')."
+        }
+      }
     }
   }
 }

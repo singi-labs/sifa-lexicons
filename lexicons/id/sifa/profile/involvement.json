@@ -1,0 +1,81 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.profile.involvement",
+  "description": "Uncompensated involvement with an external project, community, event, or cause the user does not own or run — open-source, community, charity, or civic work. Distinct from paid roles (position), things you own (project), and paid employment.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Record representing one involvement — an ongoing role and/or a body of discrete contributions to a single upstream.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["kind", "createdAt"],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "description": "The nature of the involvement. Drives the display heading (Open Source / Community / Volunteering / Civic).",
+            "knownValues": [
+              "id.sifa.defs#involvementOpenSource",
+              "id.sifa.defs#involvementCommunity",
+              "id.sifa.defs#involvementCharity",
+              "id.sifa.defs#involvementCivic",
+              "id.sifa.defs#involvementOther"
+            ]
+          },
+          "upstream": {
+            "type": "string",
+            "maxGraphemes": 256,
+            "maxLength": 2560,
+            "description": "Name of the project, community, event, or cause (e.g. 'atproto', 'Linux kernel', 'PyCon NL'). Optional — a one-off contribution need not name an organization."
+          },
+          "upstreamDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the upstream's ATproto account, if one exists."
+          },
+          "upstreamUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Primary URL of the upstream (project homepage, repo, event site)."
+          },
+          "role": {
+            "type": "string",
+            "maxGraphemes": 256,
+            "maxLength": 2560,
+            "description": "The user's role (e.g. 'Maintainer', 'Translator', 'Organizer', 'Contributor')."
+          },
+          "description": {
+            "type": "string",
+            "maxGraphemes": 5000,
+            "maxLength": 50000,
+            "description": "What the user did and why it mattered."
+          },
+          "startedAt": {
+            "type": "string",
+            "description": "Start date in YYYY-MM or YYYY-MM-DD format. Freeform (NOT strict datetime) to allow partial dates and importer writes."
+          },
+          "endedAt": {
+            "type": "string",
+            "description": "End date in YYYY-MM or YYYY-MM-DD format. Omit if ongoing."
+          },
+          "links": {
+            "type": "array",
+            "maxLength": 50,
+            "description": "Public artifacts proving the involvement (PRs, releases, talk recordings, published translations).",
+            "items": { "type": "ref", "ref": "id.sifa.defs#artifactLink" }
+          },
+          "labels": {
+            "type": "union",
+            "description": "Self-label values for this record.",
+            "refs": ["com.atproto.label.defs#selfLabels"]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when this record was originally created."
+          }
+        }
+      }
+    }
+  }
+}

@@ -201,6 +201,8 @@ const DATE_ONLY_FIELDS = new Set([
   'id.sifa.profile.education.endedAt',
   'id.sifa.profile.project.startedAt',
   'id.sifa.profile.project.endedAt',
+  'id.sifa.profile.involvement.startedAt',
+  'id.sifa.profile.involvement.endedAt',
 ]);
 
 describe('Timestamps use datetime format', () => {
@@ -493,6 +495,124 @@ describe('community location adoption', () => {
       expect(refs).not.toContain('id.sifa.defs#locationAddress');
     });
   }
+});
+
+describe('id.sifa.profile.involvement lexicon', () => {
+  const involvement = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.involvement');
+  const properties = involvement?.doc.defs.main.record?.properties;
+  const required = involvement?.doc.defs.main.record?.required ?? [];
+
+  it('lexicon exists as a tid-keyed record', () => {
+    expect(involvement).toBeDefined();
+    expect(involvement!.doc.defs.main.type).toBe('record');
+    expect(involvement!.doc.defs.main.key).toBe('tid');
+  });
+
+  it('requires only kind and createdAt', () => {
+    expect(required).toEqual(['kind', 'createdAt']);
+  });
+
+  it('kind is a string with the five involvement NSID tokens', () => {
+    expect(properties?.kind?.type).toBe('string');
+    expect((properties?.kind as { knownValues?: string[] })?.knownValues).toEqual([
+      'id.sifa.defs#involvementOpenSource',
+      'id.sifa.defs#involvementCommunity',
+      'id.sifa.defs#involvementCharity',
+      'id.sifa.defs#involvementCivic',
+      'id.sifa.defs#involvementOther',
+    ]);
+  });
+
+  it('upstream is an optional string (a one-off contribution need not name an org)', () => {
+    expect(properties?.upstream?.type).toBe('string');
+    expect(required).not.toContain('upstream');
+  });
+
+  it('upstreamDid is an optional did-format string', () => {
+    expect(properties?.upstreamDid?.type).toBe('string');
+    expect(properties?.upstreamDid?.format).toBe('did');
+    expect(required).not.toContain('upstreamDid');
+  });
+
+  it('upstreamUrl is an optional uri-format string', () => {
+    expect(properties?.upstreamUrl?.type).toBe('string');
+    expect(properties?.upstreamUrl?.format).toBe('uri');
+  });
+
+  it('startedAt and endedAt are freeform date strings (no datetime format, YYYY-MM documented)', () => {
+    expect(properties?.startedAt?.type).toBe('string');
+    expect(properties?.startedAt?.format).toBeUndefined();
+    expect(properties?.startedAt?.description).toMatch(/YYYY-MM/);
+    expect(properties?.endedAt?.format).toBeUndefined();
+    expect(properties?.endedAt?.description).toMatch(/YYYY-MM/);
+  });
+
+  it('links is an optional array of id.sifa.defs#artifactLink with maxLength 50', () => {
+    expect(properties?.links?.type).toBe('array');
+    expect(properties?.links?.maxLength).toBe(50);
+    expect(properties?.links?.items?.type).toBe('ref');
+    expect(properties?.links?.items?.ref).toBe('id.sifa.defs#artifactLink');
+    expect(required).not.toContain('links');
+  });
+
+  it('createdAt uses datetime format', () => {
+    expect(properties?.createdAt?.format).toBe('datetime');
+  });
+});
+
+describe('id.sifa.defs involvement additions', () => {
+  interface DefsDoc {
+    defs: Record<
+      string,
+      {
+        type: string;
+        description?: string;
+        knownValues?: string[];
+        required?: string[];
+        properties?: Record<
+          string,
+          { type: string; format?: string; knownValues?: string[]; maxGraphemes?: number }
+        >;
+      }
+    >;
+  }
+  const defs = JSON.parse(readFileSync(join(LEXICONS_DIR, 'defs.json'), 'utf-8')) as DefsDoc;
+
+  it('involvementKind is a string def with the five NSID tokens', () => {
+    expect(defs.defs.involvementKind?.type).toBe('string');
+    expect(defs.defs.involvementKind?.knownValues).toEqual([
+      'id.sifa.defs#involvementOpenSource',
+      'id.sifa.defs#involvementCommunity',
+      'id.sifa.defs#involvementCharity',
+      'id.sifa.defs#involvementCivic',
+      'id.sifa.defs#involvementOther',
+    ]);
+  });
+
+  it.each([
+    'involvementOpenSource',
+    'involvementCommunity',
+    'involvementCharity',
+    'involvementCivic',
+    'involvementOther',
+  ])('declares the %s token', (token) => {
+    expect(defs.defs[token]?.type).toBe('token');
+    expect(defs.defs[token]?.description?.length).toBeGreaterThan(0);
+  });
+
+  it('artifactLink is an object def requiring a uri-format url', () => {
+    expect(defs.defs.artifactLink?.type).toBe('object');
+    expect(defs.defs.artifactLink?.required).toEqual(['url']);
+    expect(defs.defs.artifactLink?.properties?.url?.type).toBe('string');
+    expect(defs.defs.artifactLink?.properties?.url?.format).toBe('uri');
+  });
+
+  it('artifactLink.kind is a bare-string enum and label is capped', () => {
+    expect(defs.defs.artifactLink?.properties?.kind?.type).toBe('string');
+    expect(defs.defs.artifactLink?.properties?.kind?.knownValues).toContain('pull-request');
+    expect(defs.defs.artifactLink?.properties?.kind?.knownValues).toContain('release');
+    expect(defs.defs.artifactLink?.properties?.label?.maxGraphemes).toBe(200);
+  });
 });
 
 describe('openToWorkStatus commissions token', () => {

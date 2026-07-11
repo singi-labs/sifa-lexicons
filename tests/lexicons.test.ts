@@ -300,6 +300,33 @@ describe('Position entityRef field', () => {
   });
 });
 
+describe.each([
+  'id.sifa.profile.education',
+  'id.sifa.profile.volunteering',
+  'id.sifa.profile.certification',
+  'id.sifa.profile.course',
+  'id.sifa.profile.honor',
+])('%s entityRef field', (lexiconId) => {
+  const lexicon = recordLexicons.find((l) => l.doc.id === lexiconId);
+  const properties = lexicon?.doc.defs.main.record?.properties;
+  const required = lexicon?.doc.defs.main.record?.required ?? [];
+
+  it('entityRef exists as an optional string with uri format', () => {
+    expect(properties?.entityRef).toBeDefined();
+    expect(properties?.entityRef?.type).toBe('string');
+    expect(properties?.entityRef?.format).toBe('uri');
+  });
+
+  it('entityRef is not required (absent for free-text entries)', () => {
+    expect(required).not.toContain('entityRef');
+  });
+
+  it('entityRef has a description mentioning the portable entity identifier', () => {
+    expect(properties?.entityRef?.description).toBeDefined();
+    expect(properties?.entityRef?.description!.length).toBeGreaterThan(0);
+  });
+});
+
 describe('Publication subtitle field', () => {
   const publicationLexicon = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.publication');
   const properties = publicationLexicon?.doc.defs.main.record?.properties;

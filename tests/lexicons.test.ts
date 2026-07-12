@@ -558,6 +558,25 @@ describe('id.sifa.profile.involvement lexicon', () => {
   it('createdAt uses datetime format', () => {
     expect(properties?.createdAt?.format).toBe('datetime');
   });
+
+  it('entityRef is an optional uri-format string (portable org link, #241 pattern)', () => {
+    expect(properties?.entityRef?.type).toBe('string');
+    expect(properties?.entityRef?.format).toBe('uri');
+    expect(required).not.toContain('entityRef');
+  });
+
+  it('location is an optional community.lexicon.location.address ref', () => {
+    expect(properties?.location?.type).toBe('ref');
+    expect(properties?.location?.ref).toBe('community.lexicon.location.address');
+    expect(required).not.toContain('location');
+  });
+
+  it('skills is an optional array of id.sifa.defs#skillRef with maxLength 50', () => {
+    expect(properties?.skills?.type).toBe('array');
+    expect(properties?.skills?.maxLength).toBe(50);
+    expect(properties?.skills?.items?.ref).toBe('id.sifa.defs#skillRef');
+    expect(required).not.toContain('skills');
+  });
 });
 
 describe('id.sifa.defs involvement additions', () => {

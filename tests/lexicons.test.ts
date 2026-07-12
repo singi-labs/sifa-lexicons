@@ -203,6 +203,13 @@ const DATE_ONLY_FIELDS = new Set([
   'id.sifa.profile.project.endedAt',
   'id.sifa.profile.involvement.startedAt',
   'id.sifa.profile.involvement.endedAt',
+  'id.sifa.profile.volunteering.startedAt',
+  'id.sifa.profile.volunteering.endedAt',
+  'id.sifa.profile.certification.issuedAt',
+  'id.sifa.profile.certification.expiresAt',
+  'id.sifa.profile.course.completedAt',
+  'id.sifa.profile.honor.awardedAt',
+  'id.sifa.profile.publication.publishedAt',
 ]);
 
 describe('Timestamps use datetime format', () => {
@@ -334,10 +341,11 @@ describe('Course completedAt field', () => {
   const properties = courseLexicon?.doc.defs.main.record?.properties;
   const required = courseLexicon?.doc.defs.main.record?.required ?? [];
 
-  it('completedAt exists as an optional string with datetime format', () => {
+  it('completedAt is a freeform date string (no datetime format, YYYY-MM documented)', () => {
     expect(properties?.completedAt).toBeDefined();
     expect(properties?.completedAt?.type).toBe('string');
-    expect(properties?.completedAt?.format).toBe('datetime');
+    expect(properties?.completedAt?.format).toBeUndefined();
+    expect(properties?.completedAt?.description).toMatch(/YYYY-MM/);
   });
 
   it('completedAt is not required (many courses have no recorded date)', () => {
@@ -347,6 +355,27 @@ describe('Course completedAt field', () => {
   it('completedAt has a description', () => {
     expect(properties?.completedAt?.description).toBeDefined();
     expect(properties?.completedAt?.description!.length).toBeGreaterThan(0);
+  });
+});
+
+describe.each([
+  ['id.sifa.profile.volunteering', ['startedAt', 'endedAt']],
+  ['id.sifa.profile.certification', ['issuedAt', 'expiresAt']],
+  ['id.sifa.profile.honor', ['awardedAt']],
+  ['id.sifa.profile.publication', ['publishedAt']],
+] as const)('%s freeform date fields', (lexiconId, fields) => {
+  const lexicon = recordLexicons.find((l) => l.doc.id === lexiconId);
+  const properties = lexicon?.doc.defs.main.record?.properties;
+
+  it.each(fields)('%s is a freeform date string (no datetime format, YYYY-MM documented)', (f) => {
+    expect(properties?.[f]).toBeDefined();
+    expect(properties?.[f]?.type).toBe('string');
+    expect(properties?.[f]?.format).toBeUndefined();
+    expect(properties?.[f]?.description).toMatch(/YYYY-MM/);
+  });
+
+  it('createdAt still uses datetime format', () => {
+    expect(properties?.createdAt?.format).toBe('datetime');
   });
 });
 

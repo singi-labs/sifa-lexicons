@@ -52,8 +52,7 @@
           },
           "publishedAt": {
             "type": "string",
-            "format": "datetime",
-            "description": "Publication date."
+            "description": "Publication date in YYYY-MM or YYYY-MM-DD format."
           },
           "createdAt": {
             "type": "string",

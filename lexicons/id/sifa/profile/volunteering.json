@@ -48,13 +48,11 @@
           },
           "startedAt": {
             "type": "string",
-            "format": "datetime",
-            "description": "Start date of the volunteer role."
+            "description": "Start date of the volunteer role in YYYY-MM or YYYY-MM-DD format."
           },
           "endedAt": {
             "type": "string",
-            "format": "datetime",
-            "description": "End date. Omit if currently volunteering."
+            "description": "End date in YYYY-MM or YYYY-MM-DD format. Omit if currently volunteering."
           },
           "createdAt": {
             "type": "string",

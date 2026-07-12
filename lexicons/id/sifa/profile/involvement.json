@@ -64,6 +64,22 @@
             "description": "Public artifacts proving the involvement (PRs, releases, talk recordings, published translations).",
             "items": { "type": "ref", "ref": "id.sifa.defs#artifactLink" }
           },
+          "entityRef": {
+            "type": "string",
+            "format": "uri",
+            "description": "Portable, app-neutral identifier for the upstream the user selected from a resolver dropdown: a Wikidata Q-ID URI (http://www.wikidata.org/entity/Q...), a ROR URI, or an LEI URI. Enables deterministic resolution to a canonical entity even before the upstream claims an ATproto account. Absent for free-text or one-off entries."
+          },
+          "location": {
+            "type": "ref",
+            "ref": "community.lexicon.location.address",
+            "description": "Where the involvement takes place. Sifa enforces ISO 3166-1 alpha-2 country codes at the app layer."
+          },
+          "skills": {
+            "type": "array",
+            "items": { "type": "ref", "ref": "id.sifa.defs#skillRef" },
+            "description": "Skills demonstrated by this involvement. Each entry is a URI reference to an id.sifa.profile.skill record owned by the same DID.",
+            "maxLength": 50
+          },
           "labels": {
             "type": "union",
             "description": "Self-label values for this record.",

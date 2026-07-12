@@ -47,8 +47,7 @@
           },
           "completedAt": {
             "type": "string",
-            "format": "datetime",
-            "description": "Date the course was completed. Omit if unknown."
+            "description": "Date the course was completed, in YYYY-MM or YYYY-MM-DD format. Omit if unknown."
           },
           "createdAt": {
             "type": "string",

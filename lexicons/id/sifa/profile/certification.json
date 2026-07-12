@@ -47,13 +47,11 @@
           },
           "issuedAt": {
             "type": "string",
-            "format": "datetime",
-            "description": "Date the certification was issued."
+            "description": "Date the certification was issued, in YYYY-MM or YYYY-MM-DD format."
           },
           "expiresAt": {
             "type": "string",
-            "format": "datetime",
-            "description": "Expiry date. Omit if the certification does not expire."
+            "description": "Expiry date in YYYY-MM or YYYY-MM-DD format. Omit if the certification does not expire."
           },
           "labels": {
             "type": "union",

@@ -42,8 +42,7 @@
           },
           "awardedAt": {
             "type": "string",
-            "format": "datetime",
-            "description": "Date the honor was awarded."
+            "description": "Date the honor was awarded, in YYYY-MM or YYYY-MM-DD format."
           },
           "createdAt": {
             "type": "string",

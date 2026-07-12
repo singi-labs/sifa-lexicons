@@ -45,6 +45,11 @@
             "format": "at-uri",
             "description": "AT-URI of the associated id.sifa.profile.certification record (the credential earned from this course), if applicable. A plain at-uri rather than a strongRef so the link tracks the live certification across edits."
           },
+          "completedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Date the course was completed. Omit if unknown."
+          },
           "createdAt": {
             "type": "string",
             "format": "datetime",

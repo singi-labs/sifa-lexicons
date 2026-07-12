@@ -329,6 +329,27 @@ describe.each([
   });
 });
 
+describe('Course completedAt field', () => {
+  const courseLexicon = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.course');
+  const properties = courseLexicon?.doc.defs.main.record?.properties;
+  const required = courseLexicon?.doc.defs.main.record?.required ?? [];
+
+  it('completedAt exists as an optional string with datetime format', () => {
+    expect(properties?.completedAt).toBeDefined();
+    expect(properties?.completedAt?.type).toBe('string');
+    expect(properties?.completedAt?.format).toBe('datetime');
+  });
+
+  it('completedAt is not required (many courses have no recorded date)', () => {
+    expect(required).not.toContain('completedAt');
+  });
+
+  it('completedAt has a description', () => {
+    expect(properties?.completedAt?.description).toBeDefined();
+    expect(properties?.completedAt?.description!.length).toBeGreaterThan(0);
+  });
+});
+
 describe('Publication subtitle field', () => {
   const publicationLexicon = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.publication');
   const properties = publicationLexicon?.doc.defs.main.record?.properties;

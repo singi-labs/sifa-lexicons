@@ -1,0 +1,65 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.org.profile",
+  "description": "Self-declared organization profile. Lives in the organization's PDS. Presence of this record marks the account as presenting as an organization; trust is layered separately by AppViews (Sifa's rendering floor, verification labels, registry matches). Creating this record asserts that the account holder is authorized to represent this organization. The assertion carries Terms-of-Service and legal weight but no trust weight on its own. Independently evaluable by any AppView with zero Sifa dependency.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "The organization's self-declared profile. Singleton: one org declaration per DID, following the app.bsky.actor.profile pattern.",
+      "key": "literal:self",
+      "record": {
+        "type": "object",
+        "required": ["name", "createdAt"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxGraphemes": 200,
+            "maxLength": 2000,
+            "description": "Organization display name."
+          },
+          "description": {
+            "type": "string",
+            "maxGraphemes": 5000,
+            "maxLength": 50000,
+            "description": "Organization description / about."
+          },
+          "logo": {
+            "type": "blob",
+            "accept": ["image/png", "image/jpeg"],
+            "maxSize": 1000000,
+            "description": "Organization logo image."
+          },
+          "website": {
+            "type": "string",
+            "format": "uri",
+            "description": "Official website URL."
+          },
+          "entityRefs": {
+            "type": "array",
+            "maxLength": 20,
+            "items": {
+              "type": "string",
+              "format": "uri"
+            },
+            "description": "Canonical external entity identifiers this account represents: Wikidata Q-ID URIs (http://www.wikidata.org/entity/Q...), ROR URIs, or LEI URIs. Self-declared; downstream validation (registry match) confirms or fails each binding."
+          },
+          "contact": {
+            "type": "string",
+            "description": "Contact email address for the organization. NOT rendered publicly; used for notifications only. Validated as an email address at the app layer."
+          },
+          "labels": {
+            "type": "union",
+            "description": "Self-label values for this organization profile.",
+            "refs": ["com.atproto.label.defs#selfLabels"]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when this organization profile was originally created."
+          }
+        }
+      }
+    }
+  }
+}

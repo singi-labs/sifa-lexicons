@@ -1,0 +1,73 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.org.employmentAttestation",
+  "description": "An organization's attestation that a person is or was employed in a specific position. Lives in the organization's PDS; the organization is implicit (whoever owns the repository). The org asserts this person held the described role. The position identity is pinned via a snapshot triple (title, startedAt, and the entity identifier) so editing the pinned identity fields on the referenced position record voids this attestation. Never pins the free-text company name, which can change in a rebrand without invalidating the attestation.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Record representing an organization's attestation of a person's employment.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["subject", "position", "status", "title", "startedAt", "createdAt"],
+        "properties": {
+          "subject": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the employee whose employment is being attested."
+          },
+          "position": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "StrongRef to the id.sifa.profile.position record being attested. The AT-URI identifies the position, and the CID pins the version for provenance."
+          },
+          "status": {
+            "type": "string",
+            "description": "Whether the employment is current or past. Accepted values: 'current' or 'past'."
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxGraphemes": 256,
+            "maxLength": 2560,
+            "description": "Job title snapshot from the position record at attestation time. Part of the identity triple: if the position's title later changes, this attestation is voided (the role identity changed)."
+          },
+          "startedAt": {
+            "type": "string",
+            "description": "Start date snapshot in YYYY-MM or YYYY-MM-DD format, mirroring the position lexicon's freeform date shape. Part of the identity triple."
+          },
+          "entityRef": {
+            "type": "string",
+            "format": "uri",
+            "description": "Portable entity identifier snapshot (Wikidata Q-ID URI, ROR URI, or LEI URI) from the position record. Pin this when the position carried an entityRef. Part of the identity triple. Never pin the free-text company name."
+          },
+          "companyDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the company's ATproto account snapshot from the position record. Pin this when the position carried a companyDid but no entityRef. Part of the identity triple."
+          },
+          "endedAt": {
+            "type": "string",
+            "description": "End date in YYYY-MM or YYYY-MM-DD format. Required context when status is 'past'."
+          },
+          "comment": {
+            "type": "string",
+            "maxGraphemes": 300,
+            "maxLength": 3000,
+            "description": "Optional brief comment from the organization."
+          },
+          "labels": {
+            "type": "union",
+            "description": "Self-label values for this attestation record.",
+            "refs": ["com.atproto.label.defs#selfLabels"]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when this attestation was created."
+          }
+        }
+      }
+    }
+  }
+}

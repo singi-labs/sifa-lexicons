@@ -159,7 +159,16 @@ describe('Record key conventions', () => {
     expect(selfLexicon!.doc.defs.main.key).toBe('literal:self');
   });
 
-  it.each(recordLexicons.filter((l) => l.doc.id !== 'id.sifa.profile.self').map((l) => [l.doc.id]))(
+  it('id.sifa.org.profile uses "literal:self" key (singleton)', () => {
+    const orgLexicon = recordLexicons.find((l) => l.doc.id === 'id.sifa.org.profile');
+    expect(orgLexicon).toBeDefined();
+    expect(orgLexicon!.doc.defs.main.key).toBe('literal:self');
+  });
+
+  // Singleton records (literal:self) are excluded from the tid-key check.
+  const SINGLETON_LEXICONS = new Set(['id.sifa.profile.self', 'id.sifa.org.profile']);
+
+  it.each(recordLexicons.filter((l) => !SINGLETON_LEXICONS.has(l.doc.id)).map((l) => [l.doc.id]))(
     '%s uses "tid" key (collection)',
     (nsid) => {
       const lexicon = recordLexicons.find((l) => l.doc.id === nsid);
@@ -210,6 +219,8 @@ const DATE_ONLY_FIELDS = new Set([
   'id.sifa.profile.course.completedAt',
   'id.sifa.profile.honor.awardedAt',
   'id.sifa.profile.publication.publishedAt',
+  'id.sifa.org.employmentAttestation.startedAt',
+  'id.sifa.org.employmentAttestation.endedAt',
 ]);
 
 describe('Timestamps use datetime format', () => {

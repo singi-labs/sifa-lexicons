@@ -319,8 +319,9 @@
           }
         },
         "pdsProvider": {
-          "type": "string",
-          "description": "Human-readable name of the account's PDS provider."
+          "type": "ref",
+          "ref": "#pdsProviderView",
+          "description": "The account PDS provider."
         },
         "claimed": {
           "type": "boolean",
@@ -1173,6 +1174,21 @@
         "label": {
           "type": "string",
           "description": "Optional display label."
+        }
+      }
+    },
+    "pdsProviderView": {
+      "type": "object",
+      "description": "A PDS provider descriptor.",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Human-readable provider name."
+        },
+        "host": {
+          "type": "string",
+          "description": "PDS hostname."
         }
       }
     }

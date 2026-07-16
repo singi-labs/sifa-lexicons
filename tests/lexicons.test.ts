@@ -695,6 +695,93 @@ describe('id.sifa.defs involvement additions', () => {
   });
 });
 
+describe('id.sifa.getProfileView query lexicon', () => {
+  interface XrpcDoc {
+    defs: {
+      main: {
+        type: string;
+        parameters?: { required?: string[]; properties?: Record<string, LexiconProperty> };
+        output?: { encoding?: string; schema?: LexiconProperty };
+        errors?: { name: string; description?: string }[];
+      };
+      profileView?: {
+        type: string;
+        required?: string[];
+        properties?: Record<string, LexiconProperty>;
+      };
+    } & Record<string, { type: string }>;
+  }
+  const doc = JSON.parse(
+    readFileSync(join(LEXICONS_DIR, 'getProfileView.json'), 'utf-8'),
+  ) as XrpcDoc;
+
+  it('main is a query with a required at-identifier actor param', () => {
+    expect(doc.defs.main.type).toBe('query');
+    expect(doc.defs.main.parameters?.required).toContain('actor');
+    expect(doc.defs.main.parameters?.properties?.actor?.type).toBe('string');
+    expect(doc.defs.main.parameters?.properties?.actor?.format).toBe('at-identifier');
+  });
+
+  it('outputs application/json referencing #profileView', () => {
+    expect(doc.defs.main.output?.encoding).toBe('application/json');
+    expect(doc.defs.main.output?.schema?.type).toBe('ref');
+    expect(doc.defs.main.output?.schema?.ref).toBe('#profileView');
+  });
+
+  it('declares a ProfileNotFound error', () => {
+    expect(doc.defs.main.errors?.map((e) => e.name)).toContain('ProfileNotFound');
+  });
+
+  it('profileView requires did and handle', () => {
+    expect(doc.defs.profileView?.type).toBe('object');
+    expect(doc.defs.profileView?.required).toEqual(expect.arrayContaining(['did', 'handle']));
+    expect(doc.defs.profileView?.properties?.did?.format).toBe('did');
+    expect(doc.defs.profileView?.properties?.handle?.format).toBe('handle');
+  });
+
+  it.each([
+    ['positions', '#positionView'],
+    ['education', '#educationView'],
+    ['skills', '#skillView'],
+    ['certifications', '#certificationView'],
+    ['projects', '#projectView'],
+    ['volunteering', '#volunteeringView'],
+    ['involvement', '#involvementView'],
+    ['publications', '#publicationView'],
+    ['courses', '#courseView'],
+    ['presentations', '#presentationView'],
+    ['presentationDeliveries', '#presentationDeliveryView'],
+    ['honors', '#honorView'],
+    ['languages', '#languageView'],
+    ['externalAccounts', '#externalAccountView'],
+    ['locations', '#locationView'],
+    ['activeApps', '#activeAppView'],
+  ] as const)('profileView.%s is an array of %s', (field, ref) => {
+    const prop = doc.defs.profileView?.properties?.[field];
+    expect(prop?.type).toBe('array');
+    expect(prop?.items?.type).toBe('ref');
+    expect(prop?.items?.ref).toBe(ref);
+  });
+
+  it('every local def referenced by the view is defined in the document', () => {
+    const defNames = new Set(Object.keys(doc.defs));
+    const localRefs = new Set<string>();
+    const walk = (node: unknown): void => {
+      if (!node || typeof node !== 'object') return;
+      for (const [key, value] of Object.entries(node as Record<string, unknown>)) {
+        if (key === 'ref' && typeof value === 'string' && value.startsWith('#')) {
+          localRefs.add(value.slice(1));
+        }
+        walk(value);
+      }
+    };
+    walk(doc.defs);
+    for (const ref of localRefs) {
+      expect(defNames, `local ref #${ref} must resolve to a def`).toContain(ref);
+    }
+  });
+});
+
 describe('openToWorkStatus commissions token', () => {
   interface DefsDoc {
     defs: {

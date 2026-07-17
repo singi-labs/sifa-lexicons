@@ -95,6 +95,12 @@ Every schema in this repo is published as a `com.atproto.lexicon.schema` record 
 | `id.sifa.authConnection`    | Connection management                  |
 | `id.sifa.authProject`       | Project creation and team management   |
 
+**Query methods**
+
+| NSID                     | Purpose                                           |
+| ------------------------ | ------------------------------------------------- |
+| `id.sifa.getProfileView` | Aggregated public profile view served by AppViews |
+
 **Shared types**
 
 | NSID           | Purpose                 |

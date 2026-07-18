@@ -558,6 +558,60 @@ describe('community location adoption', () => {
   }
 });
 
+describe('id.sifa.profile.presentation coverImage field', () => {
+  const lexicon = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.presentation');
+  const properties = lexicon?.doc.defs.main.record?.properties;
+  const required = lexicon?.doc.defs.main.record?.required ?? [];
+
+  it('lexicon exists', () => {
+    expect(lexicon).toBeDefined();
+  });
+
+  it('coverImage exists as an optional blob field', () => {
+    expect(properties?.coverImage).toBeDefined();
+    expect(properties?.coverImage?.type).toBe('blob');
+    expect(required).not.toContain('coverImage');
+  });
+
+  it('coverImage accepts png, jpeg, and webp', () => {
+    expect(properties?.coverImage?.accept).toEqual(['image/png', 'image/jpeg', 'image/webp']);
+  });
+
+  it('coverImage caps at 2MB', () => {
+    expect(properties?.coverImage?.maxSize).toBe(2000000);
+  });
+
+  it('coverImage has a description', () => {
+    expect(properties?.coverImage?.description).toBeDefined();
+    expect(properties?.coverImage?.description!.length).toBeGreaterThan(0);
+  });
+});
+
+describe('id.sifa.profile.presentationDelivery address field', () => {
+  const lexicon = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.presentationDelivery');
+  const properties = lexicon?.doc.defs.main.record?.properties;
+  const required = lexicon?.doc.defs.main.record?.required ?? [];
+
+  it('lexicon exists', () => {
+    expect(lexicon).toBeDefined();
+  });
+
+  it('address is an optional community.lexicon.location.address ref', () => {
+    expect(properties?.address?.type).toBe('ref');
+    expect(properties?.address?.ref).toBe('community.lexicon.location.address');
+    expect(required).not.toContain('address');
+  });
+
+  it('retains the legacy free-text location string for dual-read', () => {
+    expect(properties?.location?.type).toBe('string');
+  });
+
+  it('address has a description', () => {
+    expect(properties?.address?.description).toBeDefined();
+    expect(properties?.address?.description!.length).toBeGreaterThan(0);
+  });
+});
+
 describe('id.sifa.profile.involvement lexicon', () => {
   const involvement = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.involvement');
   const properties = involvement?.doc.defs.main.record?.properties;

@@ -50,7 +50,12 @@
             "type": "string",
             "maxGraphemes": 256,
             "maxLength": 2560,
-            "description": "Display location (city, country, or venue). On the linked branch, composed from the calendar event's structured locations."
+            "description": "Legacy free-text display location (city, country, or venue), retained for dual-read. Prefer the structured address field. On the linked branch, composed from the calendar event's structured locations."
+          },
+          "address": {
+            "type": "ref",
+            "ref": "community.lexicon.location.address",
+            "description": "Structured delivery location. Sifa enforces ISO 3166-1 alpha-2 country codes at the app layer and surfaces country (for a flag) and locality (city); region, postalCode, and street are unused for deliveries. Takes precedence over the legacy location string when present."
           },
           "mode": {
             "type": "string",

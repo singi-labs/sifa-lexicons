@@ -836,6 +836,83 @@ describe('id.sifa.getProfileView query lexicon', () => {
   });
 });
 
+describe('id.sifa.org.profile addresses, companySize, links fields', () => {
+  const orgProfile = recordLexicons.find((l) => l.doc.id === 'id.sifa.org.profile');
+  const properties = orgProfile?.doc.defs.main.record?.properties;
+  const required = orgProfile?.doc.defs.main.record?.required ?? [];
+
+  it('lexicon exists', () => {
+    expect(orgProfile).toBeDefined();
+  });
+
+  it('none of the three new fields are required (all additive/optional)', () => {
+    expect(required).not.toContain('addresses');
+    expect(required).not.toContain('companySize');
+    expect(required).not.toContain('links');
+  });
+
+  describe('addresses', () => {
+    it('is an array of community.lexicon.location.address refs with maxLength 10', () => {
+      expect(properties?.addresses?.type).toBe('array');
+      expect(properties?.addresses?.maxLength).toBe(10);
+      expect(properties?.addresses?.items?.type).toBe('ref');
+      expect(properties?.addresses?.items?.ref).toBe('community.lexicon.location.address');
+    });
+
+    it('has a description', () => {
+      expect(properties?.addresses?.description).toBeDefined();
+      expect(properties?.addresses?.description!.length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('companySize', () => {
+    it('is a string with open knownValues (not a hard enum)', () => {
+      expect(properties?.companySize?.type).toBe('string');
+      expect((properties?.companySize as { knownValues?: string[] })?.knownValues).toEqual([
+        '1-10',
+        '11-50',
+        '51-200',
+        '201-500',
+        '501-1000',
+        '1001-5000',
+        '5001-10000',
+        '10001+',
+      ]);
+      expect((properties?.companySize as { enum?: string[] })?.enum).toBeUndefined();
+    });
+
+    it('has a description', () => {
+      expect(properties?.companySize?.description).toBeDefined();
+      expect(properties?.companySize?.description!.length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('links', () => {
+    it('is an array of inline objects with maxLength 10', () => {
+      expect(properties?.links?.type).toBe('array');
+      expect(properties?.links?.maxLength).toBe(10);
+      expect(properties?.links?.items?.type).toBe('object');
+    });
+
+    it('each link requires name and url', () => {
+      expect(properties?.links?.items?.required).toEqual(['name', 'url']);
+    });
+
+    it('name is a capped string (60 graphemes)', () => {
+      const name = properties?.links?.items?.properties?.name;
+      expect(name?.type).toBe('string');
+      expect(name?.maxGraphemes).toBe(60);
+    });
+
+    it('url is a uri-format string capped at 2048', () => {
+      const url = properties?.links?.items?.properties?.url;
+      expect(url?.type).toBe('string');
+      expect(url?.format).toBe('uri');
+      expect(url?.maxLength).toBe(2048);
+    });
+  });
+});
+
 describe('openToWorkStatus commissions token', () => {
   interface DefsDoc {
     defs: {

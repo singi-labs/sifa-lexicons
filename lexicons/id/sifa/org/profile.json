@@ -48,6 +48,52 @@
             "type": "string",
             "description": "Contact email address for the organization. NOT rendered publicly; used for notifications only. Validated as an email address at the app layer."
           },
+          "addresses": {
+            "type": "array",
+            "maxLength": 10,
+            "items": {
+              "type": "ref",
+              "ref": "community.lexicon.location.address"
+            },
+            "description": "Physical addresses for the organization (headquarters, offices). Sifa enforces ISO 3166-1 alpha-2 country codes at the app layer."
+          },
+          "companySize": {
+            "type": "string",
+            "knownValues": [
+              "1-10",
+              "11-50",
+              "51-200",
+              "201-500",
+              "501-1000",
+              "1001-5000",
+              "5001-10000",
+              "10001+"
+            ],
+            "description": "Self-selected headcount range for the organization. A declared bucket, never a calculated count. Open knownValues so future ranges do not break older records."
+          },
+          "links": {
+            "type": "array",
+            "maxLength": 10,
+            "items": {
+              "type": "object",
+              "required": ["name", "url"],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "maxGraphemes": 60,
+                  "maxLength": 600,
+                  "description": "Display label for the link."
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "maxLength": 2048,
+                  "description": "Destination URL."
+                }
+              }
+            },
+            "description": "Featured links or content surfaced on the organization profile."
+          },
           "labels": {
             "type": "union",
             "description": "Self-label values for this organization profile.",

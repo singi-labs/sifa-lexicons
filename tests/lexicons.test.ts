@@ -105,6 +105,7 @@ const USER_TEXT_FIELDS = new Set([
   'companyName',
   'title',
   'subtitle',
+  'subCategory',
   'institution',
   'name',
   'comment',
@@ -412,6 +413,35 @@ describe('Publication subtitle field', () => {
   it('subtitle has a description', () => {
     expect(properties?.subtitle?.description).toBeDefined();
     expect(properties?.subtitle?.description!.length).toBeGreaterThan(0);
+  });
+});
+
+describe('Skill subCategory field', () => {
+  const skillLexicon = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.skill');
+  const properties = skillLexicon?.doc.defs.main.record?.properties;
+  const required = skillLexicon?.doc.defs.main.record?.required ?? [];
+
+  it('subCategory exists as an optional string', () => {
+    expect(properties?.subCategory).toBeDefined();
+    expect(properties?.subCategory?.type).toBe('string');
+  });
+
+  it('subCategory is freeform (no knownValues, unlike category)', () => {
+    expect((properties?.subCategory as { knownValues?: string[] })?.knownValues).toBeUndefined();
+  });
+
+  it('subCategory matches the name field length constraints (64/640)', () => {
+    expect(properties?.subCategory?.maxGraphemes).toBe(64);
+    expect(properties?.subCategory?.maxLength).toBe(640);
+  });
+
+  it('subCategory is not required (skills need no grouping)', () => {
+    expect(required).not.toContain('subCategory');
+  });
+
+  it('subCategory description mentions the user-defined grouping under category', () => {
+    expect(properties?.subCategory?.description).toBeDefined();
+    expect(properties?.subCategory?.description).toMatch(/category/i);
   });
 });
 

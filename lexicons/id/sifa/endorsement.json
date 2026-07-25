@@ -38,6 +38,16 @@
             "type": "string",
             "format": "datetime",
             "description": "Client-declared timestamp when this endorsement was created."
+          },
+          "positionRef": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "Optional reference to the id.sifa.position record this endorsement relates to. When present, indicates the endorsement is contextualised to a specific role rather than a general skill."
+          },
+          "credentialRef": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "Optional reference to an education or credential record this endorsement confirms. May be set alongside positionRef when the endorsement relates to both a role and a credential."
           }
         }
       }

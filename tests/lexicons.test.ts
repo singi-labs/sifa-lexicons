@@ -19,6 +19,7 @@ interface LexiconProperty {
   items?: LexiconProperty;
   properties?: Record<string, LexiconProperty>;
   required?: string[];
+  default?: boolean;
 }
 
 interface LexiconDef {
@@ -639,6 +640,24 @@ describe('id.sifa.profile.presentationDelivery address field', () => {
   it('address has a description', () => {
     expect(properties?.address?.description).toBeDefined();
     expect(properties?.address?.description!.length).toBeGreaterThan(0);
+  });
+});
+
+describe('id.sifa.org.profile lexicon', () => {
+  const orgProfile = recordLexicons.find((l) => l.doc.id === 'id.sifa.org.profile');
+  const properties = orgProfile?.doc.defs.main.record?.properties;
+  const required = orgProfile?.doc.defs.main.record?.required ?? [];
+
+  it('personalProfileVisible is an optional boolean defaulting to false', () => {
+    expect(properties?.personalProfileVisible?.type).toBe('boolean');
+    expect(properties?.personalProfileVisible?.default).toBe(false);
+    expect(required).not.toContain('personalProfileVisible');
+  });
+
+  it('personalProfileVisible describes the sole-trader case it exists for', () => {
+    const description = properties?.personalProfileVisible?.description ?? '';
+    expect(description).toMatch(/sole trader/i);
+    expect(description).toMatch(/personal profile/i);
   });
 });
 

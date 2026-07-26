@@ -48,6 +48,11 @@
             "type": "string",
             "description": "Contact email address for the organization. NOT rendered publicly; used for notifications only. Validated as an email address at the app layer."
           },
+          "personalProfileVisible": {
+            "type": "boolean",
+            "default": false,
+            "description": "Whether the account holder's personal profile stays publicly visible alongside this organization profile. For sole traders and one-person businesses whose personal domain is also their trade name: the person and the organization are the same account, and both pages render. When false or absent, the account presents solely as an organization and the personal profile is not rendered."
+          },
           "labels": {
             "type": "union",
             "description": "Self-label values for this organization profile.",

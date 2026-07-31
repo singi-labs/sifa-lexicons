@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "id.sifa.endorsement.confirmation",
-  "description": "Confirmation that a skill endorsement should be displayed on the subject's profile. Lives in the subject's PDS. Without this record, the endorsement exists but is not shown on the profile.",
+  "description": "Confirmation that a skill endorsement should be displayed on the subject's profile. Lives in the subject's PDS. Without this record, the endorsement exists but is not shown on the profile. When the endorsement proposed a new skill, this record also links the skill it materialised into.",
   "defs": {
     "main": {
       "type": "record",
@@ -15,6 +15,11 @@
             "type": "ref",
             "ref": "com.atproto.repo.strongRef",
             "description": "StrongRef to the id.sifa.endorsement record being confirmed. The AT-URI identifies the endorsement, and the CID pins the version at confirmation time."
+          },
+          "skill": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "StrongRef to the id.sifa.profile.skill record this endorsement applies to. Set when confirming an endorsement that proposed a skill: the subject creates the skill record and links it here. The endorser cannot record this themselves, because the skill lives in the subject's repository and did not exist when they endorsed. May point at a skill the subject already had, when the proposed name matched one."
           },
           "createdAt": {
             "type": "string",

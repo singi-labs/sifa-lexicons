@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "id.sifa.endorsement",
-  "description": "An endorsement of another user's skill. Lives in the endorser's PDS; the endorser is implicit (whoever owns the repository).",
+  "description": "An endorsement of another user's skill. Lives in the endorser's PDS; the endorser is implicit (whoever owns the repository). May endorse a skill the subject already lists, or propose one they do not.",
   "defs": {
     "main": {
       "type": "record",
@@ -9,7 +9,7 @@
       "key": "tid",
       "record": {
         "type": "object",
-        "required": ["subject", "skill", "skillName", "createdAt"],
+        "required": ["subject", "skillName", "createdAt"],
         "properties": {
           "subject": {
             "type": "string",
@@ -19,14 +19,14 @@
           "skill": {
             "type": "ref",
             "ref": "com.atproto.repo.strongRef",
-            "description": "StrongRef to the id.sifa.profile.skill record being endorsed. The AT-URI identifies the skill, and the CID pins the version."
+            "description": "StrongRef to the id.sifa.profile.skill record being endorsed. The AT-URI identifies the skill, and the CID pins the version. Optional: when absent, the endorser is proposing a skill the subject has not listed, named by skillName. The subject materialises the skill record on acceptance and links it from their id.sifa.endorsement.confirmation, since only they can write to their own repository."
           },
           "skillName": {
             "type": "string",
             "minLength": 1,
             "maxGraphemes": 64,
             "maxLength": 640,
-            "description": "Skill name at endorsement time, captured from the endorsed record. This is the anchor field: if the skill is later renamed, this value lets the AppView detect that the endorsed claim may no longer match the current record. Stored in the endorser's PDS, so the endorsee cannot modify it."
+            "description": "Skill name at endorsement time. When skill is present this is captured from the endorsed record and acts as the anchor: if the skill is later renamed, this value lets the AppView detect that the endorsed claim may no longer match the current record. When skill is absent this is the proposed name for a skill the subject does not yet have. Stored in the endorser's PDS, so the endorsee cannot modify it."
           },
           "comment": {
             "type": "string",

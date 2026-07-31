@@ -922,6 +922,19 @@ describe('id.sifa.confirmation lexicon', () => {
     expect(properties?.createdAt?.format).toBe('datetime');
   });
 
+  // Without a snapshot, a claimer can rename "Volunteer bake sale" to anything
+  // they like after you confirm and your record still vouches for it. Mirrors
+  // skillName on id.sifa.endorsement, which exists for the same reason.
+  it('subjectName snapshots what was confirmed', () => {
+    expect(properties?.subjectName?.type).toBe('string');
+    expect(properties?.subjectName?.maxGraphemes).toBe(300);
+    expect(required).not.toContain('subjectName');
+  });
+
+  it('subjectName description explains the drift check it enables', () => {
+    expect(properties?.subjectName?.description ?? '').toMatch(/renamed|changed|drift/i);
+  });
+
   // Third-party implementers need to know the claim is readable from the
   // claimer's repo before anyone confirms it. That is inherent to atproto and
   // should not be a surprise.
@@ -995,6 +1008,17 @@ describe('id.sifa.profile.project members field', () => {
 
   it('members caps at 50', () => {
     expect(properties?.members?.maxLength).toBe(50);
+  });
+
+  // A named person's own profile must never render a record from someone
+  // else's repo: the author could rename it to anything at any time. They keep
+  // their own entry and link it back with projectRef.
+  it('members description rules out rendering this record on the named person profile', () => {
+    expect(properties?.members?.description ?? '').toMatch(/own record|their own/i);
+  });
+
+  it('projectRef accepts another persons profile.project, not only project.self', () => {
+    expect(properties?.projectRef?.description ?? '').toContain('id.sifa.profile.project');
   });
 
   // Naming someone is a claim, not a fact. The lexicon has to say so, because

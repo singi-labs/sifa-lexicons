@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "id.sifa.confirmation",
-  "description": "Confirmation that a record naming you is accurate. Lives in the PDS of the person who was named, never in the claimer's. One record type serves every people-link Sifa supports: co-speaker credits on a presentation delivery, membership of a project, and further relations as they are added. The claim itself is public in the claimer's repository from the moment it is written, before and regardless of any confirmation. What confirmation changes is display: an unconfirmed claim renders without the named person's display name, avatar, or profile link, and never appears on their own profile.",
+  "description": "Confirmation that a record naming you is accurate. Lives in the PDS of the person who was named, never in the claimer's. One record type serves every people-link Sifa supports: co-speaker credits on a presentation delivery, membership of a project, and further relations as they are added. The claim itself is public in the claimer's repository from the moment it is written, before and regardless of any confirmation. What confirmation changes is display: an unconfirmed claim renders without the named person's display name, avatar, or profile link. Confirmation does not put the claimer's record on the named person's profile, and consumers must not render it there. That record belongs to the claimer, who can edit or rename it at will; a profile shows only records its owner controls.",
   "defs": {
     "main": {
       "type": "record",
@@ -20,6 +20,12 @@
             "type": "ref",
             "ref": "id.sifa.defs#confirmationRelation",
             "description": "What is being confirmed. Open set, so a consumer that does not recognise the relation can still tell that the named person affirmed something."
+          },
+          "subjectName": {
+            "type": "string",
+            "maxGraphemes": 300,
+            "maxLength": 3000,
+            "description": "Name or title the subject record carried at confirmation time: the project name, the presentation title, and so on. Stored here, in the confirming person's repository, so the claimer cannot alter it. Lets a consumer detect that the claim has drifted since it was affirmed, and flag or withdraw the confirmation when the subject is later renamed into something the person never agreed to."
           },
           "createdAt": {
             "type": "string",

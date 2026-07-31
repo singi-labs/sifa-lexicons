@@ -25,6 +25,7 @@
             "id.sifa.profile.language",
             "id.sifa.endorsement",
             "id.sifa.endorsement.confirmation",
+            "id.sifa.confirmation",
             "id.sifa.graph.follow"
           ]
         }

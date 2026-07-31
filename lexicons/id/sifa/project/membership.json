@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "id.sifa.project.membership",
-  "description": "Acceptance of a project team invitation. Written by the invited user in their own PDS. References the id.sifa.project.member invitation record. Both records existing = confirmed team member. Either party can delete their record to revoke membership.",
+  "description": "DEPRECATED, never implemented. Acceptance of an id.sifa.project.member invitation, written by the invited user in their own PDS. Superseded by the generic id.sifa.confirmation record, which affirms any record naming you rather than project invitations alone. Retained so the published schema record keeps resolving; write id.sifa.confirmation instead.",
   "defs": {
     "main": {
       "type": "record",

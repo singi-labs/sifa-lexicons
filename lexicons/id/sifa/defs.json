@@ -570,6 +570,47 @@
       "description": "Project is archived and no longer active."
     },
 
+    "confirmationRelation": {
+      "type": "string",
+      "description": "What an id.sifa.confirmation record affirms. Open set.",
+      "knownValues": ["id.sifa.defs#coSpeaker", "id.sifa.defs#projectMember"]
+    },
+    "coSpeaker": {
+      "type": "token",
+      "description": "The named person presented alongside the claimer at the referenced id.sifa.profile.presentationDelivery occasion."
+    },
+    "projectMember": {
+      "type": "token",
+      "description": "The named person worked on the referenced id.sifa.profile.project."
+    },
+    "projectMemberRef": {
+      "type": "object",
+      "description": "Another person named as a member of a project. A claim by the record author, not a fact: it carries the named person's display name, avatar, and profile link only once they publish a matching id.sifa.confirmation.",
+      "required": ["did"],
+      "properties": {
+        "did": {
+          "type": "string",
+          "format": "did",
+          "description": "DID of the person named as a project member. Any atproto account is allowed."
+        },
+        "role": {
+          "type": "string",
+          "description": "Role the named person held on the project. Display only: it grants no write access to the project record, which lives in the author's repository.",
+          "knownValues": [
+            "id.sifa.defs#projectOwner",
+            "id.sifa.defs#projectCore",
+            "id.sifa.defs#projectContributor"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "maxGraphemes": 128,
+          "maxLength": 1280,
+          "description": "Optional title within the project (e.g. 'Lead Designer', 'Backend Engineer')."
+        }
+      }
+    },
+
     "externalRecordRef": {
       "type": "object",
       "description": "A reference to a record in another repository or lexicon by AT-URI. The CID is optional: it pins a specific version as an integrity hint, but consumers should resolve the AT-URI live so the reference tracks edits to the target.",

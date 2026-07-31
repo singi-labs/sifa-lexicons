@@ -32,12 +32,21 @@
           "projectRef": {
             "type": "ref",
             "ref": "com.atproto.repo.strongRef",
-            "description": "Reference to the first-class id.sifa.project.self record, if this personal project entry corresponds to a collaborative project."
+            "description": "Reference to the same project as recorded elsewhere: another person's id.sifa.profile.project entry for the work you shared, or a first-class id.sifa.project.self record. Set when you were named as a member of someone else's entry and keep your own version of it, so consumers can tell the two describe one project instead of showing it twice."
           },
           "position": {
             "type": "ref",
             "ref": "com.atproto.repo.strongRef",
             "description": "Reference to the associated id.sifa.profile.position record, if applicable."
+          },
+          "members": {
+            "type": "array",
+            "maxLength": 50,
+            "items": {
+              "type": "ref",
+              "ref": "id.sifa.defs#projectMemberRef"
+            },
+            "description": "Other people who worked on this project. Each entry is a claim by the record author and is not self-verifying: the named person supplies the other half by publishing an id.sifa.confirmation record whose subject is this record and whose relation is id.sifa.defs#projectMember. Until they do, consumers must render the entry without their display name, avatar, or profile link. Confirming never puts this record on the named person's profile: it lives in the author's repository and the author can rename it at any time. A named person who wants the project on their profile keeps their own id.sifa.profile.project record and points its projectRef here."
           },
           "startedAt": {
             "type": "string",

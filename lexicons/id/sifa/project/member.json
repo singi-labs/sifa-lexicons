@@ -1,7 +1,7 @@
 {
   "lexicon": 1,
   "id": "id.sifa.project.member",
-  "description": "An invitation to join a project team, written by a project owner in their PDS. The invited user must create a corresponding id.sifa.project.membership record to confirm. Both records existing = confirmed team member.",
+  "description": "DEPRECATED, never implemented. An invitation to join a project team, written by a project owner in their PDS. Superseded by naming members inline on id.sifa.profile.project and having them affirm it with a generic id.sifa.confirmation record, which serves every people-link relation rather than only projects. Retained so the published schema record keeps resolving; write id.sifa.confirmation instead.",
   "defs": {
     "main": {
       "type": "record",

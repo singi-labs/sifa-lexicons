@@ -1,7 +1,7 @@
 {
   "$schema": "https://sifa.id/schemas/activity-tiers/v1.json",
   "version": "1.0.0",
-  "updated": "2026-05-28",
+  "updated": "2026-07-31",
   "tiers": {
     "creation": {
       "label": "Made",
@@ -296,6 +296,11 @@
       "app": "sifa",
       "notes": "Confirmation/acceptance of an endorsement received."
     },
+    "id.sifa.confirmation": {
+      "tier": "action",
+      "app": "sifa",
+      "notes": "Confirmation that a record naming the actor is accurate (co-speaker credit, project membership)."
+    },
     "id.sifa.graph.follow": { "tier": "action", "app": "sifa" },
     "id.sifa.graph.connection": {
       "tier": "creation",
@@ -303,8 +308,16 @@
       "notes": "Mutual professional connection record."
     },
     "id.sifa.project.self": { "tier": "creation", "app": "sifa" },
-    "id.sifa.project.member": { "tier": "creation", "app": "sifa" },
-    "id.sifa.project.membership": { "tier": "creation", "app": "sifa" },
+    "id.sifa.project.member": {
+      "tier": "creation",
+      "app": "sifa",
+      "notes": "Deprecated, never implemented. Superseded by id.sifa.confirmation."
+    },
+    "id.sifa.project.membership": {
+      "tier": "creation",
+      "app": "sifa",
+      "notes": "Deprecated, never implemented. Superseded by id.sifa.confirmation."
+    },
     "id.sifa.meeting": { "tier": "creation", "app": "sifa" },
     "id.sifa.authProfile": { "tier": "filtered", "app": "sifa", "notes": "OAuth scope record." },
     "id.sifa.authProfileAccess": {

@@ -71,19 +71,23 @@ Every schema in this repo is published as a `com.atproto.lexicon.schema` record 
 
 **Collaborative projects**
 
-| NSID                         | Purpose                                 |
-| ---------------------------- | --------------------------------------- |
-| `id.sifa.project.self`       | Collaborative project record            |
-| `id.sifa.project.member`     | Project team membership invitation      |
-| `id.sifa.project.membership` | Acceptance of a project team invitation |
+| NSID                         | Purpose                                |
+| ---------------------------- | -------------------------------------- |
+| `id.sifa.project.self`       | Collaborative project record           |
+| `id.sifa.project.member`     | Deprecated. Use `id.sifa.confirmation` |
+| `id.sifa.project.membership` | Deprecated. Use `id.sifa.confirmation` |
+
+Project members are named inline on `id.sifa.profile.project` and affirm the claim
+with an `id.sifa.confirmation` record in their own repository.
 
 **Social interactions**
 
-| NSID                               | Purpose                          |
-| ---------------------------------- | -------------------------------- |
-| `id.sifa.endorsement`              | Skill endorsements               |
-| `id.sifa.endorsement.confirmation` | Endorsement confirmations        |
-| `id.sifa.meeting`                  | Face-to-face meeting attestation |
+| NSID                               | Purpose                                          |
+| ---------------------------------- | ------------------------------------------------ |
+| `id.sifa.endorsement`              | Skill endorsements                               |
+| `id.sifa.endorsement.confirmation` | Endorsement confirmations                        |
+| `id.sifa.confirmation`             | Affirmation that a record naming you is accurate |
+| `id.sifa.meeting`                  | Face-to-face meeting attestation                 |
 
 **OAuth permission sets**
 

@@ -39,6 +39,15 @@
             "ref": "com.atproto.repo.strongRef",
             "description": "Reference to the associated id.sifa.profile.position record, if applicable."
           },
+          "members": {
+            "type": "array",
+            "maxLength": 50,
+            "items": {
+              "type": "ref",
+              "ref": "id.sifa.defs#projectMemberRef"
+            },
+            "description": "Other people who worked on this project. Each entry is a claim by the record author and is not self-verifying: the named person supplies the other half by publishing an id.sifa.confirmation record whose subject is this record and whose relation is id.sifa.defs#projectMember. Until they do, consumers must render the entry without their display name, avatar, or profile link, and must not show the project on their profile."
+          },
           "startedAt": {
             "type": "string",
             "description": "Project start date in YYYY-MM or YYYY-MM-DD format."

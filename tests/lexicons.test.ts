@@ -885,6 +885,138 @@ describe('id.sifa.getProfileView query lexicon', () => {
   });
 });
 
+describe('id.sifa.confirmation lexicon', () => {
+  const confirmation = recordLexicons.find((l) => l.doc.id === 'id.sifa.confirmation');
+  const properties = confirmation?.doc.defs.main.record?.properties;
+  const required = confirmation?.doc.defs.main.record?.required ?? [];
+
+  it('exists as a tid-keyed record', () => {
+    expect(confirmation).toBeDefined();
+    expect(confirmation!.doc.defs.main.type).toBe('record');
+    expect(confirmation!.doc.defs.main.key).toBe('tid');
+  });
+
+  it('requires subject, relation, and createdAt', () => {
+    expect(required).toEqual(['subject', 'relation', 'createdAt']);
+  });
+
+  // The subject strongRef deliberately carries no collection constraint: one
+  // confirmation record type serves co-speaker credits, project membership,
+  // and every people-link section we add later.
+  it('subject is a com.atproto.repo.strongRef', () => {
+    expect(properties?.subject?.type).toBe('ref');
+    expect(properties?.subject?.ref).toBe('com.atproto.repo.strongRef');
+  });
+
+  it('subject description says the CID is an integrity hint, not a join key', () => {
+    expect(properties?.subject?.description ?? '').toMatch(/AT-URI/);
+    expect(properties?.subject?.description ?? '').toMatch(/integrity hint/i);
+  });
+
+  it('relation references id.sifa.defs#confirmationRelation', () => {
+    expect(properties?.relation?.type).toBe('ref');
+    expect(properties?.relation?.ref).toBe('id.sifa.defs#confirmationRelation');
+  });
+
+  it('createdAt uses datetime format', () => {
+    expect(properties?.createdAt?.format).toBe('datetime');
+  });
+
+  // Third-party implementers need to know the claim is readable from the
+  // claimer's repo before anyone confirms it. That is inherent to atproto and
+  // should not be a surprise.
+  it('description warns that the claim is public before confirmation', () => {
+    expect(confirmation!.doc.description ?? '').toMatch(/public/i);
+    expect(confirmation!.doc.description ?? '').toMatch(/before/i);
+  });
+});
+
+describe('id.sifa.defs confirmation additions', () => {
+  interface DefsDoc {
+    defs: Record<
+      string,
+      {
+        type: string;
+        description?: string;
+        knownValues?: string[];
+        required?: string[];
+        properties?: Record<
+          string,
+          { type: string; format?: string; knownValues?: string[]; maxGraphemes?: number }
+        >;
+      }
+    >;
+  }
+  const defs = JSON.parse(readFileSync(join(LEXICONS_DIR, 'defs.json'), 'utf-8')) as DefsDoc;
+
+  it('confirmationRelation is a string def naming the two shipped relations', () => {
+    expect(defs.defs.confirmationRelation?.type).toBe('string');
+    expect(defs.defs.confirmationRelation?.knownValues).toEqual([
+      'id.sifa.defs#coSpeaker',
+      'id.sifa.defs#projectMember',
+    ]);
+  });
+
+  it.each(['coSpeaker', 'projectMember'])('declares the %s token', (token) => {
+    expect(defs.defs[token]?.type).toBe('token');
+    expect(defs.defs[token]?.description?.length).toBeGreaterThan(0);
+  });
+
+  it('projectMemberRef requires only a did', () => {
+    expect(defs.defs.projectMemberRef?.type).toBe('object');
+    expect(defs.defs.projectMemberRef?.required).toEqual(['did']);
+    expect(defs.defs.projectMemberRef?.properties?.did?.type).toBe('string');
+    expect(defs.defs.projectMemberRef?.properties?.did?.format).toBe('did');
+  });
+
+  it('projectMemberRef.role reuses the projectRole known values', () => {
+    expect(defs.defs.projectMemberRef?.properties?.role?.knownValues).toEqual(
+      defs.defs.projectRole?.knownValues,
+    );
+  });
+
+  it('projectMemberRef.title is capped free text', () => {
+    expect(defs.defs.projectMemberRef?.properties?.title?.type).toBe('string');
+    expect(defs.defs.projectMemberRef?.properties?.title?.maxGraphemes).toBe(128);
+  });
+});
+
+describe('id.sifa.profile.project members field', () => {
+  const project = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.project');
+  const properties = project?.doc.defs.main.record?.properties;
+  const required = project?.doc.defs.main.record?.required ?? [];
+
+  it('members is an optional array of id.sifa.defs#projectMemberRef', () => {
+    expect(properties?.members?.type).toBe('array');
+    expect(properties?.members?.items?.type).toBe('ref');
+    expect(properties?.members?.items?.ref).toBe('id.sifa.defs#projectMemberRef');
+    expect(required).not.toContain('members');
+  });
+
+  it('members caps at 50', () => {
+    expect(properties?.members?.maxLength).toBe(50);
+  });
+
+  // Naming someone is a claim, not a fact. The lexicon has to say so, because
+  // an implementer reading only the schema would otherwise render the DID as
+  // an established team member.
+  it('members description points at id.sifa.confirmation for the consent half', () => {
+    expect(properties?.members?.description ?? '').toContain('id.sifa.confirmation');
+  });
+});
+
+describe('retired collaborative project lexicons', () => {
+  it.each(['id.sifa.project.member', 'id.sifa.project.membership'])(
+    '%s is marked deprecated in favour of id.sifa.confirmation',
+    (nsid) => {
+      const lexicon = recordLexicons.find((l) => l.doc.id === nsid);
+      expect(lexicon).toBeDefined();
+      expect(lexicon!.doc.description).toMatch(/DEPRECATED/);
+      expect(lexicon!.doc.description).toContain('id.sifa.confirmation');
+    },
+  );
+});
+
 describe('openToWorkStatus commissions token', () => {
   interface DefsDoc {
     defs: {

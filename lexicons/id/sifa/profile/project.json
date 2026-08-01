@@ -32,12 +32,17 @@
           "projectRef": {
             "type": "ref",
             "ref": "com.atproto.repo.strongRef",
-            "description": "Reference to the same project as recorded elsewhere: another person's id.sifa.profile.project entry for the work you shared, or a first-class id.sifa.project.self record. Set when you were named as a member of someone else's entry and keep your own version of it, so consumers can tell the two describe one project instead of showing it twice."
+            "description": "Reference to the first-class id.sifa.project.self record this personal entry corresponds to, when there is one. A composition link, not a peer one: for the same project recorded on someone else's profile, see sameAs."
           },
           "position": {
             "type": "ref",
             "ref": "com.atproto.repo.strongRef",
             "description": "Reference to the associated id.sifa.profile.position record, if applicable."
+          },
+          "sameAs": {
+            "type": "ref",
+            "ref": "id.sifa.defs#externalRecordRef",
+            "description": "The same project as recorded on another person's profile. Set when you keep your own entry for work someone else has also recorded, so consumers can tell the two describe one thing rather than showing it twice. Each side stays its own record: the other person cannot edit yours, and yours does not change theirs. Resolve by AT-URI, since they will keep editing their copy."
           },
           "members": {
             "type": "array",

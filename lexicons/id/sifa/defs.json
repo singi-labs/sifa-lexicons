@@ -573,7 +573,12 @@
     "confirmationRelation": {
       "type": "string",
       "description": "What an id.sifa.confirmation record affirms. Open set.",
-      "knownValues": ["id.sifa.defs#coSpeaker", "id.sifa.defs#projectMember"]
+      "knownValues": [
+        "id.sifa.defs#coSpeaker",
+        "id.sifa.defs#projectMember",
+        "id.sifa.defs#author",
+        "id.sifa.defs#collaborator"
+      ]
     },
     "coSpeaker": {
       "type": "token",
@@ -582,6 +587,14 @@
     "projectMember": {
       "type": "token",
       "description": "The named person worked on the referenced id.sifa.profile.project."
+    },
+    "author": {
+      "type": "token",
+      "description": "The named person co-authored the referenced id.sifa.profile.publication."
+    },
+    "collaborator": {
+      "type": "token",
+      "description": "The named person worked alongside the claimer on the referenced id.sifa.profile.involvement."
     },
     "projectMemberRef": {
       "type": "object",

@@ -962,18 +962,23 @@ describe('id.sifa.defs confirmation additions', () => {
   }
   const defs = JSON.parse(readFileSync(join(LEXICONS_DIR, 'defs.json'), 'utf-8')) as DefsDoc;
 
-  it('confirmationRelation is a string def naming the two shipped relations', () => {
+  it('confirmationRelation names every shipped relation', () => {
     expect(defs.defs.confirmationRelation?.type).toBe('string');
     expect(defs.defs.confirmationRelation?.knownValues).toEqual([
       'id.sifa.defs#coSpeaker',
       'id.sifa.defs#projectMember',
+      'id.sifa.defs#author',
+      'id.sifa.defs#collaborator',
     ]);
   });
 
-  it.each(['coSpeaker', 'projectMember'])('declares the %s token', (token) => {
-    expect(defs.defs[token]?.type).toBe('token');
-    expect(defs.defs[token]?.description?.length).toBeGreaterThan(0);
-  });
+  it.each(['coSpeaker', 'projectMember', 'author', 'collaborator'])(
+    'declares the %s token',
+    (token) => {
+      expect(defs.defs[token]?.type).toBe('token');
+      expect(defs.defs[token]?.description?.length).toBeGreaterThan(0);
+    },
+  );
 
   it('projectMemberRef requires only a did', () => {
     expect(defs.defs.projectMemberRef?.type).toBe('object');
@@ -991,6 +996,54 @@ describe('id.sifa.defs confirmation additions', () => {
   it('projectMemberRef.title is capped free text', () => {
     expect(defs.defs.projectMemberRef?.properties?.title?.type).toBe('string');
     expect(defs.defs.projectMemberRef?.properties?.title?.maxGraphemes).toBe(128);
+  });
+});
+
+describe('id.sifa.profile.involvement collaborators field', () => {
+  const involvement = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.involvement');
+  const properties = involvement?.doc.defs.main.record?.properties;
+  const required = involvement?.doc.defs.main.record?.required ?? [];
+
+  // Same shape as project members, because it is the same relation: people you
+  // did this with. Reusing projectMemberRef rather than minting a parallel def
+  // that differs only in name.
+  it('collaborators is an optional array of id.sifa.defs#projectMemberRef', () => {
+    expect(properties?.collaborators?.type).toBe('array');
+    expect(properties?.collaborators?.items?.type).toBe('ref');
+    expect(properties?.collaborators?.items?.ref).toBe('id.sifa.defs#projectMemberRef');
+    expect(required).not.toContain('collaborators');
+  });
+
+  it('collaborators caps at 50', () => {
+    expect(properties?.collaborators?.maxLength).toBe(50);
+  });
+
+  it('collaborators description points at id.sifa.confirmation', () => {
+    expect(properties?.collaborators?.description ?? '').toContain('id.sifa.confirmation');
+  });
+
+  it('involvement declares sameAs, so a collaborator can keep their own entry', () => {
+    expect(properties?.sameAs?.ref).toBe('id.sifa.defs#externalRecordRef');
+    expect(required).not.toContain('sameAs');
+  });
+});
+
+describe('id.sifa.profile.publication authors are confirmable', () => {
+  const publication = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.publication');
+  const properties = publication?.doc.defs.main.record?.properties;
+
+  // The name is required and the DID optional on purpose: an ORCID import knows
+  // who wrote a paper without knowing whether they are on atproto at all.
+  it('an author needs a name and may carry a did', () => {
+    const authorDef = publication?.doc.defs.author as
+      | { required?: string[]; properties?: Record<string, { format?: string }> }
+      | undefined;
+    expect(authorDef?.required).toEqual(['name']);
+    expect(authorDef?.properties?.did?.format).toBe('did');
+  });
+
+  it('publication declares sameAs', () => {
+    expect(properties?.sameAs?.ref).toBe('id.sifa.defs#externalRecordRef');
   });
 });
 

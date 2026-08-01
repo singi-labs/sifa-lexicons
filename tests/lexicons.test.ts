@@ -1017,8 +1017,13 @@ describe('id.sifa.profile.project members field', () => {
     expect(properties?.members?.description ?? '').toMatch(/own record|their own/i);
   });
 
-  it('projectRef accepts another persons profile.project, not only project.self', () => {
-    expect(properties?.projectRef?.description ?? '').toContain('id.sifa.profile.project');
+  // projectRef is the hierarchical relation: this personal entry corresponds to
+  // a canonical id.sifa.project.self. Peer sameness moved to sameAs, because
+  // conflating the two left no name for it on presentationDelivery, where
+  // presentationRef already means "instance of that talk".
+  it('projectRef stays the hierarchical link to project.self', () => {
+    expect(properties?.projectRef?.description ?? '').toContain('id.sifa.project.self');
+    expect(properties?.projectRef?.description ?? '').not.toContain('another person');
   });
 
   // Naming someone is a claim, not a fact. The lexicon has to say so, because
@@ -1026,6 +1031,42 @@ describe('id.sifa.profile.project members field', () => {
   // an established team member.
   it('members description points at id.sifa.confirmation for the consent half', () => {
     expect(properties?.members?.description ?? '').toContain('id.sifa.confirmation');
+  });
+});
+
+describe('sameAs peer link', () => {
+  // One field name across every record type that can name another person, for
+  // the same reason id.sifa.confirmation is one record type: the relation is
+  // identical, and a per-collection name would be four spellings of it.
+  const withSameAs = ['id.sifa.profile.project', 'id.sifa.profile.presentationDelivery'] as const;
+
+  it.each(withSameAs)('%s declares an optional sameAs', (nsid) => {
+    const lexicon = recordLexicons.find((l) => l.doc.id === nsid);
+    const properties = lexicon?.doc.defs.main.record?.properties;
+    const required = lexicon?.doc.defs.main.record?.required ?? [];
+    expect(properties?.sameAs?.type).toBe('ref');
+    expect(properties?.sameAs?.ref).toBe('id.sifa.defs#externalRecordRef');
+    expect(required).not.toContain('sameAs');
+  });
+
+  // externalRecordRef rather than strongRef: the CID is an integrity hint and
+  // the reference must resolve live, because the other person edits their
+  // record without that invalidating the link.
+  it.each(withSameAs)('%s sameAs description says it is the same real thing', (nsid) => {
+    const lexicon = recordLexicons.find((l) => l.doc.id === nsid);
+    const description = lexicon?.doc.defs.main.record?.properties?.sameAs?.description ?? '';
+    expect(description).toMatch(/same/i);
+    expect(description).toMatch(/own/i);
+  });
+
+  // Composition, not sameness. A delivery is an instance of a talk; it is not
+  // another copy of one.
+  it('presentationDelivery keeps presentationRef for the parent talk', () => {
+    const lexicon = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.presentationDelivery');
+    const description =
+      lexicon?.doc.defs.main.record?.properties?.presentationRef?.description ?? '';
+    expect(description).toContain('id.sifa.profile.presentation');
+    expect(description).not.toMatch(/same project|another person/i);
   });
 });
 

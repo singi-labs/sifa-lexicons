@@ -41,6 +41,11 @@
             "maxLength": 50000,
             "description": "Description or abstract."
           },
+          "sameAs": {
+            "type": "ref",
+            "ref": "id.sifa.defs#externalRecordRef",
+            "description": "The same publication as recorded on another person's profile. Set when you keep your own entry for work someone else has also recorded, so consumers can tell the two describe one thing rather than showing it twice. Each side stays its own record: the other person cannot edit yours, and yours does not change theirs. Resolve by AT-URI, since they will keep editing their copy."
+          },
           "authors": {
             "type": "array",
             "maxLength": 50,

@@ -58,11 +58,28 @@
             "type": "string",
             "description": "End date in YYYY-MM or YYYY-MM-DD format. Omit if ongoing."
           },
+          "collaborators": {
+            "type": "array",
+            "maxLength": 50,
+            "items": {
+              "type": "ref",
+              "ref": "id.sifa.defs#projectMemberRef"
+            },
+            "description": "Other people who worked on this alongside you. Each entry is a claim by the record author and is not self-verifying: the named person supplies the other half by publishing an id.sifa.confirmation record whose subject is this record and whose relation is id.sifa.defs#collaborator. Until they do, consumers must render the entry without their display name, avatar, or profile link. Confirming never puts this record on their profile: it lives in the author's repository and the author can rename it at any time."
+          },
+          "sameAs": {
+            "type": "ref",
+            "ref": "id.sifa.defs#externalRecordRef",
+            "description": "The same involvement as recorded on another person's profile. Set when you keep your own entry for work someone else has also recorded, so consumers can tell the two describe one thing rather than showing it twice. Each side stays its own record: the other person cannot edit yours, and yours does not change theirs. Resolve by AT-URI, since they will keep editing their copy."
+          },
           "links": {
             "type": "array",
             "maxLength": 50,
             "description": "Public artifacts proving the involvement (PRs, releases, talk recordings, published translations).",
-            "items": { "type": "ref", "ref": "id.sifa.defs#artifactLink" }
+            "items": {
+              "type": "ref",
+              "ref": "id.sifa.defs#artifactLink"
+            }
           },
           "entityRef": {
             "type": "string",
@@ -76,7 +93,10 @@
           },
           "skills": {
             "type": "array",
-            "items": { "type": "ref", "ref": "id.sifa.defs#skillRef" },
+            "items": {
+              "type": "ref",
+              "ref": "id.sifa.defs#skillRef"
+            },
             "description": "Skills demonstrated by this involvement. Each entry is a URI reference to an id.sifa.profile.skill record owned by the same DID.",
             "maxLength": 50
           },

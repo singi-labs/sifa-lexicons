@@ -415,7 +415,8 @@
         "id.sifa.defs#boardPositions",
         "id.sifa.defs#mentoringOthers",
         "id.sifa.defs#beingMentored",
-        "id.sifa.defs#collaborations"
+        "id.sifa.defs#collaborations",
+        "id.sifa.defs#speakingEngagements"
       ]
     },
     "fullTimeRoles": {
@@ -438,6 +439,10 @@
     "mentoringOthers": { "type": "token", "description": "Open to mentoring others." },
     "beingMentored": { "type": "token", "description": "Open to being mentored." },
     "collaborations": { "type": "token", "description": "Open to project collaborations." },
+    "speakingEngagements": {
+      "type": "token",
+      "description": "Open to speaking engagements (talks, panels, keynotes, workshops)."
+    },
 
     "externalPlatform": {
       "type": "string",

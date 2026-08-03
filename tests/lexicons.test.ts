@@ -1188,3 +1188,43 @@ describe('openToWorkStatus commissions token', () => {
     );
   });
 });
+
+describe('openToWorkStatus speakingEngagements token', () => {
+  interface DefsDoc {
+    defs: {
+      openToWorkStatus: { knownValues: string[] };
+      speakingEngagements?: { type: string; description: string };
+    };
+  }
+  interface SelfDoc {
+    defs: {
+      main: {
+        record: {
+          properties: {
+            openTo: { items: { knownValues: string[] } };
+          };
+        };
+      };
+    };
+  }
+  const defs = JSON.parse(readFileSync(join(LEXICONS_DIR, 'defs.json'), 'utf-8')) as DefsDoc;
+  const self = JSON.parse(
+    readFileSync(join(LEXICONS_DIR, 'profile', 'self.json'), 'utf-8'),
+  ) as SelfDoc;
+
+  it('defs.json declares a speakingEngagements token', () => {
+    expect(defs.defs.speakingEngagements).toBeDefined();
+    expect(defs.defs.speakingEngagements?.type).toBe('token');
+    expect(defs.defs.speakingEngagements?.description).toMatch(/speak/i);
+  });
+
+  it('openToWorkStatus knownValues includes id.sifa.defs#speakingEngagements', () => {
+    expect(defs.defs.openToWorkStatus.knownValues).toContain('id.sifa.defs#speakingEngagements');
+  });
+
+  it('profile/self.json openTo knownValues includes id.sifa.defs#speakingEngagements', () => {
+    expect(self.defs.main.record.properties.openTo.items.knownValues).toContain(
+      'id.sifa.defs#speakingEngagements',
+    );
+  });
+});

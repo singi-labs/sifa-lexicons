@@ -80,7 +80,8 @@
                 "id.sifa.defs#boardPositions",
                 "id.sifa.defs#mentoringOthers",
                 "id.sifa.defs#beingMentored",
-                "id.sifa.defs#collaborations"
+                "id.sifa.defs#collaborations",
+                "id.sifa.defs#speakingEngagements"
               ]
             },
             "description": "Types of opportunities the user is open to. Empty array or omitted means not actively seeking."

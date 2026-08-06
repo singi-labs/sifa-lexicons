@@ -770,6 +770,108 @@
       "description": "Other uncompensated involvement."
     },
 
+    "investmentRole": {
+      "type": "string",
+      "description": "How the capital went in. General partner is deliberately absent: running a fund is a role, recorded as an id.sifa.profile.position, and a partner's own commitment to their fund is a limitedPartner entry against that fund.",
+      "knownValues": [
+        "id.sifa.defs#angelInvestment",
+        "id.sifa.defs#syndicateInvestment",
+        "id.sifa.defs#limitedPartner",
+        "id.sifa.defs#otherInvestment"
+      ]
+    },
+    "angelInvestment": {
+      "type": "token",
+      "description": "Direct investment in the person's own name, with the person choosing the deal."
+    },
+    "syndicateInvestment": {
+      "type": "token",
+      "description": "Investment in a deal led by someone else, made through a per-deal pooled vehicle."
+    },
+    "limitedPartner": {
+      "type": "token",
+      "description": "Capital committed to a fund rather than to a company. The person does not choose the fund's deals, and the named entity is the fund itself."
+    },
+    "otherInvestment": {
+      "type": "token",
+      "description": "A capital position that fits none of the above."
+    },
+
+    "investmentStage": {
+      "type": "string",
+      "description": "The company's funding stage at the time the investment was made, not its stage today.",
+      "knownValues": [
+        "id.sifa.defs#stagePreSeed",
+        "id.sifa.defs#stageSeed",
+        "id.sifa.defs#stageSeriesA",
+        "id.sifa.defs#stageSeriesB",
+        "id.sifa.defs#stageSeriesCPlus",
+        "id.sifa.defs#stageGrowth",
+        "id.sifa.defs#stageSecondary",
+        "id.sifa.defs#stageOther"
+      ]
+    },
+    "stagePreSeed": { "type": "token", "description": "Pre-seed round." },
+    "stageSeed": { "type": "token", "description": "Seed round." },
+    "stageSeriesA": { "type": "token", "description": "Series A round." },
+    "stageSeriesB": { "type": "token", "description": "Series B round." },
+    "stageSeriesCPlus": { "type": "token", "description": "Series C or later round." },
+    "stageGrowth": { "type": "token", "description": "Growth or late-stage round." },
+    "stageSecondary": {
+      "type": "token",
+      "description": "Purchase of existing shares from another holder rather than newly issued shares."
+    },
+    "stageOther": {
+      "type": "token",
+      "description": "A stage that fits none of the above, including rounds that predate the standard naming."
+    },
+
+    "investmentStatus": {
+      "type": "string",
+      "description": "Where the position stands now. Recording a write-off is showing your work; Sifa never derives a hit rate or return from these values.",
+      "knownValues": [
+        "id.sifa.defs#investmentActive",
+        "id.sifa.defs#investmentExited",
+        "id.sifa.defs#investmentWrittenOff",
+        "id.sifa.defs#investmentUndisclosed"
+      ]
+    },
+    "investmentActive": {
+      "type": "token",
+      "description": "The position is still held."
+    },
+    "investmentExited": {
+      "type": "token",
+      "description": "The position was realised through an acquisition, IPO, or secondary sale."
+    },
+    "investmentWrittenOff": {
+      "type": "token",
+      "description": "The company failed or the position was written down to nothing."
+    },
+    "investmentUndisclosed": {
+      "type": "token",
+      "description": "The person prefers not to say where the position stands."
+    },
+
+    "investmentAmount": {
+      "type": "object",
+      "description": "An optional, deliberately structured amount. Free text was rejected here because an unparseable money string is worse than no amount at all.",
+      "required": ["value", "currency"],
+      "properties": {
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Amount in whole major currency units (euros, not cents). Cheque sizes are round numbers, and whole units avoid the ambiguity of a bare figure."
+        },
+        "currency": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 3,
+          "description": "ISO 4217 three-letter currency code, uppercase. Enforced at the app layer."
+        }
+      }
+    },
+
     "artifactLink": {
       "type": "object",
       "description": "A public artifact proving a piece of work. Reusable across involvement, and later projects/publications.",

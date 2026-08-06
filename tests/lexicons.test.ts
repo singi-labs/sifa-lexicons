@@ -105,6 +105,7 @@ const USER_TEXT_FIELDS = new Set([
   'company',
   'companyName',
   'onBehalfOf',
+  'via',
   'title',
   'subtitle',
   'subCategory',
@@ -215,6 +216,8 @@ const DATE_ONLY_FIELDS = new Set([
   'id.sifa.profile.project.endedAt',
   'id.sifa.profile.involvement.startedAt',
   'id.sifa.profile.involvement.endedAt',
+  'id.sifa.profile.investment.startedAt',
+  'id.sifa.profile.investment.endedAt',
   'id.sifa.profile.volunteering.startedAt',
   'id.sifa.profile.volunteering.endedAt',
   'id.sifa.profile.certification.issuedAt',
@@ -1314,5 +1317,152 @@ describe('Position onBehalfOf field', () => {
 
   it('position required fields are unchanged (backward compatible)', () => {
     expect(required).toEqual(['title', 'startedAt', 'createdAt']);
+  });
+});
+
+describe('id.sifa.profile.investment', () => {
+  const investment = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.investment');
+  const properties = investment?.doc.defs.main.record?.properties;
+  const required = investment?.doc.defs.main.record?.required ?? [];
+
+  it('exists as a tid-keyed record', () => {
+    expect(investment).toBeDefined();
+    expect(investment?.doc.defs.main.key).toBe('tid');
+  });
+
+  // Money-in only. Board seats and advisory roles are career-shaped and live on
+  // position; granted equity is compensation, not capital at risk. See #86.
+  it('description states that this record is capital deployed, not a role', () => {
+    expect(investment?.doc.description).toMatch(/capital/i);
+  });
+
+  // An investment renders as a list rather than a timeline, so a missing month does not
+  // break the display the way it would on a career entry. Only the company is essential.
+  it('requires only company and createdAt', () => {
+    expect(required).toEqual(['company', 'createdAt']);
+  });
+
+  it('company is a non-empty capped string', () => {
+    expect(properties?.company?.type).toBe('string');
+    expect(properties?.company?.minLength).toBe(1);
+    expect(properties?.company?.maxGraphemes).toBe(256);
+  });
+
+  it('carries the company resolver pair alongside the free-text name', () => {
+    expect(properties?.companyDid?.format).toBe('did');
+    expect(properties?.entityRef?.format).toBe('uri');
+    expect(required).not.toContain('companyDid');
+    expect(required).not.toContain('entityRef');
+  });
+
+  // The vehicle gets the same triple as the company: an investor almost always also
+  // holds a position at their own vehicle, and free text alone would put two unlinked
+  // representations of one org on a single profile.
+  it('carries the full via / viaDid / viaEntityRef triple', () => {
+    expect(properties?.via?.type).toBe('string');
+    expect(properties?.via?.maxGraphemes).toBe(256);
+    expect(properties?.viaDid?.format).toBe('did');
+    expect(properties?.viaEntityRef?.format).toBe('uri');
+    for (const field of ['via', 'viaDid', 'viaEntityRef']) {
+      expect(required).not.toContain(field);
+    }
+  });
+
+  it('role and stage and status reference the shared defs', () => {
+    expect(properties?.role?.ref).toBe('id.sifa.defs#investmentRole');
+    expect(properties?.stage?.ref).toBe('id.sifa.defs#investmentStage');
+    expect(properties?.status?.ref).toBe('id.sifa.defs#investmentStatus');
+  });
+
+  it('amount is an optional structured value, never a free string', () => {
+    expect(properties?.amount?.type).toBe('ref');
+    expect(properties?.amount?.ref).toBe('id.sifa.defs#investmentAmount');
+    expect(required).not.toContain('amount');
+  });
+
+  it('links reuse the shared artifactLink shape', () => {
+    expect(properties?.links?.type).toBe('array');
+    expect(properties?.links?.items?.ref).toBe('id.sifa.defs#artifactLink');
+    expect(properties?.links?.maxLength).toBe(50);
+  });
+
+  // Deploying capital does not demonstrate a skill. The advisory half of an
+  // investor's relationship with a company is a position, which already carries skills.
+  it('has no skills field', () => {
+    expect(properties?.skills).toBeUndefined();
+  });
+
+  it('supports self-labels like the sibling profile records', () => {
+    expect(properties?.labels?.type).toBe('union');
+    expect(properties?.labels?.refs).toContain('com.atproto.label.defs#selfLabels');
+  });
+});
+
+describe('id.sifa.defs investment additions', () => {
+  interface DefsDoc {
+    defs: Record<
+      string,
+      {
+        type: string;
+        description?: string;
+        knownValues?: string[];
+        required?: string[];
+        properties?: Record<
+          string,
+          { type: string; format?: string; knownValues?: string[]; maxLength?: number }
+        >;
+      }
+    >;
+  }
+  const defs = JSON.parse(readFileSync(join(LEXICONS_DIR, 'defs.json'), 'utf-8')) as DefsDoc;
+
+  // GP is deliberately absent: running a fund is a job (already a position), and
+  // offering it here would let a partner claim the fund's whole portfolio as personal
+  // cheques. A partner's own GP commit is an LP record against their own fund.
+  it('investmentRole covers angel, syndicate member and LP, but not GP', () => {
+    expect(defs.defs.investmentRole?.type).toBe('string');
+    expect(defs.defs.investmentRole?.knownValues).toEqual([
+      'id.sifa.defs#angelInvestment',
+      'id.sifa.defs#syndicateInvestment',
+      'id.sifa.defs#limitedPartner',
+      'id.sifa.defs#otherInvestment',
+    ]);
+    expect(defs.defs.investmentRole?.knownValues).not.toContain('id.sifa.defs#generalPartner');
+  });
+
+  it('investmentStatus can record a write-off', () => {
+    expect(defs.defs.investmentStatus?.knownValues).toEqual([
+      'id.sifa.defs#investmentActive',
+      'id.sifa.defs#investmentExited',
+      'id.sifa.defs#investmentWrittenOff',
+      'id.sifa.defs#investmentUndisclosed',
+    ]);
+  });
+
+  it('investmentStage records the stage at time of investment', () => {
+    expect(defs.defs.investmentStage?.type).toBe('string');
+    expect(defs.defs.investmentStage?.description).toMatch(/at.*time|when.*invest/i);
+    expect(defs.defs.investmentStage?.knownValues?.length).toBeGreaterThan(3);
+  });
+
+  it.each([
+    'angelInvestment',
+    'syndicateInvestment',
+    'limitedPartner',
+    'otherInvestment',
+    'investmentActive',
+    'investmentExited',
+    'investmentWrittenOff',
+    'investmentUndisclosed',
+  ])('declares the %s token', (token) => {
+    expect(defs.defs[token]?.type).toBe('token');
+    expect(defs.defs[token]?.description?.length).toBeGreaterThan(0);
+  });
+
+  it('investmentAmount requires both a value and an ISO 4217 currency', () => {
+    expect(defs.defs.investmentAmount?.type).toBe('object');
+    expect([...(defs.defs.investmentAmount?.required ?? [])].sort()).toEqual(['currency', 'value']);
+    expect(defs.defs.investmentAmount?.properties?.value?.type).toBe('integer');
+    expect(defs.defs.investmentAmount?.properties?.currency?.maxLength).toBe(3);
   });
 });

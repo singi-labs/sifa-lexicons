@@ -1,0 +1,101 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.profile.investment",
+  "description": "Capital the user put into a company or fund — an angel cheque, a syndicate position, a limited-partner commitment. Distinct from roles with duties (position, which now covers board seats and advisory work) and from equity received as compensation, which belongs to the position that granted it.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Record representing one capital position.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["company", "createdAt"],
+        "properties": {
+          "company": {
+            "type": "string",
+            "minLength": 1,
+            "maxGraphemes": 256,
+            "maxLength": 2560,
+            "description": "Name of the company invested in. For a limited-partner entry this is the fund itself, since an LP commits to the fund rather than to its portfolio."
+          },
+          "companyDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the company's ATproto account, if one exists."
+          },
+          "entityRef": {
+            "type": "string",
+            "format": "uri",
+            "description": "Portable, app-neutral identifier for the company the user selected from a resolver dropdown: a Wikidata Q-ID URI, a ROR URI, or an LEI URI. Absent for free-text entries."
+          },
+          "role": {
+            "type": "ref",
+            "ref": "id.sifa.defs#investmentRole",
+            "description": "How the capital went in."
+          },
+          "stage": {
+            "type": "ref",
+            "ref": "id.sifa.defs#investmentStage",
+            "description": "The company's funding stage at the time of the investment."
+          },
+          "status": {
+            "type": "ref",
+            "ref": "id.sifa.defs#investmentStatus",
+            "description": "Where the position stands now, including written off."
+          },
+          "via": {
+            "type": "string",
+            "maxGraphemes": 256,
+            "maxLength": 2560,
+            "description": "Name of the investment vehicle the capital went through, if any. Omit for a cheque written in the person's own name."
+          },
+          "viaDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the vehicle's ATproto account, if one exists."
+          },
+          "viaEntityRef": {
+            "type": "string",
+            "format": "uri",
+            "description": "Portable, app-neutral identifier for the vehicle selected from a resolver dropdown: a Wikidata Q-ID URI, a ROR URI, or an LEI URI. Funds carry LEIs by regulation, so this resolves more often than it does for ordinary companies. Absent for per-deal SPVs and unregistered vehicles."
+          },
+          "amount": {
+            "type": "ref",
+            "ref": "id.sifa.defs#investmentAmount",
+            "description": "How much was invested. Optional and empty by default — cheque size is a personal financial disclosure, and clients must not prompt for it."
+          },
+          "startedAt": {
+            "type": "string",
+            "description": "Date of the investment in YYYY-MM or YYYY-MM-DD format. Freeform (NOT strict datetime) to allow partial dates."
+          },
+          "endedAt": {
+            "type": "string",
+            "description": "Date the position ended, on exit or write-off, in YYYY-MM or YYYY-MM-DD format. Omit while the position is held."
+          },
+          "description": {
+            "type": "string",
+            "maxGraphemes": 5000,
+            "maxLength": 50000,
+            "description": "What the company does and what the person contributes beyond capital."
+          },
+          "links": {
+            "type": "array",
+            "maxLength": 50,
+            "description": "Public artifacts relating to the investment (round announcement, portfolio page, filing).",
+            "items": { "type": "ref", "ref": "id.sifa.defs#artifactLink" }
+          },
+          "labels": {
+            "type": "union",
+            "description": "Self-label values for this record.",
+            "refs": ["com.atproto.label.defs#selfLabels"]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when this record was originally created."
+          }
+        }
+      }
+    }
+  }
+}

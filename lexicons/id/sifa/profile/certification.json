@@ -43,7 +43,8 @@
           "credentialUrl": {
             "type": "string",
             "format": "uri",
-            "description": "URL to verify the credential."
+            "description": "URL to verify the credential.",
+            "x-skos:exactMatch": ["schema:url"]
           },
           "issuedAt": {
             "type": "string",
@@ -51,7 +52,8 @@
           },
           "expiresAt": {
             "type": "string",
-            "description": "Expiry date in YYYY-MM or YYYY-MM-DD format. Omit if the certification does not expire."
+            "description": "Expiry date in YYYY-MM or YYYY-MM-DD format. Omit if the certification does not expire.",
+            "x-skos:exactMatch": ["schema:validUntil"]
           },
           "labels": {
             "type": "union",
@@ -64,7 +66,8 @@
             "description": "Client-declared timestamp when this record was originally created."
           }
         }
-      }
+      },
+      "x-skos:exactMatch": ["schema:EducationalOccupationalCredential"]
     }
   }
 }

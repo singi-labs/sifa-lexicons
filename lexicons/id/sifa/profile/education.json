@@ -16,7 +16,8 @@
             "minLength": 1,
             "maxGraphemes": 256,
             "maxLength": 2560,
-            "description": "Name of the educational institution."
+            "description": "Name of the educational institution.",
+            "x-skos:exactMatch": ["schema:alumniOf"]
           },
           "institutionDid": {
             "type": "string",
@@ -32,13 +33,15 @@
             "type": "string",
             "maxGraphemes": 256,
             "maxLength": 2560,
-            "description": "Degree name (e.g., 'Bachelor of Science', 'Master of Arts')."
+            "description": "Degree name (e.g., 'Bachelor of Science', 'Master of Arts').",
+            "x-skos:closeMatch": ["schema:hasCredential", "bibo:degree"]
           },
           "fieldOfStudy": {
             "type": "string",
             "maxGraphemes": 256,
             "maxLength": 2560,
-            "description": "Field of study or major."
+            "description": "Field of study or major.",
+            "x-skos:closeMatch": ["schema:educationalCredentialAwarded"]
           },
           "grade": {
             "type": "string",
@@ -82,7 +85,8 @@
             "description": "Client-declared timestamp when this record was originally created."
           }
         }
-      }
+      },
+      "x-skos:closeMatch": ["schema:EducationalOccupationalCredential"]
     }
   }
 }

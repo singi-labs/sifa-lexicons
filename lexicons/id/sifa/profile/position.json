@@ -16,7 +16,8 @@
             "minLength": 1,
             "maxGraphemes": 256,
             "maxLength": 2560,
-            "description": "Company or organization name. Optional: omit for self-employed, freelance, contract, or independent work that has no separately named or registered entity."
+            "description": "Company or organization name. Optional: omit for self-employed, freelance, contract, or independent work that has no separately named or registered entity.",
+            "x-skos:exactMatch": ["org:organization", "schema:worksFor"]
           },
           "companyDid": {
             "type": "string",
@@ -26,20 +27,23 @@
           "entityRef": {
             "type": "string",
             "format": "uri",
-            "description": "Portable, app-neutral identifier for the organization the user selected from a resolver dropdown: a Wikidata Q-ID URI (http://www.wikidata.org/entity/Q...), a ROR URI, or an LEI URI. Enables deterministic resolution to a canonical entity even before the org claims an ATproto account. Absent for free-text or independent/self-employed positions."
+            "description": "Portable, app-neutral identifier for the organization the user selected from a resolver dropdown: a Wikidata Q-ID URI (http://www.wikidata.org/entity/Q...), a ROR URI, or an LEI URI. Enables deterministic resolution to a canonical entity even before the org claims an ATproto account. Absent for free-text or independent/self-employed positions.",
+            "x-skos:closeMatch": ["schema:sameAs"]
           },
           "title": {
             "type": "string",
             "minLength": 1,
             "maxGraphemes": 256,
             "maxLength": 2560,
-            "description": "Job title or role name."
+            "description": "Job title or role name.",
+            "x-skos:exactMatch": ["org:role", "schema:roleName"]
           },
           "description": {
             "type": "string",
             "maxGraphemes": 5000,
             "maxLength": 50000,
-            "description": "Description of responsibilities, achievements, and duties."
+            "description": "Description of responsibilities, achievements, and duties.",
+            "x-skos:exactMatch": ["dcterms:description"]
           },
           "employmentType": {
             "type": "string",
@@ -61,13 +65,14 @@
               "id.sifa.defs#boardMember",
               "id.sifa.defs#boardObserver",
               "id.sifa.defs#advisor"
-            ]
+            ],
+            "x-skos:closeMatch": ["schema:employmentType"]
           },
           "onBehalfOf": {
             "type": "string",
             "maxGraphemes": 256,
             "maxLength": 2560,
-            "description": "Name of the party this role is held on behalf of, when the person represents someone else — most often a fund whose board seat this is. A disclosure, not a role type. Omit for independent seats."
+            "description": "Name of the party this role is held on behalf of, when the person represents someone else \u2014 most often a fund whose board seat this is. A disclosure, not a role type. Omit for independent seats."
           },
           "onBehalfOfDid": {
             "type": "string",
@@ -82,20 +87,24 @@
           "workplaceType": {
             "type": "string",
             "description": "Workplace arrangement (on-site, remote, hybrid).",
-            "knownValues": ["id.sifa.defs#onSite", "id.sifa.defs#remote", "id.sifa.defs#hybrid"]
+            "knownValues": ["id.sifa.defs#onSite", "id.sifa.defs#remote", "id.sifa.defs#hybrid"],
+            "x-skos:narrowMatch": ["schema:jobLocationType"]
           },
           "location": {
             "type": "ref",
             "ref": "community.lexicon.location.address",
-            "description": "Work location. Sifa enforces ISO 3166-1 alpha-2 country codes at the app layer."
+            "description": "Work location. Sifa enforces ISO 3166-1 alpha-2 country codes at the app layer.",
+            "x-skos:exactMatch": ["schema:jobLocation"]
           },
           "startedAt": {
             "type": "string",
-            "description": "Start date of the position in YYYY-MM or YYYY-MM-DD format."
+            "description": "Start date of the position in YYYY-MM or YYYY-MM-DD format.",
+            "x-skos:exactMatch": ["schema:startDate"]
           },
           "endedAt": {
             "type": "string",
-            "description": "End date of the position in YYYY-MM or YYYY-MM-DD format. Omit if this is a current position."
+            "description": "End date of the position in YYYY-MM or YYYY-MM-DD format. Omit if this is a current position.",
+            "x-skos:exactMatch": ["schema:endDate"]
           },
           "skills": {
             "type": "array",
@@ -121,7 +130,8 @@
             "description": "Client-declared timestamp when this record was originally created."
           }
         }
-      }
+      },
+      "x-skos:closeMatch": ["org:Membership", "schema:OrganizationRole"]
     }
   }
 }

@@ -4,7 +4,7 @@
  * Includes external lexicons (com.atproto.*, community.lexicon.*) that our
  * schemas reference, so lex-cli can resolve all type references.
  */
-import { readdirSync, readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
+import { readdirSync, readFileSync, writeFileSync, mkdirSync, mkdtempSync, rmSync } from 'node:fs';
 import { join, relative, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
@@ -63,8 +63,10 @@ function stripAnnotations(node) {
   return node;
 }
 
-const stageDir = join(tmpdir(), `sifa-lexicons-codegen-${process.pid}`);
-rmSync(stageDir, { recursive: true, force: true });
+// mkdtempSync, not a name derived from the pid: a predictable path in the
+// shared temp dir can be pre-created or symlinked by another user
+// (CodeQL js/insecure-temporary-file).
+const stageDir = mkdtempSync(join(tmpdir(), 'sifa-lexicons-codegen-'));
 const stagedFiles = allFiles.map((file) => {
   const staged = join(stageDir, relative(ROOT, file));
   mkdirSync(dirname(staged), { recursive: true });

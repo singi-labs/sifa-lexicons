@@ -104,6 +104,7 @@ const USER_TEXT_FIELDS = new Set([
   'description',
   'company',
   'companyName',
+  'onBehalfOf',
   'title',
   'subtitle',
   'subCategory',
@@ -1226,5 +1227,92 @@ describe('openToWorkStatus speakingEngagements token', () => {
     expect(self.defs.main.record.properties.openTo.items.knownValues).toContain(
       'id.sifa.defs#speakingEngagements',
     );
+  });
+});
+
+describe('Board and advisory employment types', () => {
+  interface DefsDoc {
+    defs: Record<
+      string,
+      {
+        type: string;
+        description?: string;
+        knownValues?: string[];
+      }
+    >;
+  }
+  const defs = JSON.parse(readFileSync(join(LEXICONS_DIR, 'defs.json'), 'utf-8')) as DefsDoc;
+  const positionLexicon = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.position');
+  const properties = positionLexicon?.doc.defs.main.record?.properties;
+  const employmentType = properties?.employmentType as { knownValues?: string[] } | undefined;
+
+  // The three roles are career-shaped -- a title, duties, a term -- so they belong on
+  // position rather than on the investment record. See sifa-lexicons#86.
+  it.each(['boardMember', 'boardObserver', 'advisor'])('declares the %s token', (token) => {
+    expect(defs.defs[token]?.type).toBe('token');
+    expect(defs.defs[token]?.description?.length).toBeGreaterThan(0);
+  });
+
+  it('defs.employmentType knownValues include the three new tokens', () => {
+    expect(defs.defs.employmentType?.knownValues).toContain('id.sifa.defs#boardMember');
+    expect(defs.defs.employmentType?.knownValues).toContain('id.sifa.defs#boardObserver');
+    expect(defs.defs.employmentType?.knownValues).toContain('id.sifa.defs#advisor');
+  });
+
+  it('position.employmentType knownValues stay in sync with defs.json employmentType', () => {
+    expect([...(employmentType?.knownValues ?? [])].sort()).toEqual(
+      [...(defs.defs.employmentType?.knownValues ?? [])].sort(),
+    );
+  });
+
+  // A non-executive director is not an employee, and neither is a volunteer -- the field
+  // has never been payroll-only. Kept as-is rather than renamed: a breaking rename buys
+  // nothing for users.
+  it('boardObserver description distinguishes it from boardMember by the absence of a vote', () => {
+    expect(defs.defs.boardObserver?.description).toMatch(/observ|no vote|non-voting/i);
+    expect(defs.defs.boardObserver?.description).not.toBe(defs.defs.boardMember?.description);
+  });
+
+  it('the existing employment types are preserved', () => {
+    for (const token of ['fullTime', 'partTime', 'contract', 'freelance', 'volunteer']) {
+      expect(defs.defs.employmentType?.knownValues).toContain(`id.sifa.defs#${token}`);
+    }
+  });
+});
+
+describe('Position onBehalfOf field', () => {
+  const positionLexicon = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.position');
+  const properties = positionLexicon?.doc.defs.main.record?.properties;
+  const required = positionLexicon?.doc.defs.main.record?.required ?? [];
+
+  // A board seat held as a fund's representative is a disclosure, not a role type: the
+  // person answers to a third party. Independent seats simply omit it.
+  it('onBehalfOf exists as an optional string with a grapheme cap', () => {
+    expect(properties?.onBehalfOf).toBeDefined();
+    expect(properties?.onBehalfOf?.type).toBe('string');
+    expect(properties?.onBehalfOf?.maxGraphemes).toBe(256);
+    expect(required).not.toContain('onBehalfOf');
+  });
+
+  // The referent is usually an organization but can be a person (a family-office
+  // principal), and a DID does not distinguish the two, so the field stays permissive.
+  it('onBehalfOfDid is an optional did-format string', () => {
+    expect(properties?.onBehalfOfDid?.type).toBe('string');
+    expect(properties?.onBehalfOfDid?.format).toBe('did');
+    expect(required).not.toContain('onBehalfOfDid');
+  });
+
+  it('onBehalfOfEntityRef is an optional uri-format string', () => {
+    expect(properties?.onBehalfOfEntityRef?.type).toBe('string');
+    expect(properties?.onBehalfOfEntityRef?.format).toBe('uri');
+    expect(required).not.toContain('onBehalfOfEntityRef');
+  });
+
+  it('onBehalfOf description explains the representation disclosure', () => {
+    expect(properties?.onBehalfOf?.description).toMatch(/behalf|represent/i);
+  });
+
+  it('position required fields are unchanged (backward compatible)', () => {
+    expect(required).toEqual(['title', 'startedAt', 'createdAt']);
   });
 });

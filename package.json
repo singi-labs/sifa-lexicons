@@ -34,7 +34,8 @@
     "publish:bootstrap": "tsx scripts/oauth-bootstrap.ts",
     "publish:lexicons": "tsx scripts/publish-lexicons.ts",
     "publish:check": "tsx scripts/publish-lexicons.ts --check",
-    "prepare": "husky"
+    "prepare": "husky",
+    "build:term-mappings": "node scripts/build-term-mappings.js"
   },
   "dependencies": {
     "@atproto/lexicon": "0.6.2",

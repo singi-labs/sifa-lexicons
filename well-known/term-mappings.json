@@ -1,0 +1,383 @@
+{
+  "$schema": "https://sifa.id/schemas/term-mappings/v1.json",
+  "version": "1.0.0",
+  "description": "Reconciliation between id.sifa.* lexicon terms and existing RDF vocabularies. RDF is used here as vocabulary only: Sifa records are Lexicon JSON on the AT Protocol, and nothing here changes how they are stored or transmitted. Match strengths use SKOS mapping relations.",
+  "vocabularies": {
+    "schema": "https://schema.org/",
+    "bibo": "http://purl.org/ontology/bibo/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "org": "http://www.w3.org/ns/org#",
+    "prism": "http://prismstandard.org/namespaces/basic/2.1/",
+    "event": "http://purl.org/NET/c4dm/event.owl#",
+    "skos": "http://www.w3.org/2004/02/skos/core#"
+  },
+  "mappings": [
+    {
+      "lexicon": "id.sifa.org.profile",
+      "match": "exactMatch",
+      "terms": ["schema:Organization", "org:FormalOrganization"]
+    },
+    {
+      "lexicon": "id.sifa.profile.certification",
+      "match": "exactMatch",
+      "terms": ["schema:EducationalOccupationalCredential"]
+    },
+    {
+      "lexicon": "id.sifa.profile.certification",
+      "field": "credentialUrl",
+      "match": "exactMatch",
+      "terms": ["schema:url"]
+    },
+    {
+      "lexicon": "id.sifa.profile.certification",
+      "field": "expiresAt",
+      "match": "exactMatch",
+      "terms": ["schema:validUntil"]
+    },
+    {
+      "lexicon": "id.sifa.profile.course",
+      "match": "exactMatch",
+      "terms": ["schema:Course"]
+    },
+    {
+      "lexicon": "id.sifa.profile.course",
+      "field": "number",
+      "match": "exactMatch",
+      "terms": ["schema:courseCode"]
+    },
+    {
+      "lexicon": "id.sifa.profile.education",
+      "match": "closeMatch",
+      "terms": ["schema:EducationalOccupationalCredential"]
+    },
+    {
+      "lexicon": "id.sifa.profile.education",
+      "field": "degree",
+      "match": "closeMatch",
+      "terms": ["schema:hasCredential", "bibo:degree"]
+    },
+    {
+      "lexicon": "id.sifa.profile.education",
+      "field": "fieldOfStudy",
+      "match": "closeMatch",
+      "terms": ["schema:educationalCredentialAwarded"]
+    },
+    {
+      "lexicon": "id.sifa.profile.education",
+      "field": "institution",
+      "match": "exactMatch",
+      "terms": ["schema:alumniOf"]
+    },
+    {
+      "lexicon": "id.sifa.profile.externalAccount",
+      "match": "exactMatch",
+      "terms": ["schema:sameAs", "foaf:account"]
+    },
+    {
+      "lexicon": "id.sifa.profile.honor",
+      "match": "broadMatch",
+      "terms": ["schema:award"]
+    },
+    {
+      "lexicon": "id.sifa.profile.involvement",
+      "match": "broadMatch",
+      "terms": ["org:Membership"]
+    },
+    {
+      "lexicon": "id.sifa.profile.language",
+      "match": "exactMatch",
+      "terms": ["schema:knowsLanguage"]
+    },
+    {
+      "lexicon": "id.sifa.profile.position",
+      "match": "closeMatch",
+      "terms": ["org:Membership", "schema:OrganizationRole"]
+    },
+    {
+      "lexicon": "id.sifa.profile.position",
+      "field": "company",
+      "match": "exactMatch",
+      "terms": ["org:organization", "schema:worksFor"]
+    },
+    {
+      "lexicon": "id.sifa.profile.position",
+      "field": "description",
+      "match": "exactMatch",
+      "terms": ["dcterms:description"]
+    },
+    {
+      "lexicon": "id.sifa.profile.position",
+      "field": "employmentType",
+      "match": "closeMatch",
+      "terms": ["schema:employmentType"]
+    },
+    {
+      "lexicon": "id.sifa.profile.position",
+      "field": "endedAt",
+      "match": "exactMatch",
+      "terms": ["schema:endDate"]
+    },
+    {
+      "lexicon": "id.sifa.profile.position",
+      "field": "entityRef",
+      "match": "closeMatch",
+      "terms": ["schema:sameAs"]
+    },
+    {
+      "lexicon": "id.sifa.profile.position",
+      "field": "location",
+      "match": "exactMatch",
+      "terms": ["schema:jobLocation"]
+    },
+    {
+      "lexicon": "id.sifa.profile.position",
+      "field": "startedAt",
+      "match": "exactMatch",
+      "terms": ["schema:startDate"]
+    },
+    {
+      "lexicon": "id.sifa.profile.position",
+      "field": "title",
+      "match": "exactMatch",
+      "terms": ["org:role", "schema:roleName"]
+    },
+    {
+      "lexicon": "id.sifa.profile.position",
+      "field": "workplaceType",
+      "match": "narrowMatch",
+      "terms": ["schema:jobLocationType"]
+    },
+    {
+      "lexicon": "id.sifa.profile.presentation",
+      "match": "closeMatch",
+      "terms": ["bibo:Slideshow", "schema:PresentationDigitalDocument"]
+    },
+    {
+      "lexicon": "id.sifa.profile.presentation",
+      "field": "coverImage",
+      "match": "exactMatch",
+      "terms": ["schema:image", "foaf:depiction"]
+    },
+    {
+      "lexicon": "id.sifa.profile.presentation",
+      "field": "description",
+      "match": "exactMatch",
+      "terms": ["bibo:abstract", "schema:abstract"]
+    },
+    {
+      "lexicon": "id.sifa.profile.presentation",
+      "field": "duration",
+      "match": "narrowMatch",
+      "terms": ["schema:timeRequired"]
+    },
+    {
+      "lexicon": "id.sifa.profile.presentation",
+      "field": "intendedAudiences",
+      "match": "closeMatch",
+      "terms": ["schema:audience"]
+    },
+    {
+      "lexicon": "id.sifa.profile.presentation",
+      "field": "title",
+      "match": "exactMatch",
+      "terms": ["dcterms:title", "schema:name"]
+    },
+    {
+      "lexicon": "id.sifa.profile.presentation",
+      "field": "writeupRef",
+      "match": "closeMatch",
+      "terms": ["dcterms:isReferencedBy", "schema:subjectOf"]
+    },
+    {
+      "lexicon": "id.sifa.profile.presentationDelivery",
+      "match": "closeMatch",
+      "terms": ["schema:Event", "event:Event"]
+    },
+    {
+      "lexicon": "id.sifa.profile.presentationDelivery",
+      "field": "address",
+      "match": "exactMatch",
+      "terms": ["schema:location", "event:place"]
+    },
+    {
+      "lexicon": "id.sifa.profile.presentationDelivery",
+      "field": "coSpeakers",
+      "match": "exactMatch",
+      "terms": ["schema:performer"]
+    },
+    {
+      "lexicon": "id.sifa.profile.presentationDelivery",
+      "field": "date",
+      "match": "exactMatch",
+      "terms": ["schema:startDate", "event:time"]
+    },
+    {
+      "lexicon": "id.sifa.profile.presentationDelivery",
+      "field": "eventName",
+      "match": "closeMatch",
+      "terms": ["schema:superEvent", "bibo:Conference"]
+    },
+    {
+      "lexicon": "id.sifa.profile.presentationDelivery",
+      "field": "mode",
+      "match": "exactMatch",
+      "terms": ["schema:eventAttendanceMode"]
+    },
+    {
+      "lexicon": "id.sifa.profile.presentationDelivery",
+      "field": "presentationRef",
+      "match": "closeMatch",
+      "terms": ["bibo:presentedAt", "schema:workPerformed"]
+    },
+    {
+      "lexicon": "id.sifa.profile.presentationDelivery",
+      "field": "role",
+      "match": "closeMatch",
+      "terms": ["bibo:performer", "schema:performer"]
+    },
+    {
+      "lexicon": "id.sifa.profile.presentationDelivery",
+      "field": "status",
+      "match": "exactMatch",
+      "terms": ["schema:eventStatus"]
+    },
+    {
+      "lexicon": "id.sifa.profile.presentationDelivery",
+      "field": "title",
+      "match": "exactMatch",
+      "terms": ["dcterms:title", "schema:name"]
+    },
+    {
+      "lexicon": "id.sifa.profile.project",
+      "match": "exactMatch",
+      "terms": ["schema:Project", "foaf:Project"]
+    },
+    {
+      "lexicon": "id.sifa.profile.publication",
+      "match": "broadMatch",
+      "terms": ["bibo:Document", "schema:CreativeWork"]
+    },
+    {
+      "lexicon": "id.sifa.profile.publication",
+      "field": "authors",
+      "match": "exactMatch",
+      "terms": ["bibo:authorList", "schema:author"]
+    },
+    {
+      "lexicon": "id.sifa.profile.publication",
+      "field": "description",
+      "match": "exactMatch",
+      "terms": ["bibo:abstract", "schema:abstract"]
+    },
+    {
+      "lexicon": "id.sifa.profile.publication",
+      "field": "publishedAt",
+      "match": "exactMatch",
+      "terms": ["dcterms:issued", "schema:datePublished"]
+    },
+    {
+      "lexicon": "id.sifa.profile.publication",
+      "field": "publisher",
+      "match": "exactMatch",
+      "terms": ["dcterms:publisher", "schema:publisher"]
+    },
+    {
+      "lexicon": "id.sifa.profile.publication",
+      "field": "subtitle",
+      "match": "closeMatch",
+      "terms": ["schema:alternativeHeadline"]
+    },
+    {
+      "lexicon": "id.sifa.profile.publication",
+      "field": "title",
+      "match": "exactMatch",
+      "terms": ["dcterms:title", "schema:name"]
+    },
+    {
+      "lexicon": "id.sifa.profile.publication",
+      "field": "url",
+      "match": "exactMatch",
+      "terms": ["bibo:uri", "schema:url"]
+    },
+    {
+      "lexicon": "id.sifa.profile.self",
+      "match": "exactMatch",
+      "terms": ["schema:Person", "foaf:Person"]
+    },
+    {
+      "lexicon": "id.sifa.profile.self",
+      "field": "about",
+      "match": "exactMatch",
+      "terms": ["schema:description"]
+    },
+    {
+      "lexicon": "id.sifa.profile.self",
+      "field": "avatar",
+      "match": "exactMatch",
+      "terms": ["schema:image", "foaf:depiction"]
+    },
+    {
+      "lexicon": "id.sifa.profile.self",
+      "field": "displayName",
+      "match": "exactMatch",
+      "terms": ["schema:name", "foaf:name"]
+    },
+    {
+      "lexicon": "id.sifa.profile.self",
+      "field": "familyName",
+      "match": "exactMatch",
+      "terms": ["schema:familyName", "foaf:family_name"]
+    },
+    {
+      "lexicon": "id.sifa.profile.self",
+      "field": "givenName",
+      "match": "exactMatch",
+      "terms": ["schema:givenName", "foaf:givenname"]
+    },
+    {
+      "lexicon": "id.sifa.profile.self",
+      "field": "headline",
+      "match": "closeMatch",
+      "terms": ["schema:jobTitle"]
+    },
+    {
+      "lexicon": "id.sifa.profile.self",
+      "field": "location",
+      "match": "closeMatch",
+      "terms": ["schema:homeLocation"]
+    },
+    {
+      "lexicon": "id.sifa.profile.skill",
+      "match": "closeMatch",
+      "terms": ["schema:knowsAbout", "schema:DefinedTerm"]
+    },
+    {
+      "lexicon": "id.sifa.profile.volunteering",
+      "match": "closeMatch",
+      "terms": ["org:Membership", "schema:OrganizationRole"]
+    }
+  ],
+  "unmapped": [
+    {
+      "lexicon": "id.sifa.confirmation",
+      "reason": "A record affirming another record is reification. schema:Review and schema:ClaimReview both imply an evaluation that a confirmation does not make."
+    },
+    {
+      "lexicon": "id.sifa.endorsement",
+      "reason": "Same reification problem as confirmation. Any mapping that lets a consumer aggregate endorsements into a score works against a descriptive-only trust model."
+    },
+    {
+      "lexicon": "id.sifa.graph.connection",
+      "reason": "foaf:knows carries no consent semantics. A Sifa connection is bilateral and confirmed; flattening it would present an unconfirmed acquaintance claim as mutual."
+    },
+    {
+      "lexicon": "id.sifa.graph.follow",
+      "reason": "See id.sifa.graph.connection."
+    },
+    {
+      "lexicon": "id.sifa.meeting",
+      "reason": "Attestation semantics; same reification problem."
+    }
+  ]
+}

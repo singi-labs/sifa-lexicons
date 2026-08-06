@@ -60,7 +60,8 @@
             "description": "Client-declared timestamp when this record was originally created."
           }
         }
-      }
+      },
+      "x-skos:closeMatch": ["org:Membership", "schema:OrganizationRole"]
     }
   }
 }

@@ -64,7 +64,8 @@
             "description": "Client-declared timestamp when this organization profile was originally created."
           }
         }
-      }
+      },
+      "x-skos:exactMatch": ["schema:Organization", "org:FormalOrganization"]
     }
   }
 }

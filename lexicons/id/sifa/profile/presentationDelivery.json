@@ -14,7 +14,8 @@
           "presentationRef": {
             "type": "ref",
             "ref": "id.sifa.defs#externalRecordRef",
-            "description": "Optional reference to the id.sifa.profile.presentation (the content) delivered here. When set, title, duration, and audiences are taken from it."
+            "description": "Optional reference to the id.sifa.profile.presentation (the content) delivered here. When set, title, duration, and audiences are taken from it.",
+            "x-skos:closeMatch": ["bibo:presentedAt", "schema:workPerformed"]
           },
           "sameAs": {
             "type": "ref",
@@ -25,7 +26,8 @@
             "type": "string",
             "maxGraphemes": 300,
             "maxLength": 3000,
-            "description": "Fallback title for this delivery, used when no presentationRef is set."
+            "description": "Fallback title for this delivery, used when no presentationRef is set.",
+            "x-skos:exactMatch": ["dcterms:title", "schema:name"]
           },
           "role": {
             "type": "string",
@@ -38,18 +40,21 @@
               "id.sifa.defs#keynote",
               "id.sifa.defs#workshop",
               "id.sifa.defs#host"
-            ]
+            ],
+            "x-skos:closeMatch": ["bibo:performer", "schema:performer"]
           },
           "eventName": {
             "type": "string",
             "maxGraphemes": 300,
             "maxLength": 3000,
-            "description": "Name of the event or venue. On the linked branch, hydrated from the calendar event's name."
+            "description": "Name of the event or venue. On the linked branch, hydrated from the calendar event's name.",
+            "x-skos:closeMatch": ["schema:superEvent", "bibo:Conference"]
           },
           "date": {
             "type": "string",
             "maxLength": 10,
-            "description": "Calendar date of this delivery as YYYY-MM-DD (day only, no time). Future dates are allowed for upcoming deliveries. The day-only shape is enforced at the app layer. On the linked branch, derived from the event's startsAt in the event's own offset."
+            "description": "Calendar date of this delivery as YYYY-MM-DD (day only, no time). Future dates are allowed for upcoming deliveries. The day-only shape is enforced at the app layer. On the linked branch, derived from the event's startsAt in the event's own offset.",
+            "x-skos:exactMatch": ["schema:startDate", "event:time"]
           },
           "location": {
             "type": "string",
@@ -60,7 +65,8 @@
           "address": {
             "type": "ref",
             "ref": "community.lexicon.location.address",
-            "description": "Structured delivery location. Sifa enforces ISO 3166-1 alpha-2 country codes at the app layer and surfaces country (for a flag) and locality (city); region, postalCode, and street are unused for deliveries. Takes precedence over the legacy location string when present."
+            "description": "Structured delivery location. Sifa enforces ISO 3166-1 alpha-2 country codes at the app layer and surfaces country (for a flag) and locality (city); region, postalCode, and street are unused for deliveries. Takes precedence over the legacy location string when present.",
+            "x-skos:exactMatch": ["schema:location", "event:place"]
           },
           "mode": {
             "type": "string",
@@ -69,7 +75,8 @@
               "community.lexicon.calendar.event#inperson",
               "community.lexicon.calendar.event#virtual",
               "community.lexicon.calendar.event#hybrid"
-            ]
+            ],
+            "x-skos:exactMatch": ["schema:eventAttendanceMode"]
           },
           "status": {
             "type": "string",
@@ -80,7 +87,8 @@
               "community.lexicon.calendar.event#postponed",
               "community.lexicon.calendar.event#rescheduled",
               "community.lexicon.calendar.event#planned"
-            ]
+            ],
+            "x-skos:exactMatch": ["schema:eventStatus"]
           },
           "links": {
             "type": "array",
@@ -103,7 +111,8 @@
               "type": "string",
               "format": "did"
             },
-            "description": "DIDs of co-speakers who presented alongside the author at this occasion. Any atproto account is allowed; hydrated to profile cards on read and linked to the co-speaker's Sifa profile."
+            "description": "DIDs of co-speakers who presented alongside the author at this occasion. Any atproto account is allowed; hydrated to profile cards on read and linked to the co-speaker's Sifa profile.",
+            "x-skos:exactMatch": ["schema:performer"]
           },
           "createdAt": {
             "type": "string",
@@ -111,7 +120,8 @@
             "description": "Client-declared timestamp when this record was originally created."
           }
         }
-      }
+      },
+      "x-skos:closeMatch": ["schema:Event", "event:Event"]
     }
   }
 }

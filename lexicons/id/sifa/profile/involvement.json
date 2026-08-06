@@ -1,11 +1,11 @@
 {
   "lexicon": 1,
   "id": "id.sifa.profile.involvement",
-  "description": "Uncompensated involvement with an external project, community, event, or cause the user does not own or run — open-source, community, charity, or civic work. Distinct from paid roles (position), things you own (project), and paid employment.",
+  "description": "Uncompensated involvement with an external project, community, event, or cause the user does not own or run \u2014 open-source, community, charity, or civic work. Distinct from paid roles (position), things you own (project), and paid employment.",
   "defs": {
     "main": {
       "type": "record",
-      "description": "Record representing one involvement — an ongoing role and/or a body of discrete contributions to a single upstream.",
+      "description": "Record representing one involvement \u2014 an ongoing role and/or a body of discrete contributions to a single upstream.",
       "key": "tid",
       "record": {
         "type": "object",
@@ -26,7 +26,7 @@
             "type": "string",
             "maxGraphemes": 256,
             "maxLength": 2560,
-            "description": "Name of the project, community, event, or cause (e.g. 'atproto', 'Linux kernel', 'PyCon NL'). Optional — a one-off contribution need not name an organization."
+            "description": "Name of the project, community, event, or cause (e.g. 'atproto', 'Linux kernel', 'PyCon NL'). Optional \u2014 a one-off contribution need not name an organization."
           },
           "upstreamDid": {
             "type": "string",
@@ -111,7 +111,8 @@
             "description": "Client-declared timestamp when this record was originally created."
           }
         }
-      }
+      },
+      "x-skos:broadMatch": ["org:Membership"]
     }
   }
 }

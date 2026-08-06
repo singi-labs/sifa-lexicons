@@ -16,30 +16,35 @@
             "minLength": 1,
             "maxGraphemes": 200,
             "maxLength": 2000,
-            "description": "Publication title."
+            "description": "Publication title.",
+            "x-skos:exactMatch": ["dcterms:title", "schema:name"]
           },
           "subtitle": {
             "type": "string",
             "maxGraphemes": 200,
             "maxLength": 2000,
-            "description": "Publication subtitle. Carries the distinguishing part of a title that sources such as Crossref and ORCID store separately from the main title -- for example the volume/part designation and descriptive clause of a multi-part paper series (\"III. Using cluster masses to create a cleaned catalogue\"). Absent for publications with no subtitle."
+            "description": "Publication subtitle. Carries the distinguishing part of a title that sources such as Crossref and ORCID store separately from the main title -- for example the volume/part designation and descriptive clause of a multi-part paper series (\"III. Using cluster masses to create a cleaned catalogue\"). Absent for publications with no subtitle.",
+            "x-skos:closeMatch": ["schema:alternativeHeadline"]
           },
           "publisher": {
             "type": "string",
             "maxGraphemes": 256,
             "maxLength": 2560,
-            "description": "Publisher, journal, or venue name."
+            "description": "Publisher, journal, or venue name.",
+            "x-skos:exactMatch": ["dcterms:publisher", "schema:publisher"]
           },
           "url": {
             "type": "string",
             "format": "uri",
-            "description": "URL to the publication."
+            "description": "URL to the publication.",
+            "x-skos:exactMatch": ["bibo:uri", "schema:url"]
           },
           "description": {
             "type": "string",
             "maxGraphemes": 5000,
             "maxLength": 50000,
-            "description": "Description or abstract."
+            "description": "Description or abstract.",
+            "x-skos:exactMatch": ["bibo:abstract", "schema:abstract"]
           },
           "sameAs": {
             "type": "ref",
@@ -53,11 +58,13 @@
               "type": "ref",
               "ref": "#author"
             },
-            "description": "Co-authors. The record owner is always an implicit author."
+            "description": "Co-authors. The record owner is always an implicit author.",
+            "x-skos:exactMatch": ["bibo:authorList", "schema:author"]
           },
           "publishedAt": {
             "type": "string",
-            "description": "Publication date in YYYY-MM or YYYY-MM-DD format."
+            "description": "Publication date in YYYY-MM or YYYY-MM-DD format.",
+            "x-skos:exactMatch": ["dcterms:issued", "schema:datePublished"]
           },
           "createdAt": {
             "type": "string",
@@ -65,7 +72,8 @@
             "description": "Client-declared timestamp when this record was originally created."
           }
         }
-      }
+      },
+      "x-skos:broadMatch": ["bibo:Document", "schema:CreativeWork"]
     },
     "author": {
       "type": "object",

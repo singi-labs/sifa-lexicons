@@ -22,7 +22,8 @@
             "type": "string",
             "maxGraphemes": 50,
             "maxLength": 500,
-            "description": "Course number or code (e.g., 'CS101')."
+            "description": "Course number or code (e.g., 'CS101').",
+            "x-skos:exactMatch": ["schema:courseCode"]
           },
           "institution": {
             "type": "string",
@@ -55,7 +56,8 @@
             "description": "Client-declared timestamp when this record was originally created."
           }
         }
-      }
+      },
+      "x-skos:exactMatch": ["schema:Course"]
     }
   }
 }

@@ -16,18 +16,21 @@
             "minLength": 1,
             "maxGraphemes": 300,
             "maxLength": 3000,
-            "description": "Title of the presentation."
+            "description": "Title of the presentation.",
+            "x-skos:exactMatch": ["dcterms:title", "schema:name"]
           },
           "description": {
             "type": "string",
             "maxGraphemes": 5000,
             "maxLength": 50000,
-            "description": "Description or abstract of the presentation."
+            "description": "Description or abstract of the presentation.",
+            "x-skos:exactMatch": ["bibo:abstract", "schema:abstract"]
           },
           "duration": {
             "type": "ref",
             "ref": "#duration",
-            "description": "Typical length of the presentation, a fixed value or a range, in minutes."
+            "description": "Typical length of the presentation, a fixed value or a range, in minutes.",
+            "x-skos:narrowMatch": ["schema:timeRequired"]
           },
           "intendedAudiences": {
             "type": "array",
@@ -37,7 +40,8 @@
               "maxGraphemes": 100,
               "maxLength": 1000
             },
-            "description": "Intended audiences for this presentation, open text (e.g. 'Engineering leaders', 'Beginners')."
+            "description": "Intended audiences for this presentation, open text (e.g. 'Engineering leaders', 'Beginners').",
+            "x-skos:closeMatch": ["schema:audience"]
           },
           "links": {
             "type": "array",
@@ -51,13 +55,15 @@
           "writeupRef": {
             "type": "ref",
             "ref": "id.sifa.defs#externalRecordRef",
-            "description": "Optional reference to a long-form write-up of this presentation (a pub.leaflet.document or site.standard.document holding video, transcript, or article)."
+            "description": "Optional reference to a long-form write-up of this presentation (a pub.leaflet.document or site.standard.document holding video, transcript, or article).",
+            "x-skos:closeMatch": ["dcterms:isReferencedBy", "schema:subjectOf"]
           },
           "coverImage": {
             "type": "blob",
             "accept": ["image/png", "image/jpeg", "image/webp"],
             "maxSize": 2000000,
-            "description": "Optional cover image for the presentation. Rendered as the talk-page hero and OpenGraph image. Max 2 MB, PNG, JPEG, or WebP."
+            "description": "Optional cover image for the presentation. Rendered as the talk-page hero and OpenGraph image. Max 2 MB, PNG, JPEG, or WebP.",
+            "x-skos:exactMatch": ["schema:image", "foaf:depiction"]
           },
           "createdAt": {
             "type": "string",
@@ -65,7 +71,8 @@
             "description": "Client-declared timestamp when this record was originally created."
           }
         }
-      }
+      },
+      "x-skos:closeMatch": ["bibo:Slideshow", "schema:PresentationDigitalDocument"]
     },
     "duration": {
       "type": "object",

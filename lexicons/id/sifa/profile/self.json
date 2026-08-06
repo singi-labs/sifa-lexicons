@@ -15,25 +15,29 @@
             "type": "string",
             "maxGraphemes": 64,
             "maxLength": 640,
-            "description": "Professional-context display name. Overrides app.bsky.actor.profile.displayName when present."
+            "description": "Professional-context display name. Overrides app.bsky.actor.profile.displayName when present.",
+            "x-skos:exactMatch": ["schema:name", "foaf:name"]
           },
           "givenName": {
             "type": "string",
             "maxGraphemes": 64,
             "maxLength": 640,
-            "description": "Given (first) name. Maps to Schema.org Person.givenName. Optional; if absent, displayName is used for rendering."
+            "description": "Given (first) name. Maps to Schema.org Person.givenName. Optional; if absent, displayName is used for rendering.",
+            "x-skos:exactMatch": ["schema:givenName", "foaf:givenname"]
           },
           "familyName": {
             "type": "string",
             "maxGraphemes": 64,
             "maxLength": 640,
-            "description": "Family (last) name. Maps to Schema.org Person.familyName. Optional."
+            "description": "Family (last) name. Maps to Schema.org Person.familyName. Optional.",
+            "x-skos:exactMatch": ["schema:familyName", "foaf:family_name"]
           },
           "avatar": {
             "type": "blob",
             "accept": ["image/png", "image/jpeg"],
             "maxSize": 1000000,
-            "description": "Professional-context avatar image. Overrides app.bsky.actor.profile.avatar when present."
+            "description": "Professional-context avatar image. Overrides app.bsky.actor.profile.avatar when present.",
+            "x-skos:exactMatch": ["schema:image", "foaf:depiction"]
           },
           "pronouns": {
             "type": "string",
@@ -45,13 +49,15 @@
             "type": "string",
             "maxGraphemes": 120,
             "maxLength": 1200,
-            "description": "Professional headline (e.g., 'Senior Engineer at Acme Corp'). Distinct from Bluesky's displayName."
+            "description": "Professional headline (e.g., 'Senior Engineer at Acme Corp'). Distinct from Bluesky's displayName.",
+            "x-skos:closeMatch": ["schema:jobTitle"]
           },
           "about": {
             "type": "string",
             "maxGraphemes": 5000,
             "maxLength": 50000,
-            "description": "Professional summary or about section. Longer-form than Bluesky's description field."
+            "description": "Professional summary or about section. Longer-form than Bluesky's description field.",
+            "x-skos:exactMatch": ["schema:description"]
           },
           "industries": {
             "type": "array",
@@ -65,7 +71,8 @@
           "location": {
             "type": "ref",
             "ref": "community.lexicon.location.address",
-            "description": "Professional location. Sifa enforces ISO 3166-1 alpha-2 country codes at the app layer."
+            "description": "Professional location. Sifa enforces ISO 3166-1 alpha-2 country codes at the app layer.",
+            "x-skos:closeMatch": ["schema:homeLocation"]
           },
           "openTo": {
             "type": "array",
@@ -138,7 +145,8 @@
             "description": "Client-declared timestamp when this profile was originally created."
           }
         }
-      }
+      },
+      "x-skos:exactMatch": ["schema:Person", "foaf:Person"]
     }
   }
 }

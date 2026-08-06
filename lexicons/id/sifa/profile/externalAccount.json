@@ -57,7 +57,8 @@
             "description": "Client-declared timestamp when this record was originally created."
           }
         }
-      }
+      },
+      "x-skos:exactMatch": ["schema:sameAs", "foaf:account"]
     }
   }
 }

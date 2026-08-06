@@ -1466,3 +1466,33 @@ describe('id.sifa.defs investment additions', () => {
     expect(defs.defs.investmentAmount?.properties?.currency?.maxLength).toBe(3);
   });
 });
+
+describe('getProfileView positionView onBehalfOf', () => {
+  interface ViewDoc {
+    defs: Record<
+      string,
+      { properties?: Record<string, { type: string; format?: string; description?: string }> }
+    >;
+  }
+  const view = JSON.parse(
+    readFileSync(join(LEXICONS_DIR, 'getProfileView.json'), 'utf-8'),
+  ) as ViewDoc;
+  const props = view.defs.positionView?.properties;
+
+  it('exposes the represented party alongside the role', () => {
+    expect(props?.onBehalfOf?.type).toBe('string');
+    expect(props?.onBehalfOfDid?.format).toBe('did');
+    expect(props?.onBehalfOfEntityRef?.format).toBe('uri');
+  });
+
+  // The view resolves entityRef into a canonical entityName, so the represented party
+  // needs the same resolved-name field or clients would render a bare URI.
+  it('resolves the represented party to a display name, mirroring entityName', () => {
+    expect(props?.onBehalfOfEntityName?.type).toBe('string');
+    expect(props?.entityName).toBeDefined();
+  });
+
+  it('describes onBehalfOf as a representation disclosure', () => {
+    expect(props?.onBehalfOf?.description).toMatch(/behalf|represent/i);
+  });
+});

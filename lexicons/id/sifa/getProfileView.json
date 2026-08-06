@@ -413,6 +413,24 @@
           "ref": "id.sifa.defs#employmentType",
           "description": "Employment arrangement."
         },
+        "onBehalfOf": {
+          "type": "string",
+          "description": "Party this role is held on behalf of, when the person represents someone else — most often a fund whose board seat this is. A disclosure, not a role type. Absent for independent roles."
+        },
+        "onBehalfOfDid": {
+          "type": "string",
+          "format": "did",
+          "description": "DID of the represented party, when known. May be an organization or a person."
+        },
+        "onBehalfOfEntityRef": {
+          "type": "string",
+          "format": "uri",
+          "description": "Pointer URI to the resolved entity for the represented party."
+        },
+        "onBehalfOfEntityName": {
+          "type": "string",
+          "description": "Resolved canonical name for the represented party. Present only when the reference resolves; clients render onBehalfOf otherwise, never the raw URI."
+        },
         "workplaceType": {
           "type": "ref",
           "ref": "id.sifa.defs#workplaceType",

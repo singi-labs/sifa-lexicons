@@ -19,7 +19,10 @@
         "id.sifa.defs#apprenticeship",
         "id.sifa.defs#fellowship",
         "id.sifa.defs#trainee",
-        "id.sifa.defs#volunteer"
+        "id.sifa.defs#volunteer",
+        "id.sifa.defs#boardMember",
+        "id.sifa.defs#boardObserver",
+        "id.sifa.defs#advisor"
       ]
     },
     "fullTime": {
@@ -73,6 +76,18 @@
     "volunteer": {
       "type": "token",
       "description": "Volunteer work (when used as employment type)."
+    },
+    "boardMember": {
+      "type": "token",
+      "description": "Seat on a board of directors or supervisory board, carrying a vote and fiduciary duty. Usually not employment, in the same way volunteer is not."
+    },
+    "boardObserver": {
+      "type": "token",
+      "description": "Board observer seat: attends and is informed but holds no vote. The common shape of an investor seat, kept distinct so it does not read as directorship."
+    },
+    "advisor": {
+      "type": "token",
+      "description": "Advisory role, paid or unpaid, without a board seat or line responsibility."
     },
 
     "workplaceType": {

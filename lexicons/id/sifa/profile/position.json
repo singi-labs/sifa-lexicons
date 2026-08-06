@@ -57,8 +57,27 @@
               "id.sifa.defs#apprenticeship",
               "id.sifa.defs#fellowship",
               "id.sifa.defs#trainee",
-              "id.sifa.defs#volunteer"
+              "id.sifa.defs#volunteer",
+              "id.sifa.defs#boardMember",
+              "id.sifa.defs#boardObserver",
+              "id.sifa.defs#advisor"
             ]
+          },
+          "onBehalfOf": {
+            "type": "string",
+            "maxGraphemes": 256,
+            "maxLength": 2560,
+            "description": "Name of the party this role is held on behalf of, when the person represents someone else — most often a fund whose board seat this is. A disclosure, not a role type. Omit for independent seats."
+          },
+          "onBehalfOfDid": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the represented party's ATproto account, if one exists. May resolve to an organization or to a person (e.g. a family-office principal)."
+          },
+          "onBehalfOfEntityRef": {
+            "type": "string",
+            "format": "uri",
+            "description": "Portable, app-neutral identifier for the represented party selected from a resolver dropdown: a Wikidata Q-ID URI, a ROR URI, or an LEI URI. Absent for free-text entries."
           },
           "workplaceType": {
             "type": "string",

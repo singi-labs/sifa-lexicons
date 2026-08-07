@@ -56,10 +56,17 @@ Every schema in this repo is published as a `com.atproto.lexicon.schema` record 
 
 **Social graph**
 
-| NSID                       | Purpose                         |
-| -------------------------- | ------------------------------- |
-| `id.sifa.graph.follow`     | Professional follows            |
-| `id.sifa.graph.connection` | Mutual professional connections |
+| NSID                       | Purpose                                              |
+| -------------------------- | ---------------------------------------------------- |
+| `id.sifa.graph.follow`     | Professional follows                                 |
+| `id.sifa.graph.connection` | **Deprecated, not implemented.** See the note below. |
+
+> **`id.sifa.graph.connection` is deprecated and was never implemented.**
+> It described an explicit two-record connection handshake: you create a record
+> naming someone, they accept by creating their own naming you. Sifa instead
+> derives a connection from two mutual `id.sifa.graph.follow` records, so
+> nothing writes or reads this collection. The definition is retained so the
+> NSID is not reused for something else; do not build against it.
 
 > **`id.sifa.graph.follow` is a distinct graph, not a Bluesky superset.**
 > Sifa's follow graph captures the intent "I want to see this person's professional

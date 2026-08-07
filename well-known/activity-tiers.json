@@ -25,16 +25,33 @@
       "app": "bluesky",
       "notes": "Ambiguous: many posts are casual, but the lexicon also carries long-form posts and threads. Treated as creation; empty quote-posts (no text + record embed) are filtered at the consumer layer, not here."
     },
-    "app.bsky.feed.like": { "tier": "action", "app": "bluesky" },
-    "app.bsky.feed.repost": { "tier": "action", "app": "bluesky" },
+    "app.bsky.feed.like": {
+      "tier": "action",
+      "app": "bluesky"
+    },
+    "app.bsky.feed.repost": {
+      "tier": "action",
+      "app": "bluesky"
+    },
     "app.bsky.feed.generator": {
       "tier": "filtered",
       "app": "bluesky",
       "notes": "Feed generator definition record, not personal activity."
     },
-    "app.bsky.graph.follow": { "tier": "action", "app": "bluesky" },
-    "app.bsky.graph.block": { "tier": "filtered", "app": "bluesky", "notes": "Moderation record." },
-    "app.bsky.graph.mute": { "tier": "filtered", "app": "bluesky", "notes": "Moderation record." },
+    "app.bsky.graph.follow": {
+      "tier": "action",
+      "app": "bluesky"
+    },
+    "app.bsky.graph.block": {
+      "tier": "filtered",
+      "app": "bluesky",
+      "notes": "Moderation record."
+    },
+    "app.bsky.graph.mute": {
+      "tier": "filtered",
+      "app": "bluesky",
+      "notes": "Moderation record."
+    },
     "app.bsky.graph.listblock": {
       "tier": "filtered",
       "app": "bluesky",
@@ -50,24 +67,40 @@
       "app": "bluesky",
       "notes": "User-curated list metadata; not surfaced as profile activity."
     },
-    "app.bsky.graph.starterpack": { "tier": "filtered", "app": "bluesky" },
+    "app.bsky.graph.starterpack": {
+      "tier": "filtered",
+      "app": "bluesky"
+    },
     "app.bsky.actor.profile": {
       "tier": "filtered",
       "app": "bluesky",
       "notes": "Profile metadata record."
     },
-
-    "sh.tangled.repo": { "tier": "creation", "app": "tangled" },
-    "sh.tangled.repo.issue": { "tier": "creation", "app": "tangled" },
-    "sh.tangled.repo.pull": { "tier": "creation", "app": "tangled" },
-    "sh.tangled.feed.star": { "tier": "action", "app": "tangled" },
-    "sh.tangled.graph.follow": { "tier": "action", "app": "tangled" },
+    "sh.tangled.repo": {
+      "tier": "creation",
+      "app": "tangled"
+    },
+    "sh.tangled.repo.issue": {
+      "tier": "creation",
+      "app": "tangled"
+    },
+    "sh.tangled.repo.pull": {
+      "tier": "creation",
+      "app": "tangled"
+    },
+    "sh.tangled.feed.star": {
+      "tier": "action",
+      "app": "tangled"
+    },
+    "sh.tangled.graph.follow": {
+      "tier": "action",
+      "app": "tangled"
+    },
     "sh.tangled.actor.profile": {
       "tier": "filtered",
       "app": "tangled",
       "notes": "Profile metadata record."
     },
-
     "community.lexicon.calendar.rsvp": {
       "tier": "creation",
       "app": "smokesignal",
@@ -78,10 +111,14 @@
       "app": "smokesignal",
       "notes": "Profile metadata record."
     },
-
-    "blue.flashes.feed.post": { "tier": "creation", "app": "flashes" },
-
-    "social.grain.gallery": { "tier": "creation", "app": "grain" },
+    "blue.flashes.feed.post": {
+      "tier": "creation",
+      "app": "flashes"
+    },
+    "social.grain.gallery": {
+      "tier": "creation",
+      "app": "grain"
+    },
     "social.grain.gallery.item": {
       "tier": "filtered",
       "app": "grain",
@@ -102,28 +139,58 @@
       "app": "grain",
       "notes": "Ephemeral story format."
     },
-
-    "com.whtwnd.blog.entry": { "tier": "creation", "app": "whitewind" },
-
-    "fyi.unravel.frontpage.post": { "tier": "creation", "app": "frontpage" },
-    "fyi.unravel.frontpage.vote": { "tier": "action", "app": "frontpage" },
-
-    "social.psky.feed.post": { "tier": "creation", "app": "picosky" },
-
-    "link.pastesphere.snippet": { "tier": "creation", "app": "pastesphere" },
-
-    "site.standard.document": { "tier": "creation", "app": "standard" },
-
-    "computer.aetheros.page": { "tier": "creation", "app": "aetheros" },
-
-    "space.roomy.space.personal": { "tier": "creation", "app": "roomy" },
-
-    "dev.keytrace.claim": { "tier": "creation", "app": "keytrace" },
-
-    "social.popfeed.feed.review": { "tier": "creation", "app": "popfeed" },
-    "social.popfeed.feed.post": { "tier": "creation", "app": "popfeed" },
-    "social.popfeed.feed.note": { "tier": "creation", "app": "popfeed" },
-    "social.popfeed.feed.like": { "tier": "action", "app": "popfeed" },
+    "com.whtwnd.blog.entry": {
+      "tier": "creation",
+      "app": "whitewind"
+    },
+    "fyi.unravel.frontpage.post": {
+      "tier": "creation",
+      "app": "frontpage"
+    },
+    "fyi.unravel.frontpage.vote": {
+      "tier": "action",
+      "app": "frontpage"
+    },
+    "social.psky.feed.post": {
+      "tier": "creation",
+      "app": "picosky"
+    },
+    "link.pastesphere.snippet": {
+      "tier": "creation",
+      "app": "pastesphere"
+    },
+    "site.standard.document": {
+      "tier": "creation",
+      "app": "standard"
+    },
+    "computer.aetheros.page": {
+      "tier": "creation",
+      "app": "aetheros"
+    },
+    "space.roomy.space.personal": {
+      "tier": "creation",
+      "app": "roomy"
+    },
+    "dev.keytrace.claim": {
+      "tier": "creation",
+      "app": "keytrace"
+    },
+    "social.popfeed.feed.review": {
+      "tier": "creation",
+      "app": "popfeed"
+    },
+    "social.popfeed.feed.post": {
+      "tier": "creation",
+      "app": "popfeed"
+    },
+    "social.popfeed.feed.note": {
+      "tier": "creation",
+      "app": "popfeed"
+    },
+    "social.popfeed.feed.like": {
+      "tier": "action",
+      "app": "popfeed"
+    },
     "social.popfeed.challenge.participation": {
       "tier": "filtered",
       "app": "popfeed",
@@ -134,8 +201,10 @@
       "app": "popfeed",
       "notes": "Profile metadata record."
     },
-
-    "place.stream.livestream": { "tier": "creation", "app": "streamplace" },
+    "place.stream.livestream": {
+      "tier": "creation",
+      "app": "streamplace"
+    },
     "place.stream.broadcast.origin": {
       "tier": "filtered",
       "app": "streamplace",
@@ -144,7 +213,7 @@
     "place.stream.key": {
       "tier": "filtered",
       "app": "streamplace",
-      "notes": "Stream key — sensitive infrastructure record."
+      "notes": "Stream key \u2014 sensitive infrastructure record."
     },
     "place.stream.metadata.configuration": {
       "tier": "filtered",
@@ -161,27 +230,45 @@
       "app": "streamplace",
       "notes": "Chat profile metadata."
     },
-
-    "app.sidetrail.trail": { "tier": "creation", "app": "semble" },
-    "app.sidetrail.walk": { "tier": "creation", "app": "semble" },
-
-    "at.youandme.connection": { "tier": "creation", "app": "youandme" },
-
-    "pub.leaflet.comment": { "tier": "creation", "app": "leaflet" },
-    "pub.leaflet.interactions.recommend": { "tier": "action", "app": "leaflet" },
+    "app.sidetrail.trail": {
+      "tier": "creation",
+      "app": "semble"
+    },
+    "app.sidetrail.walk": {
+      "tier": "creation",
+      "app": "semble"
+    },
+    "at.youandme.connection": {
+      "tier": "creation",
+      "app": "youandme"
+    },
+    "pub.leaflet.comment": {
+      "tier": "creation",
+      "app": "leaflet"
+    },
+    "pub.leaflet.interactions.recommend": {
+      "tier": "action",
+      "app": "leaflet"
+    },
     "pub.leaflet.authFullPermissions": {
       "tier": "filtered",
       "app": "leaflet",
       "notes": "OAuth permission record."
     },
-
-    "social.colibri.membership": { "tier": "creation", "app": "colibri" },
+    "social.colibri.membership": {
+      "tier": "creation",
+      "app": "colibri"
+    },
     "social.colibri.message": {
       "tier": "filtered",
       "app": "colibri",
-      "notes": "Chat message — high-volume conversational signal, not portfolio."
+      "notes": "Chat message \u2014 high-volume conversational signal, not portfolio."
     },
-    "social.colibri.reaction": { "tier": "filtered", "app": "colibri", "notes": "Chat reaction." },
+    "social.colibri.reaction": {
+      "tier": "filtered",
+      "app": "colibri",
+      "notes": "Chat reaction."
+    },
     "social.colibri.channel": {
       "tier": "filtered",
       "app": "colibri",
@@ -217,75 +304,134 @@
       "app": "colibri",
       "notes": "Richtext facet sub-record."
     },
-
     "app.collectivesocial.feed.list": {
       "tier": "creation",
       "app": "collectivesocial",
       "notes": "Auto-created default Inbox lists are filtered at the consumer layer via isDefault=true predicate."
     },
-
     "net.alternativeproto.vote": {
       "tier": "action",
       "notes": "Vote record on a third-party protocol."
     },
     "network.cosmik.collection": {
       "tier": "filtered",
-      "notes": "Stale registry id — Cosmik formerly in app registry."
+      "notes": "Stale registry id \u2014 Cosmik formerly in app registry."
     },
-    "network.cosmik.collectionLink": { "tier": "filtered" },
-    "network.cosmik.connection": { "tier": "filtered" },
-    "network.cosmik.follow": { "tier": "filtered" },
-    "network.cosmik.card": { "tier": "filtered", "notes": "Link-in-bio card; consumption signal." },
-
+    "network.cosmik.collectionLink": {
+      "tier": "filtered"
+    },
+    "network.cosmik.connection": {
+      "tier": "filtered"
+    },
+    "network.cosmik.follow": {
+      "tier": "filtered"
+    },
+    "network.cosmik.card": {
+      "tier": "filtered",
+      "notes": "Link-in-bio card; consumption signal."
+    },
     "social.pinksky.app.preference": {
       "tier": "filtered",
       "app": "bluesky",
       "notes": "Pinkleap (Bluesky client) app preferences."
     },
-
     "at.margin.bookmark": {
       "tier": "filtered",
-      "notes": "Bookmark — consumption signal, not creation."
+      "notes": "Bookmark \u2014 consumption signal, not creation."
     },
     "at.margin.highlight": {
       "tier": "filtered",
-      "notes": "Highlight — consumption signal, not creation."
+      "notes": "Highlight \u2014 consumption signal, not creation."
     },
     "community.lexicon.bookmarks.bookmark": {
       "tier": "filtered",
-      "notes": "Bookmark — consumption signal."
+      "notes": "Bookmark \u2014 consumption signal."
     },
-    "blue.linkat.board": { "tier": "filtered", "notes": "Link-in-bio board; consumption signal." },
-
-    "dev.skyboard.board": { "tier": "filtered", "notes": "Skyboard task-board metadata." },
-    "dev.skyboard.op": { "tier": "filtered", "notes": "Skyboard operation log." },
-    "dev.skyboard.task": { "tier": "filtered", "notes": "Skyboard task record." },
-
-    "net.anisota.player.state": { "tier": "filtered", "notes": "Anisota game player state." },
+    "blue.linkat.board": {
+      "tier": "filtered",
+      "notes": "Link-in-bio board; consumption signal."
+    },
+    "dev.skyboard.board": {
+      "tier": "filtered",
+      "notes": "Skyboard task-board metadata."
+    },
+    "dev.skyboard.op": {
+      "tier": "filtered",
+      "notes": "Skyboard operation log."
+    },
+    "dev.skyboard.task": {
+      "tier": "filtered",
+      "notes": "Skyboard task record."
+    },
+    "net.anisota.player.state": {
+      "tier": "filtered",
+      "notes": "Anisota game player state."
+    },
     "xyz.statusphere.status": {
       "tier": "filtered",
-      "notes": "Statusphere emoji status — leisure signal."
+      "notes": "Statusphere emoji status \u2014 leisure signal."
     },
-
     "id.sifa.profile.self": {
       "tier": "creation",
       "app": "sifa",
       "notes": "Sifa professional profile root."
     },
-    "id.sifa.profile.position": { "tier": "creation", "app": "sifa" },
-    "id.sifa.profile.education": { "tier": "creation", "app": "sifa" },
-    "id.sifa.profile.skill": { "tier": "creation", "app": "sifa" },
-    "id.sifa.profile.certification": { "tier": "creation", "app": "sifa" },
-    "id.sifa.profile.project": { "tier": "creation", "app": "sifa" },
-    "id.sifa.profile.volunteering": { "tier": "creation", "app": "sifa" },
-    "id.sifa.profile.publication": { "tier": "creation", "app": "sifa" },
-    "id.sifa.profile.course": { "tier": "creation", "app": "sifa" },
-    "id.sifa.profile.honor": { "tier": "creation", "app": "sifa" },
-    "id.sifa.profile.language": { "tier": "creation", "app": "sifa" },
-    "id.sifa.profile.externalAccount": { "tier": "creation", "app": "sifa" },
-    "id.sifa.profile.location": { "tier": "creation", "app": "sifa" },
-    "id.sifa.profile.presentation": { "tier": "creation", "app": "sifa" },
-    "id.sifa.profile.presentationDelivery": { "tier": "creation", "app": "sifa" },
+    "id.sifa.profile.position": {
+      "tier": "creation",
+      "app": "sifa"
+    },
+    "id.sifa.profile.education": {
+      "tier": "creation",
+      "app": "sifa"
+    },
+    "id.sifa.profile.skill": {
+      "tier": "creation",
+      "app": "sifa"
+    },
+    "id.sifa.profile.certification": {
+      "tier": "creation",
+      "app": "sifa"
+    },
+    "id.sifa.profile.project": {
+      "tier": "creation",
+      "app": "sifa"
+    },
+    "id.sifa.profile.volunteering": {
+      "tier": "creation",
+      "app": "sifa"
+    },
+    "id.sifa.profile.publication": {
+      "tier": "creation",
+      "app": "sifa"
+    },
+    "id.sifa.profile.course": {
+      "tier": "creation",
+      "app": "sifa"
+    },
+    "id.sifa.profile.honor": {
+      "tier": "creation",
+      "app": "sifa"
+    },
+    "id.sifa.profile.language": {
+      "tier": "creation",
+      "app": "sifa"
+    },
+    "id.sifa.profile.externalAccount": {
+      "tier": "creation",
+      "app": "sifa"
+    },
+    "id.sifa.profile.location": {
+      "tier": "creation",
+      "app": "sifa"
+    },
+    "id.sifa.profile.presentation": {
+      "tier": "creation",
+      "app": "sifa"
+    },
+    "id.sifa.profile.presentationDelivery": {
+      "tier": "creation",
+      "app": "sifa"
+    },
     "id.sifa.endorsement": {
       "tier": "creation",
       "app": "sifa",
@@ -301,13 +447,19 @@
       "app": "sifa",
       "notes": "Confirmation that a record naming the actor is accurate (co-speaker credit, project membership)."
     },
-    "id.sifa.graph.follow": { "tier": "action", "app": "sifa" },
+    "id.sifa.graph.follow": {
+      "tier": "action",
+      "app": "sifa"
+    },
     "id.sifa.graph.connection": {
       "tier": "creation",
       "app": "sifa",
-      "notes": "Mutual professional connection record."
+      "notes": "DEPRECATED, not implemented. Connections are derived from mutual id.sifa.graph.follow records; nothing writes this collection."
     },
-    "id.sifa.project.self": { "tier": "creation", "app": "sifa" },
+    "id.sifa.project.self": {
+      "tier": "creation",
+      "app": "sifa"
+    },
     "id.sifa.project.member": {
       "tier": "creation",
       "app": "sifa",
@@ -318,26 +470,60 @@
       "app": "sifa",
       "notes": "Deprecated, never implemented. Superseded by id.sifa.confirmation."
     },
-    "id.sifa.meeting": { "tier": "creation", "app": "sifa" },
-    "id.sifa.authProfile": { "tier": "filtered", "app": "sifa", "notes": "OAuth scope record." },
+    "id.sifa.meeting": {
+      "tier": "creation",
+      "app": "sifa"
+    },
+    "id.sifa.authProfile": {
+      "tier": "filtered",
+      "app": "sifa",
+      "notes": "OAuth scope record."
+    },
     "id.sifa.authProfileAccess": {
       "tier": "filtered",
       "app": "sifa",
       "notes": "OAuth profile-access record."
     },
-    "id.sifa.authProject": { "tier": "filtered", "app": "sifa", "notes": "OAuth scope record." },
-    "id.sifa.authConnection": { "tier": "filtered", "app": "sifa", "notes": "OAuth scope record." },
-    "id.sifa.authMeet": { "tier": "filtered", "app": "sifa", "notes": "OAuth scope record." },
-
-    "forum.barazo.post": { "tier": "creation", "app": "barazo" },
-    "forum.barazo.community.member": { "tier": "creation", "app": "barazo" },
-    "forum.barazo.reputation.event": { "tier": "creation", "app": "barazo" },
-    "forum.barazo.reaction": { "tier": "action", "app": "barazo" },
+    "id.sifa.authProject": {
+      "tier": "filtered",
+      "app": "sifa",
+      "notes": "OAuth scope record."
+    },
+    "id.sifa.authConnection": {
+      "tier": "filtered",
+      "app": "sifa",
+      "notes": "OAuth scope record."
+    },
+    "id.sifa.authMeet": {
+      "tier": "filtered",
+      "app": "sifa",
+      "notes": "OAuth scope record."
+    },
+    "forum.barazo.post": {
+      "tier": "creation",
+      "app": "barazo"
+    },
+    "forum.barazo.community.member": {
+      "tier": "creation",
+      "app": "barazo"
+    },
+    "forum.barazo.reputation.event": {
+      "tier": "creation",
+      "app": "barazo"
+    },
+    "forum.barazo.reaction": {
+      "tier": "action",
+      "app": "barazo"
+    },
     "forum.barazo.reply": {
       "tier": "action",
       "app": "barazo",
-      "notes": "Short conversational reply — engagement signal."
+      "notes": "Short conversational reply \u2014 engagement signal."
     },
-    "forum.barazo.flag": { "tier": "filtered", "app": "barazo", "notes": "Moderation flag." }
+    "forum.barazo.flag": {
+      "tier": "filtered",
+      "app": "barazo",
+      "notes": "Moderation flag."
+    }
   }
 }

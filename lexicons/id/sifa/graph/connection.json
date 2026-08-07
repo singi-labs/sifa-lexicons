@@ -1,11 +1,11 @@
 {
   "lexicon": 1,
   "id": "id.sifa.graph.connection",
-  "description": "A mutual professional connection request. The requester creates this record; the subject accepts by creating their own record with the requester as subject. Both records must exist for the connection to be active. Either party can delete their record to sever the connection.",
+  "description": "DEPRECATED, not implemented. Sifa derives a connection from two mutual id.sifa.graph.follow records rather than storing a separate record, so nothing writes or reads this collection. Retained so the NSID is not reused for something else. Original intent: A mutual professional connection request. The requester creates this record; the subject accepts by creating their own record with the requester as subject. Both records must exist for the connection to be active. Either party can delete their record to sever the connection.",
   "defs": {
     "main": {
       "type": "record",
-      "description": "Record representing a professional connection request or acceptance. Lives in the author's PDS.",
+      "description": "DEPRECATED, not implemented. See the top-level description. Record representing a professional connection request or acceptance. Lives in the author's PDS.",
       "key": "tid",
       "record": {
         "type": "object",
@@ -35,7 +35,7 @@
     },
     "origin": {
       "type": "object",
-      "description": "Describes how a connection originated — a shared project, event, or common interest.",
+      "description": "Describes how a connection originated \u2014 a shared project, event, or common interest.",
       "required": ["type", "name"],
       "properties": {
         "type": {

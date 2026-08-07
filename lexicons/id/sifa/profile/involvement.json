@@ -112,7 +112,8 @@
           }
         }
       },
-      "x-skos:broadMatch": ["org:Membership"]
+      "x-skos:broadMatch": ["org:Membership"],
+      "x-skos:note": "The kind known values have no external equivalent."
     }
   }
 }

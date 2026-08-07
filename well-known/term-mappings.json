@@ -16,7 +16,8 @@
     {
       "lexicon": "id.sifa.org.profile",
       "match": "exactMatch",
-      "terms": ["schema:Organization", "org:FormalOrganization"]
+      "terms": ["schema:Organization", "org:FormalOrganization"],
+      "note": "ROR is the value anchor."
     },
     {
       "lexicon": "id.sifa.profile.certification",
@@ -49,7 +50,8 @@
     {
       "lexicon": "id.sifa.profile.education",
       "match": "closeMatch",
-      "terms": ["schema:EducationalOccupationalCredential"]
+      "terms": ["schema:EducationalOccupationalCredential"],
+      "note": "One record maps to two schema.org assertions: alumniOf for the institution and hasCredential for the degree."
     },
     {
       "lexicon": "id.sifa.profile.education",
@@ -61,7 +63,8 @@
       "lexicon": "id.sifa.profile.education",
       "field": "fieldOfStudy",
       "match": "closeMatch",
-      "terms": ["schema:educationalCredentialAwarded"]
+      "terms": ["schema:educationalCredentialAwarded"],
+      "note": "ISCED-F is the value anchor."
     },
     {
       "lexicon": "id.sifa.profile.education",
@@ -77,12 +80,14 @@
     {
       "lexicon": "id.sifa.profile.honor",
       "match": "broadMatch",
-      "terms": ["schema:award"]
+      "terms": ["schema:award"],
+      "note": "schema:award is a bare string, so issuer and date are lost. No better term exists in BIBO either."
     },
     {
       "lexicon": "id.sifa.profile.involvement",
       "match": "broadMatch",
-      "terms": ["org:Membership"]
+      "terms": ["org:Membership"],
+      "note": "The kind known values have no external equivalent."
     },
     {
       "lexicon": "id.sifa.profile.language",
@@ -110,7 +115,8 @@
       "lexicon": "id.sifa.profile.position",
       "field": "employmentType",
       "match": "closeMatch",
-      "terms": ["schema:employmentType"]
+      "terms": ["schema:employmentType"],
+      "note": "schema:employmentType is free text. ESCO is the better value anchor."
     },
     {
       "lexicon": "id.sifa.profile.position",
@@ -146,12 +152,14 @@
       "lexicon": "id.sifa.profile.position",
       "field": "workplaceType",
       "match": "narrowMatch",
-      "terms": ["schema:jobLocationType"]
+      "terms": ["schema:jobLocationType"],
+      "note": "schema.org models only a remote flag; Sifa distinguishes onSite, remote, and hybrid."
     },
     {
       "lexicon": "id.sifa.profile.presentation",
       "match": "closeMatch",
-      "terms": ["bibo:Slideshow", "schema:PresentationDigitalDocument"]
+      "terms": ["bibo:Slideshow", "schema:PresentationDigitalDocument"],
+      "note": "Neither term carries the \"reusable, deliverable more than once\" semantics of the Sifa record."
     },
     {
       "lexicon": "id.sifa.profile.presentation",
@@ -169,7 +177,8 @@
       "lexicon": "id.sifa.profile.presentation",
       "field": "duration",
       "match": "narrowMatch",
-      "terms": ["schema:timeRequired"]
+      "terms": ["schema:timeRequired"],
+      "note": "The lexicon models a range; schema:timeRequired is a single ISO 8601 duration."
     },
     {
       "lexicon": "id.sifa.profile.presentation",
@@ -192,7 +201,8 @@
     {
       "lexicon": "id.sifa.profile.presentationDelivery",
       "match": "closeMatch",
-      "terms": ["schema:Event", "event:Event"]
+      "terms": ["schema:Event", "event:Event"],
+      "note": "BIBO models this relation as bibo:Slideshow bibo:presentedAt event:Event."
     },
     {
       "lexicon": "id.sifa.profile.presentationDelivery",
@@ -222,7 +232,8 @@
       "lexicon": "id.sifa.profile.presentationDelivery",
       "field": "mode",
       "match": "exactMatch",
-      "terms": ["schema:eventAttendanceMode"]
+      "terms": ["schema:eventAttendanceMode"],
+      "note": "The community.lexicon.calendar.event known values are already one-to-one with the schema.org enumeration."
     },
     {
       "lexicon": "id.sifa.profile.presentationDelivery",
@@ -234,13 +245,15 @@
       "lexicon": "id.sifa.profile.presentationDelivery",
       "field": "role",
       "match": "closeMatch",
-      "terms": ["bibo:performer", "schema:performer"]
+      "terms": ["bibo:performer", "schema:performer"],
+      "note": "No external vocabulary distinguishes presenter, panelist, keynote, workshop and host at this granularity."
     },
     {
       "lexicon": "id.sifa.profile.presentationDelivery",
       "field": "status",
       "match": "exactMatch",
-      "terms": ["schema:eventStatus"]
+      "terms": ["schema:eventStatus"],
+      "note": "As with mode, already one-to-one with the schema.org enumeration."
     },
     {
       "lexicon": "id.sifa.profile.presentationDelivery",
@@ -256,13 +269,15 @@
     {
       "lexicon": "id.sifa.profile.publication",
       "match": "broadMatch",
-      "terms": ["bibo:Document", "schema:CreativeWork"]
+      "terms": ["bibo:Document", "schema:CreativeWork"],
+      "note": "Refine to bibo:AcademicArticle, bibo:Book, bibo:Report or bibo:Thesis when a resource type is known. COAR is the value anchor."
     },
     {
       "lexicon": "id.sifa.profile.publication",
       "field": "authors",
       "match": "exactMatch",
-      "terms": ["bibo:authorList", "schema:author"]
+      "terms": ["bibo:authorList", "schema:author"],
+      "note": "bibo:authorList is an ordered rdf:List and preserves author order, which schema:author does not guarantee."
     },
     {
       "lexicon": "id.sifa.profile.publication",
@@ -350,26 +365,59 @@
     {
       "lexicon": "id.sifa.profile.skill",
       "match": "closeMatch",
-      "terms": ["schema:knowsAbout", "schema:DefinedTerm"]
+      "terms": ["schema:knowsAbout", "schema:DefinedTerm"],
+      "note": "ESCO is the value anchor."
     },
     {
       "lexicon": "id.sifa.profile.volunteering",
       "match": "closeMatch",
       "terms": ["org:Membership", "schema:OrganizationRole"]
+    },
+    {
+      "lexicon": "id.sifa.profile.publication",
+      "field": "doi",
+      "terms": ["bibo:doi", "prism:doi"],
+      "match": "exactMatch",
+      "note": "Present on the AppView view type (ORCID-sourced), not yet on the id.sifa.profile.publication lexicon, so user-authored publications cannot carry one."
     }
   ],
   "unmapped": [
+    {
+      "lexicon": "id.sifa.profile.self",
+      "field": "pronouns",
+      "reason": "No stable external term. schema.org has no pronouns property."
+    },
+    {
+      "lexicon": "id.sifa.profile.self",
+      "field": "discoverable",
+      "reason": "Sifa indexing control, not a fact about the person."
+    },
+    {
+      "lexicon": "id.sifa.profile.position",
+      "field": "isPrimary",
+      "reason": "Sifa display ordering concern."
+    },
+    {
+      "lexicon": "id.sifa.profile.education",
+      "field": "grade",
+      "reason": "No comparable external term; grading scales are not portable."
+    },
+    {
+      "lexicon": "id.sifa.profile.language",
+      "field": "proficiency",
+      "reason": "The known values are CEFR-shaped but not CEFR-named. Map only; renaming a published lexicon for a cosmetic gain is not worth the break."
+    },
     {
       "lexicon": "id.sifa.confirmation",
       "reason": "A record affirming another record is reification. schema:Review and schema:ClaimReview both imply an evaluation that a confirmation does not make."
     },
     {
       "lexicon": "id.sifa.endorsement",
-      "reason": "Same reification problem as confirmation. Any mapping that lets a consumer aggregate endorsements into a score works against a descriptive-only trust model."
+      "reason": "Same reification problem as confirmation. Any mapping that lets a consumer aggregate endorsements into a score works against the descriptive-only trust model."
     },
     {
       "lexicon": "id.sifa.graph.connection",
-      "reason": "foaf:knows carries no consent semantics. A Sifa connection is bilateral and confirmed; flattening it would present an unconfirmed acquaintance claim as mutual."
+      "reason": "foaf:knows carries no consent semantics. A Sifa connection is bilateral and confirmed; flattening it to foaf:knows would misrepresent an unconfirmed acquaintance claim as mutual."
     },
     {
       "lexicon": "id.sifa.graph.follow",
@@ -377,7 +425,7 @@
     },
     {
       "lexicon": "id.sifa.meeting",
-      "reason": "Attestation semantics; same reification problem."
+      "reason": "Attestation semantics; same reification problem as confirmation."
     }
   ]
 }

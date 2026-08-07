@@ -51,7 +51,8 @@
           }
         }
       },
-      "x-skos:broadMatch": ["schema:award"]
+      "x-skos:broadMatch": ["schema:award"],
+      "x-skos:note": "schema:award is a bare string, so issuer and date are lost. No better term exists in BIBO either."
     }
   }
 }

@@ -26,12 +26,17 @@ function isAnnotationKey(key: string) {
 }
 
 describe('term annotations are well formed', () => {
-  it('every x-skos key is a known SKOS mapping relation', () => {
+  it('every x-skos key is a known SKOS mapping relation or a note', () => {
     for (const { file, doc } of docs) {
       const walk = (node: unknown, path: string) => {
         if (!node || typeof node !== 'object') return;
         for (const [key, value] of Object.entries(node as Record<string, unknown>)) {
-          if (isAnnotationKey(key)) {
+          if (key === 'x-skos:note') {
+            // Free-text rationale riding alongside a mapping, not a mapping
+            // relation itself.
+            expect(typeof value, `${file} ${path}.${key}`).toBe('string');
+            expect((value as string).length, `${file} ${path}.${key} is empty`).toBeGreaterThan(0);
+          } else if (isAnnotationKey(key)) {
             expect(MATCH_KEYS, `${file} ${path}.${key}`).toContain(key);
             expect(Array.isArray(value), `${file} ${path}.${key} must be an array`).toBe(true);
             expect((value as unknown[]).length, `${file} ${path}.${key} is empty`).toBeGreaterThan(
@@ -109,10 +114,23 @@ describe('generated well-known document', () => {
     }
   });
 
-  it('does not annotate a record it declares unmapped', () => {
-    const mapped = new Set(generated.mappings.map((m) => m.lexicon));
+  it('never both maps and unmaps the same thing', () => {
+    // Disjoint per lexicon+field, not per lexicon: a record can be mapped
+    // while one of its fields deliberately is not (id.sifa.profile.self maps
+    // to schema:Person, but `pronouns` has no external equivalent).
+    const key = (m) => `${m.lexicon}#${m.field ?? ''}`;
+    const mapped = new Set(generated.mappings.map(key));
     for (const entry of UNMAPPED) {
-      expect(mapped, `${entry.lexicon} is both mapped and declared unmapped`).not.toContain(
+      expect(mapped, `${key(entry)} is both mapped and declared unmapped`).not.toContain(
+        key(entry),
+      );
+    }
+  });
+
+  it('does not annotate a record it declares unmapped at record level', () => {
+    const mappedLexicons = new Set(generated.mappings.map((m) => m.lexicon));
+    for (const entry of UNMAPPED.filter((u) => !u.field)) {
+      expect(mappedLexicons, `${entry.lexicon} is unmapped at record level`).not.toContain(
         entry.lexicon,
       );
     }

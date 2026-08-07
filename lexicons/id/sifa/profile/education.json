@@ -41,7 +41,8 @@
             "maxGraphemes": 256,
             "maxLength": 2560,
             "description": "Field of study or major.",
-            "x-skos:closeMatch": ["schema:educationalCredentialAwarded"]
+            "x-skos:closeMatch": ["schema:educationalCredentialAwarded"],
+            "x-skos:note": "ISCED-F is the value anchor."
           },
           "grade": {
             "type": "string",
@@ -86,7 +87,8 @@
           }
         }
       },
-      "x-skos:closeMatch": ["schema:EducationalOccupationalCredential"]
+      "x-skos:closeMatch": ["schema:EducationalOccupationalCredential"],
+      "x-skos:note": "One record maps to two schema.org assertions: alumniOf for the institution and hasCredential for the degree."
     }
   }
 }

@@ -41,7 +41,8 @@
               "id.sifa.defs#workshop",
               "id.sifa.defs#host"
             ],
-            "x-skos:closeMatch": ["bibo:performer", "schema:performer"]
+            "x-skos:closeMatch": ["bibo:performer", "schema:performer"],
+            "x-skos:note": "No external vocabulary distinguishes presenter, panelist, keynote, workshop and host at this granularity."
           },
           "eventName": {
             "type": "string",
@@ -76,7 +77,8 @@
               "community.lexicon.calendar.event#virtual",
               "community.lexicon.calendar.event#hybrid"
             ],
-            "x-skos:exactMatch": ["schema:eventAttendanceMode"]
+            "x-skos:exactMatch": ["schema:eventAttendanceMode"],
+            "x-skos:note": "The community.lexicon.calendar.event known values are already one-to-one with the schema.org enumeration."
           },
           "status": {
             "type": "string",
@@ -88,7 +90,8 @@
               "community.lexicon.calendar.event#rescheduled",
               "community.lexicon.calendar.event#planned"
             ],
-            "x-skos:exactMatch": ["schema:eventStatus"]
+            "x-skos:exactMatch": ["schema:eventStatus"],
+            "x-skos:note": "As with mode, already one-to-one with the schema.org enumeration."
           },
           "links": {
             "type": "array",
@@ -121,7 +124,8 @@
           }
         }
       },
-      "x-skos:closeMatch": ["schema:Event", "event:Event"]
+      "x-skos:closeMatch": ["schema:Event", "event:Event"],
+      "x-skos:note": "BIBO models this relation as bibo:Slideshow bibo:presentedAt event:Event."
     }
   }
 }

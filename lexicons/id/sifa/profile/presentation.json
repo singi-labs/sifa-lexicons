@@ -30,7 +30,8 @@
             "type": "ref",
             "ref": "#duration",
             "description": "Typical length of the presentation, a fixed value or a range, in minutes.",
-            "x-skos:narrowMatch": ["schema:timeRequired"]
+            "x-skos:narrowMatch": ["schema:timeRequired"],
+            "x-skos:note": "The lexicon models a range; schema:timeRequired is a single ISO 8601 duration."
           },
           "intendedAudiences": {
             "type": "array",
@@ -72,7 +73,8 @@
           }
         }
       },
-      "x-skos:closeMatch": ["bibo:Slideshow", "schema:PresentationDigitalDocument"]
+      "x-skos:closeMatch": ["bibo:Slideshow", "schema:PresentationDigitalDocument"],
+      "x-skos:note": "Neither term carries the \"reusable, deliverable more than once\" semantics of the Sifa record."
     },
     "duration": {
       "type": "object",

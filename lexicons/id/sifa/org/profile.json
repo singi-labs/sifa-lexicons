@@ -65,7 +65,8 @@
           }
         }
       },
-      "x-skos:exactMatch": ["schema:Organization", "org:FormalOrganization"]
+      "x-skos:exactMatch": ["schema:Organization", "org:FormalOrganization"],
+      "x-skos:note": "ROR is the value anchor."
     }
   }
 }

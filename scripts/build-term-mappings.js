@@ -34,12 +34,43 @@ export const MATCH_KEYS = [
 ];
 
 /**
- * Records deliberately left unmapped, with the reason. Stated explicitly so a
- * consumer can tell "we have not got to it" apart from "no external term is
- * appropriate here". These carry no annotation in the lexicon itself, because
- * the absence is the point.
+ * Terms Sifa deliberately does not map, with the reason.
+ *
+ * Stated rather than omitted so a consumer can tell "not got to it yet" apart
+ * from "no external term is appropriate here". Record-level entries mean the
+ * whole record has no external equivalent; field-level entries sit inside a
+ * record that is otherwise mapped.
+ *
+ * These carry no annotation in the lexicon itself, because the absence is the
+ * point.
  */
 export const UNMAPPED = [
+  {
+    lexicon: 'id.sifa.profile.self',
+    field: 'pronouns',
+    reason: 'No stable external term. schema.org has no pronouns property.',
+  },
+  {
+    lexicon: 'id.sifa.profile.self',
+    field: 'discoverable',
+    reason: 'Sifa indexing control, not a fact about the person.',
+  },
+  {
+    lexicon: 'id.sifa.profile.position',
+    field: 'isPrimary',
+    reason: 'Sifa display ordering concern.',
+  },
+  {
+    lexicon: 'id.sifa.profile.education',
+    field: 'grade',
+    reason: 'No comparable external term; grading scales are not portable.',
+  },
+  {
+    lexicon: 'id.sifa.profile.language',
+    field: 'proficiency',
+    reason:
+      'The known values are CEFR-shaped but not CEFR-named. Map only; renaming a published lexicon for a cosmetic gain is not worth the break.',
+  },
   {
     lexicon: 'id.sifa.confirmation',
     reason:
@@ -48,15 +79,38 @@ export const UNMAPPED = [
   {
     lexicon: 'id.sifa.endorsement',
     reason:
-      'Same reification problem as confirmation. Any mapping that lets a consumer aggregate endorsements into a score works against a descriptive-only trust model.',
+      'Same reification problem as confirmation. Any mapping that lets a consumer aggregate endorsements into a score works against the descriptive-only trust model.',
   },
   {
     lexicon: 'id.sifa.graph.connection',
     reason:
-      'foaf:knows carries no consent semantics. A Sifa connection is bilateral and confirmed; flattening it would present an unconfirmed acquaintance claim as mutual.',
+      'foaf:knows carries no consent semantics. A Sifa connection is bilateral and confirmed; flattening it to foaf:knows would misrepresent an unconfirmed acquaintance claim as mutual.',
   },
-  { lexicon: 'id.sifa.graph.follow', reason: 'See id.sifa.graph.connection.' },
-  { lexicon: 'id.sifa.meeting', reason: 'Attestation semantics; same reification problem.' },
+  {
+    lexicon: 'id.sifa.graph.follow',
+    reason: 'See id.sifa.graph.connection.',
+  },
+  {
+    lexicon: 'id.sifa.meeting',
+    reason: 'Attestation semantics; same reification problem as confirmation.',
+  },
+];
+
+/**
+ * Mappings for fields that exist on the AppView view type but not on the
+ * lexicon, so they cannot be expressed as an inline annotation.
+ *
+ * Keep this list as short as possible. Each entry is a place where the
+ * published schema and what Sifa actually serves have diverged.
+ */
+export const VIEW_ONLY_MAPPINGS = [
+  {
+    lexicon: 'id.sifa.profile.publication',
+    field: 'doi',
+    terms: ['bibo:doi', 'prism:doi'],
+    match: 'exactMatch',
+    note: 'Present on the AppView view type (ORCID-sourced), not yet on the id.sifa.profile.publication lexicon, so user-authored publications cannot carry one.',
+  },
 ];
 
 export function findJsonFiles(dir) {
@@ -71,7 +125,11 @@ export function findJsonFiles(dir) {
 
 function matchOf(node) {
   for (const key of MATCH_KEYS) {
-    if (Array.isArray(node?.[key])) return { match: key.slice('x-skos:'.length), terms: node[key] };
+    if (Array.isArray(node?.[key])) {
+      const found = { match: key.slice('x-skos:'.length), terms: node[key] };
+      if (typeof node['x-skos:note'] === 'string') found.note = node['x-skos:note'];
+      return found;
+    }
   }
   return null;
 }
@@ -108,7 +166,7 @@ export function buildDocument() {
     description:
       'Reconciliation between id.sifa.* lexicon terms and existing RDF vocabularies. RDF is used here as vocabulary only: Sifa records are Lexicon JSON on the AT Protocol, and nothing here changes how they are stored or transmitted. Match strengths use SKOS mapping relations.',
     vocabularies: VOCABULARIES,
-    mappings: collectMappings(),
+    mappings: [...collectMappings(), ...VIEW_ONLY_MAPPINGS],
     unmapped: UNMAPPED,
   };
 }

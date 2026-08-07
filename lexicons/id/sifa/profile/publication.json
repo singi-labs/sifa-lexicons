@@ -59,7 +59,8 @@
               "ref": "#author"
             },
             "description": "Co-authors. The record owner is always an implicit author.",
-            "x-skos:exactMatch": ["bibo:authorList", "schema:author"]
+            "x-skos:exactMatch": ["bibo:authorList", "schema:author"],
+            "x-skos:note": "bibo:authorList is an ordered rdf:List and preserves author order, which schema:author does not guarantee."
           },
           "publishedAt": {
             "type": "string",
@@ -73,7 +74,8 @@
           }
         }
       },
-      "x-skos:broadMatch": ["bibo:Document", "schema:CreativeWork"]
+      "x-skos:broadMatch": ["bibo:Document", "schema:CreativeWork"],
+      "x-skos:note": "Refine to bibo:AcademicArticle, bibo:Book, bibo:Report or bibo:Thesis when a resource type is known. COAR is the value anchor."
     },
     "author": {
       "type": "object",

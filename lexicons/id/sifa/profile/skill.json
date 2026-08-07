@@ -43,7 +43,8 @@
           }
         }
       },
-      "x-skos:closeMatch": ["schema:knowsAbout", "schema:DefinedTerm"]
+      "x-skos:closeMatch": ["schema:knowsAbout", "schema:DefinedTerm"],
+      "x-skos:note": "ESCO is the value anchor."
     }
   }
 }

@@ -124,6 +124,7 @@ const USER_TEXT_FIELDS = new Set([
   'publisher',
   'issuer',
   'number',
+  'namePronunciation',
 ]);
 
 // Load all lexicon files
@@ -1494,5 +1495,21 @@ describe('getProfileView positionView onBehalfOf', () => {
 
   it('describes onBehalfOf as a representation disclosure', () => {
     expect(props?.onBehalfOf?.description).toMatch(/behalf|represent/i);
+  });
+});
+
+describe('profile.self namePronunciation', () => {
+  const selfDoc = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.self');
+  const prop = selfDoc?.doc.defs.main.record?.properties?.namePronunciation;
+
+  it('exists as an optional string field', () => {
+    expect(prop).toBeDefined();
+    expect(prop?.type).toBe('string');
+    expect(selfDoc?.doc.defs.main.record?.required ?? []).not.toContain('namePronunciation');
+  });
+
+  it('uses the same caps as the structured name fields (64 graphemes / 640 length)', () => {
+    expect(prop?.maxGraphemes).toBe(64);
+    expect(prop?.maxLength).toBe(640);
   });
 });

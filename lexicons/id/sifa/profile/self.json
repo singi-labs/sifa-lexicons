@@ -32,6 +32,12 @@
             "description": "Family (last) name. Maps to Schema.org Person.familyName. Optional.",
             "x-skos:exactMatch": ["schema:familyName", "foaf:family_name"]
           },
+          "namePronunciation": {
+            "type": "string",
+            "maxGraphemes": 64,
+            "maxLength": 640,
+            "description": "Free-form phonetic respelling of the user's name (e.g., 'Foo-kuh'). A native professional-profile field with no app.bsky.actor.profile equivalent; extends the name fields rather than overriding anything. Text only, not an audio recording."
+          },
           "avatar": {
             "type": "blob",
             "accept": ["image/png", "image/jpeg"],

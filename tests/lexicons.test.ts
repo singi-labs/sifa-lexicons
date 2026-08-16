@@ -1513,3 +1513,20 @@ describe('profile.self namePronunciation', () => {
     expect(prop?.maxLength).toBe(640);
   });
 });
+
+describe('profile.self namePronunciationAudio', () => {
+  const selfDoc = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.self');
+  const prop = selfDoc?.doc.defs.main.record?.properties?.namePronunciationAudio;
+
+  it('is an optional audio blob', () => {
+    expect(prop).toBeDefined();
+    expect(prop?.type).toBe('blob');
+    expect(selfDoc?.doc.defs.main.record?.required ?? []).not.toContain('namePronunciationAudio');
+    expect(prop?.accept).toEqual(['audio/mp4', 'audio/webm', 'audio/mpeg', 'audio/ogg']);
+    expect(prop?.accept?.every((m) => m.startsWith('audio/'))).toBe(true);
+  });
+
+  it('caps the blob size at 1 MiB', () => {
+    expect(prop?.maxSize).toBe(1048576);
+  });
+});

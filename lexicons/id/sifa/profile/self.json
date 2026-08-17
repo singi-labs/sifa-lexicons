@@ -68,7 +68,7 @@
             "type": "string",
             "maxGraphemes": 5000,
             "maxLength": 50000,
-            "description": "Professional summary or about section. Longer-form than Bluesky's description field.",
+            "description": "Professional summary or about section. Longer-form than Bluesky's description field. Holds Markdown source: consumers render it as Markdown rather than plain text.",
             "x-skos:exactMatch": ["schema:description"]
           },
           "industries": {

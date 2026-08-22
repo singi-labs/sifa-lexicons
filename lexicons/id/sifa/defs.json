@@ -408,16 +408,25 @@
         "id.sifa.defs#business",
         "id.sifa.defs#creative",
         "id.sifa.defs#interpersonal",
-        "id.sifa.defs#language",
-        "id.sifa.defs#industry"
+        "id.sifa.defs#industry",
+        "id.sifa.defs#community",
+        "id.sifa.defs#security"
       ]
     },
     "technical": { "type": "token", "description": "Technical/engineering skills." },
     "business": { "type": "token", "description": "Business and management skills." },
     "creative": { "type": "token", "description": "Creative and design skills." },
     "interpersonal": { "type": "token", "description": "Interpersonal and communication skills." },
-    "language": { "type": "token", "description": "Language and linguistic skills." },
+    "language": {
+      "type": "token",
+      "description": "Superseded. Language proficiency is its own record type, id.sifa.profile.language, so this is no longer offered as a skill category. Retained because removing a published token would break any consumer referencing it."
+    },
     "industry": { "type": "token", "description": "Industry-specific domain knowledge." },
+    "community": {
+      "type": "token",
+      "description": "Community building and developer relations skills."
+    },
+    "security": { "type": "token", "description": "Security and privacy skills." },
 
     "openToWorkStatus": {
       "type": "string",

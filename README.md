@@ -181,7 +181,7 @@ See [CONTRIBUTING.md](https://github.com/singi-labs/.github/blob/main/CONTRIBUTI
 | sifa-api                                                       | AppView backend (Fastify, AT Protocol)   |
 | sifa-web                                                       | Frontend (Next.js, React, TailwindCSS)   |
 | sifa-deploy                                                    | Docker Compose + Caddy deployment config |
-| [sifa-workspace](https://github.com/singi-labs/sifa-workspace) | Project coordination  |
+| [sifa-workspace](https://github.com/singi-labs/sifa-workspace) | Project coordination                     |
 
 ---
 

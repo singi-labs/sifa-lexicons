@@ -8,6 +8,7 @@ const EXTERNAL_DIR = join(import.meta.dirname, '..', 'external-lexicons');
 interface LexiconProperty {
   type: string;
   format?: string;
+  knownValues?: string[];
   maxGraphemes?: number;
   maxLength?: number;
   minLength?: number;
@@ -303,6 +304,49 @@ describe('Position skills field', () => {
     expect(properties?.company).toBeDefined();
     expect(properties?.company?.type).toBe('string');
     expect(properties?.company?.minLength).toBe(1);
+  });
+});
+
+describe('Skill category knownValues', () => {
+  const skillLexicon = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.skill');
+  const category = skillLexicon?.doc.defs.main.record?.properties?.category;
+  const defsDoc = JSON.parse(readFileSync(join(LEXICONS_DIR, 'defs.json'), 'utf-8')) as LexiconDoc;
+
+  // The categories Sifa actually renders. A knownValue outside this set is a
+  // trap: a client picks it from the lexicon and the value lands in "Other".
+  // Drift here is what produced sifa-workspace#330.
+  const SUPPORTED = [
+    'technical',
+    'business',
+    'creative',
+    'interpersonal',
+    'industry',
+    'community',
+    'security',
+  ];
+
+  it('offers exactly the categories Sifa supports', () => {
+    expect(category?.knownValues).toEqual(SUPPORTED.map((t) => `id.sifa.defs#${t}`));
+  });
+
+  it('every offered value resolves to a token defined in defs.json', () => {
+    for (const ref of category?.knownValues ?? []) {
+      const token = ref.split('#')[1];
+      expect(defsDoc.defs[token]?.type).toBe('token');
+    }
+  });
+
+  it('defs#skillCategory offers the same set as the record field', () => {
+    const shared = defsDoc.defs.skillCategory as { knownValues?: string[] } | undefined;
+    expect(shared?.knownValues).toEqual(category?.knownValues);
+  });
+
+  it('does not offer language, which has its own record type', () => {
+    // id.sifa.profile.language covers spoken languages, so a duplicate skill
+    // category would fragment the data. The token stays defined for any
+    // consumer already referencing it, but is no longer offered here.
+    expect(category?.knownValues).not.toContain('id.sifa.defs#language');
+    expect(defsDoc.defs.language?.type).toBe('token');
   });
 });
 

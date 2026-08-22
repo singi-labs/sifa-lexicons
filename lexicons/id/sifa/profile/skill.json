@@ -26,8 +26,9 @@
               "id.sifa.defs#business",
               "id.sifa.defs#creative",
               "id.sifa.defs#interpersonal",
-              "id.sifa.defs#language",
-              "id.sifa.defs#industry"
+              "id.sifa.defs#industry",
+              "id.sifa.defs#community",
+              "id.sifa.defs#security"
             ]
           },
           "subCategory": {

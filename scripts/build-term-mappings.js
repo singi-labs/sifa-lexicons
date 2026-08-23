@@ -103,15 +103,7 @@ export const UNMAPPED = [
  * Keep this list as short as possible. Each entry is a place where the
  * published schema and what Sifa actually serves have diverged.
  */
-export const VIEW_ONLY_MAPPINGS = [
-  {
-    lexicon: 'id.sifa.profile.publication',
-    field: 'doi',
-    terms: ['bibo:doi', 'prism:doi'],
-    match: 'exactMatch',
-    note: 'Present on the AppView view type (ORCID-sourced), not yet on the id.sifa.profile.publication lexicon, so user-authored publications cannot carry one.',
-  },
-];
+export const VIEW_ONLY_MAPPINGS = [];
 
 export function findJsonFiles(dir) {
   const out = [];

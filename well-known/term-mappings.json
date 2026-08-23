@@ -287,6 +287,13 @@
     },
     {
       "lexicon": "id.sifa.profile.publication",
+      "field": "doi",
+      "match": "exactMatch",
+      "terms": ["bibo:doi", "prism:doi"],
+      "note": "schema:identifier with a PropertyValue of propertyID 'doi' is the JSON-LD serialization; bibo:doi is the direct term."
+    },
+    {
+      "lexicon": "id.sifa.profile.publication",
       "field": "publishedAt",
       "match": "exactMatch",
       "terms": ["dcterms:issued", "schema:datePublished"]
@@ -308,6 +315,13 @@
       "field": "title",
       "match": "exactMatch",
       "terms": ["dcterms:title", "schema:name"]
+    },
+    {
+      "lexicon": "id.sifa.profile.publication",
+      "field": "type",
+      "match": "closeMatch",
+      "terms": ["dcterms:type", "schema:additionalType"],
+      "note": "COAR Resource Types is the anchor a consumer should map to. The values here are ORCID's because that is the vocabulary the data arrives in; deviating from the id.sifa.defs token convention is deliberate, since the vocabulary is ORCID's rather than Sifa's."
     },
     {
       "lexicon": "id.sifa.profile.publication",
@@ -372,13 +386,6 @@
       "lexicon": "id.sifa.profile.volunteering",
       "match": "closeMatch",
       "terms": ["org:Membership", "schema:OrganizationRole"]
-    },
-    {
-      "lexicon": "id.sifa.profile.publication",
-      "field": "doi",
-      "terms": ["bibo:doi", "prism:doi"],
-      "match": "exactMatch",
-      "note": "Present on the AppView view type (ORCID-sourced), not yet on the id.sifa.profile.publication lexicon, so user-authored publications cannot carry one."
     }
   ],
   "unmapped": [

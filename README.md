@@ -98,13 +98,21 @@ with an `id.sifa.confirmation` record in their own repository.
 
 **OAuth permission sets**
 
-| NSID                        | Purpose                                |
-| --------------------------- | -------------------------------------- |
-| `id.sifa.authProfile`       | Profile editing and follows            |
-| `id.sifa.authProfileAccess` | Profile access (legacy permission set) |
-| `id.sifa.authMeet`          | Meeting attestation                    |
-| `id.sifa.authConnection`    | Connection management                  |
-| `id.sifa.authProject`       | Project creation and team management   |
+| NSID                        | Purpose                                              |
+| --------------------------- | ---------------------------------------------------- |
+| `id.sifa.authProfile`       | Profile editing and follows                          |
+| `id.sifa.authProfileAccess` | Profile access (legacy permission set)               |
+| `id.sifa.authMeet`          | Meeting attestation                                  |
+| `id.sifa.authConnection`    | **Deprecated, not implemented.** See the note below. |
+| `id.sifa.authProject`       | Project creation and team management                 |
+
+> **Only `id.sifa.authProfile` and `id.sifa.authMeet` are recognised by the
+> Sifa AppView.** The others are published but unregistered: a PDS granting
+> them via `include:` confers nothing today.
+>
+> **`id.sifa.authConnection` is deprecated.** It grants write access to
+> `id.sifa.graph.connection`, which is itself deprecated and unimplemented, so
+> the set cannot usefully be granted. Retained so the NSID is not reused.
 
 **Query methods**
 

@@ -1,12 +1,12 @@
 {
   "lexicon": 1,
   "id": "id.sifa.authConnection",
-  "description": "OAuth permission set for creating and managing professional connections.",
+  "description": "DEPRECATED, not implemented. Grants write access to id.sifa.graph.connection, which is itself deprecated: Sifa derives connections from mutual id.sifa.graph.follow records and writes no connection record. Sifa does not request this set, and sifa-api does not register it, so a PDS granting it would confer nothing. Retained so the NSID is not reused. Original intent: OAuth permission set for creating and managing professional connections.",
   "defs": {
     "main": {
       "type": "permission-set",
       "title": "Professional connections",
-      "detail": "Create and manage professional connections with other users.",
+      "detail": "DEPRECATED, not implemented. Create and manage professional connections with other users.",
       "permissions": [
         {
           "type": "permission",

@@ -86,6 +86,11 @@
             "format": "uri",
             "description": "Portable, app-neutral identifier for the upstream the user selected from a resolver dropdown: a Wikidata Q-ID URI (http://www.wikidata.org/entity/Q...), a ROR URI, or an LEI URI. Enables deterministic resolution to a canonical entity even before the upstream claims an ATproto account. Absent for free-text or one-off entries."
           },
+          "agentRef": {
+            "type": "ref",
+            "ref": "id.sifa.defs#agentRef",
+            "description": "The upstream project, community, event, or cause, as a single nested reference mirroring the flat upstream / upstreamDid / entityRef fields. Additive dual-write: the flat fields remain the source of truth for existing consumers."
+          },
           "location": {
             "type": "ref",
             "ref": "community.lexicon.location.address",

@@ -1620,3 +1620,71 @@ describe('defs#agentRef shared entity reference', () => {
     }
   });
 });
+
+// Every org-referencing record gains an optional nested agentRef that mirrors
+// its existing flat org fields (dual-write, #511). The flat fields stay so
+// old consumers keep reading; agentRef gives new consumers one shape.
+describe.each([
+  'id.sifa.profile.position',
+  'id.sifa.profile.education',
+  'id.sifa.profile.certification',
+  'id.sifa.profile.honor',
+  'id.sifa.profile.volunteering',
+  'id.sifa.profile.course',
+  'id.sifa.profile.involvement',
+  'id.sifa.profile.investment',
+  'id.sifa.project.self',
+])('%s declares the shared agentRef mirror', (lexiconId) => {
+  const lexicon = recordLexicons.find((l) => l.doc.id === lexiconId);
+  const properties = lexicon?.doc.defs.main.record?.properties;
+  const required = lexicon?.doc.defs.main.record?.required ?? [];
+
+  it('agentRef references id.sifa.defs#agentRef', () => {
+    expect(properties?.agentRef?.type).toBe('ref');
+    expect(properties?.agentRef?.ref).toBe('id.sifa.defs#agentRef');
+  });
+
+  it('agentRef is optional (additive mirror, not a new requirement)', () => {
+    expect(required).not.toContain('agentRef');
+  });
+
+  it('agentRef carries a description naming the org role', () => {
+    expect(properties?.agentRef?.description).toBeDefined();
+    expect(properties?.agentRef?.description!.length).toBeGreaterThan(0);
+  });
+});
+
+// course had institution + entityRef but no DID column; adding it lets the flat
+// trio fully mirror agentRef (name/did/entityRef).
+describe('id.sifa.profile.course institutionDid flat mirror', () => {
+  const course = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.course');
+  const properties = course?.doc.defs.main.record?.properties;
+  const required = course?.doc.defs.main.record?.required ?? [];
+
+  it('institutionDid is an optional did-format string', () => {
+    expect(properties?.institutionDid?.type).toBe('string');
+    expect(properties?.institutionDid?.format).toBe('did');
+    expect(required).not.toContain('institutionDid');
+  });
+});
+
+// project.self had only organizationDid; adding organization + entityRef gives
+// it the full flat trio that agentRef mirrors.
+describe('id.sifa.project.self flat organization mirror', () => {
+  const project = recordLexicons.find((l) => l.doc.id === 'id.sifa.project.self');
+  const properties = project?.doc.defs.main.record?.properties;
+  const required = project?.doc.defs.main.record?.required ?? [];
+
+  it('organization is an optional capped string', () => {
+    expect(properties?.organization?.type).toBe('string');
+    expect(properties?.organization?.maxGraphemes).toBe(256);
+    expect(properties?.organization?.maxLength).toBe(2560);
+    expect(required).not.toContain('organization');
+  });
+
+  it('entityRef is an optional uri-format string', () => {
+    expect(properties?.entityRef?.type).toBe('string');
+    expect(properties?.entityRef?.format).toBe('uri');
+    expect(required).not.toContain('entityRef');
+  });
+});

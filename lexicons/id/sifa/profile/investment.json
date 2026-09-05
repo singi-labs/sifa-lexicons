@@ -28,6 +28,11 @@
             "format": "uri",
             "description": "Portable, app-neutral identifier for the company the user selected from a resolver dropdown: a Wikidata Q-ID URI, a ROR URI, or an LEI URI. Absent for free-text entries."
           },
+          "agentRef": {
+            "type": "ref",
+            "ref": "id.sifa.defs#agentRef",
+            "description": "The invested company (or, for a limited-partner entry, the fund), as a single nested reference mirroring the flat company / companyDid / entityRef fields. Additive dual-write: the flat fields remain the source of truth for existing consumers. The via vehicle stays flat and is not mirrored here."
+          },
           "role": {
             "type": "ref",
             "ref": "id.sifa.defs#investmentRole",

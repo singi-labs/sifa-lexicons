@@ -34,6 +34,11 @@
             "format": "uri",
             "description": "Portable, app-neutral identifier for the issuing organization the user selected from a resolver dropdown: a Wikidata Q-ID URI (http://www.wikidata.org/entity/Q...), a ROR URI, or an LEI URI. Enables deterministic resolution to a canonical entity even before the organization claims an ATproto account. Absent for free-text entries."
           },
+          "agentRef": {
+            "type": "ref",
+            "ref": "id.sifa.defs#agentRef",
+            "description": "The issuing authority, as a single nested reference mirroring the flat authority / authorityDid / entityRef fields. Additive dual-write: the flat fields remain the source of truth for existing consumers."
+          },
           "credentialId": {
             "type": "string",
             "maxGraphemes": 256,

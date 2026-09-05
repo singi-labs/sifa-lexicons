@@ -80,6 +80,10 @@
             "description": "Self-label values for this education record.",
             "refs": ["com.atproto.label.defs#selfLabels"]
           },
+          "isPrimary": {
+            "type": "boolean",
+            "description": "Whether this is the user's primary education entry, surfaced in profile Highlights. Any entry may be primary."
+          },
           "createdAt": {
             "type": "string",
             "format": "datetime",

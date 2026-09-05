@@ -121,6 +121,10 @@
             "description": "Publication date in YYYY-MM or YYYY-MM-DD format.",
             "x-skos:exactMatch": ["dcterms:issued", "schema:datePublished"]
           },
+          "isPrimary": {
+            "type": "boolean",
+            "description": "Whether this is the user's primary publication, surfaced in profile Highlights. Any entry may be primary."
+          },
           "createdAt": {
             "type": "string",
             "format": "datetime",

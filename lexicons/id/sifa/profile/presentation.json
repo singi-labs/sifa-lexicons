@@ -66,6 +66,10 @@
             "description": "Optional cover image for the presentation. Rendered as the talk-page hero and OpenGraph image. Max 2 MB, PNG, JPEG, or WebP.",
             "x-skos:exactMatch": ["schema:image", "foaf:depiction"]
           },
+          "isPrimary": {
+            "type": "boolean",
+            "description": "Whether this is the user's primary talk, surfaced in profile Highlights. Only reusable talks (not one-off sessions) may be primary."
+          },
           "createdAt": {
             "type": "string",
             "format": "datetime",

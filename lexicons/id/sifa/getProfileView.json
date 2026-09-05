@@ -482,6 +482,10 @@
       "description": "An education-history entry.",
       "required": ["rkey"],
       "properties": {
+        "primary": {
+          "type": "boolean",
+          "description": "Whether this is the user's primary education entry."
+        },
         "rkey": {
           "type": "string",
           "description": "Record key of the education record."
@@ -595,6 +599,10 @@
       "description": "A project entry.",
       "required": ["rkey", "name"],
       "properties": {
+        "primary": {
+          "type": "boolean",
+          "description": "Whether this is the user's primary ongoing project."
+        },
         "rkey": {
           "type": "string",
           "description": "Record key of the project record."
@@ -667,6 +675,10 @@
       "description": "A community, open-source, charity, or civic involvement.",
       "required": ["rkey", "kind", "links", "legacy"],
       "properties": {
+        "primary": {
+          "type": "boolean",
+          "description": "Whether this is the user's primary current involvement."
+        },
         "rkey": {
           "type": "string",
           "description": "Record key of the involvement (or legacy volunteering) record."
@@ -753,6 +765,10 @@
       "description": "A publication, merged from Sifa and linked ORCID works.",
       "required": ["rkey", "title", "verified"],
       "properties": {
+        "primary": {
+          "type": "boolean",
+          "description": "Whether this is the user's primary publication."
+        },
         "rkey": {
           "type": "string",
           "description": "Record key, or a synthetic key for ORCID-only works."
@@ -897,6 +913,10 @@
       "description": "A talk or session (content), with its deliveries grouped underneath.",
       "required": ["rkey", "title", "deliveries"],
       "properties": {
+        "primary": {
+          "type": "boolean",
+          "description": "Whether this is the user's primary talk."
+        },
         "rkey": {
           "type": "string",
           "description": "Record key of the presentation record."

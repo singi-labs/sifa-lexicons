@@ -66,6 +66,10 @@
             "description": "Self-label values for this project record.",
             "refs": ["com.atproto.label.defs#selfLabels"]
           },
+          "isPrimary": {
+            "type": "boolean",
+            "description": "Whether this is the user's primary ongoing project, surfaced in profile Highlights. Only ongoing entries may be primary."
+          },
           "createdAt": {
             "type": "string",
             "format": "datetime",

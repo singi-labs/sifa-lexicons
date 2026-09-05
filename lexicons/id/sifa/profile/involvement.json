@@ -105,6 +105,10 @@
             "description": "Self-label values for this record.",
             "refs": ["com.atproto.label.defs#selfLabels"]
           },
+          "isPrimary": {
+            "type": "boolean",
+            "description": "Whether this is the user's primary current involvement, surfaced in profile Highlights. Only ongoing entries may be primary."
+          },
           "createdAt": {
             "type": "string",
             "format": "datetime",

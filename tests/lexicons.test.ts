@@ -1574,3 +1574,49 @@ describe('profile.self namePronunciationAudio', () => {
     expect(prop?.maxSize).toBe(1048576);
   });
 });
+
+describe('defs#agentRef shared entity reference', () => {
+  const defsDoc = JSON.parse(readFileSync(join(LEXICONS_DIR, 'defs.json'), 'utf-8')) as LexiconDoc;
+  const agentRef = defsDoc.defs.agentRef as LexiconDef & {
+    properties?: Record<string, LexiconProperty>;
+    required?: string[];
+  };
+
+  it('exists as an object def', () => {
+    expect(agentRef).toBeDefined();
+    expect(agentRef.type).toBe('object');
+  });
+
+  it('requires only name (an empty object must not validate as a no-op)', () => {
+    expect(agentRef.required).toEqual(['name']);
+  });
+
+  it('name is a bounded string label', () => {
+    const name = agentRef.properties?.name;
+    expect(name?.type).toBe('string');
+    expect(name?.maxGraphemes).toBe(256);
+    expect(name?.maxLength).toBe(2560);
+  });
+
+  it('did is an optional did-format field', () => {
+    const did = agentRef.properties?.did;
+    expect(did?.type).toBe('string');
+    expect(did?.format).toBe('did');
+    expect(agentRef.required).not.toContain('did');
+  });
+
+  it('entityRef is an optional uri-format field', () => {
+    const entityRef = agentRef.properties?.entityRef;
+    expect(entityRef?.type).toBe('string');
+    expect(entityRef?.format).toBe('uri');
+    expect(agentRef.required).not.toContain('entityRef');
+  });
+
+  it('every property carries a description', () => {
+    for (const key of ['name', 'did', 'entityRef']) {
+      const desc = agentRef.properties?.[key]?.description;
+      expect(desc, `${key} description`).toBeDefined();
+      expect(desc!.length).toBeGreaterThan(0);
+    }
+  });
+});

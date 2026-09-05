@@ -555,6 +555,30 @@
       }
     },
 
+    "agentRef": {
+      "type": "object",
+      "description": "A reference to an organization or person named by a record: a human label plus stable machine anchors. The name is a point-in-time snapshot captured when the record was saved; did and entityRef are the durable identity and should be resolved live. Consumers render the name, and follow did or entityRef to reach the current entity.",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxGraphemes": 256,
+          "maxLength": 2560,
+          "description": "Human-readable label for the organization or person, as it was known when the record was saved. A point-in-time snapshot, not refreshed from a lookup."
+        },
+        "did": {
+          "type": "string",
+          "format": "did",
+          "description": "DID of the referenced organization or person's atproto account, if one exists. The stable identity: it survives handle and name changes."
+        },
+        "entityRef": {
+          "type": "string",
+          "format": "uri",
+          "description": "Portable, app-neutral identifier for the referenced organization: a Wikidata Q-ID URI, a ROR URI, or an LEI URI, else a resolver URL. Enables deterministic resolution to a canonical entity even before the organization claims an atproto account. Absent for a bare person or a free-text entry."
+        }
+      }
+    },
+
     "projectRole": {
       "type": "string",
       "description": "Role within a collaborative project.",

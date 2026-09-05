@@ -30,6 +30,11 @@
             "description": "Portable, app-neutral identifier for the organization the user selected from a resolver dropdown: a Wikidata Q-ID URI (http://www.wikidata.org/entity/Q...), a ROR URI, or an LEI URI. Enables deterministic resolution to a canonical entity even before the org claims an ATproto account. Absent for free-text or independent/self-employed positions.",
             "x-skos:closeMatch": ["schema:sameAs"]
           },
+          "agentRef": {
+            "type": "ref",
+            "ref": "id.sifa.defs#agentRef",
+            "description": "The employer, as a single nested reference mirroring the flat company / companyDid / entityRef fields. Additive dual-write: the flat fields remain the source of truth for existing consumers."
+          },
           "title": {
             "type": "string",
             "minLength": 1,

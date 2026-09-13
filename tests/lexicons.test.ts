@@ -32,6 +32,9 @@ interface LexiconDef {
     properties?: Record<string, LexiconProperty>;
     required?: string[];
   };
+  // Object defs (siblings of `main`, e.g. #orgAddress) carry their shape here.
+  properties?: Record<string, LexiconProperty>;
+  required?: string[];
 }
 
 interface LexiconDoc {
@@ -1686,5 +1689,73 @@ describe('id.sifa.project.self flat organization mirror', () => {
     expect(properties?.entityRef?.type).toBe('string');
     expect(properties?.entityRef?.format).toBe('uri');
     expect(required).not.toContain('entityRef');
+  });
+});
+
+// The `/c/` page owner editors have written `addresses` / `companySize` / `links`
+// into id.sifa.org.profile records since the #159 org-page buildout, but the
+// lexicon never declared them (the sifa-api route schema + record builder were
+// the only source of truth). These assertions close that drift. All three are
+// optional and additive -- no existing record becomes invalid.
+describe('id.sifa.org.profile owner-editable page fields', () => {
+  const org = recordLexicons.find((l) => l.doc.id === 'id.sifa.org.profile');
+  const properties = org?.doc.defs.main.record?.properties;
+  const required = org?.doc.defs.main.record?.required ?? [];
+
+  it('addresses is an optional array of #orgAddress refs', () => {
+    const addresses = properties?.addresses;
+    expect(addresses?.type).toBe('array');
+    expect(addresses?.maxLength).toBe(20);
+    expect(addresses?.items?.type).toBe('ref');
+    expect(addresses?.items?.ref).toBe('#orgAddress');
+    expect(required).not.toContain('addresses');
+  });
+
+  it('#orgAddress mirrors community address but every field is optional', () => {
+    // Item shape lives in its own object def (this lex-cli version rejects
+    // inline objects in array items). Every field is optional -- country is
+    // NOT ISO-gated here (unlike person locations, which ref
+    // community.lexicon.location.address). This matches what the API writes.
+    const orgAddress = org?.doc.defs.orgAddress;
+    expect(orgAddress?.type).toBe('object');
+    for (const field of ['country', 'postalCode', 'region', 'locality', 'street', 'name']) {
+      expect(orgAddress?.properties?.[field]?.type).toBe('string');
+    }
+    expect(orgAddress?.required ?? []).toHaveLength(0);
+  });
+
+  it('companySize is an optional capped string with knownValues', () => {
+    const companySize = properties?.companySize;
+    expect(companySize?.type).toBe('string');
+    expect(companySize?.maxLength).toBe(64);
+    expect(required).not.toContain('companySize');
+    expect(companySize?.knownValues).toEqual([
+      '1-10',
+      '11-50',
+      '51-200',
+      '201-500',
+      '501-1000',
+      '1001-5000',
+      '5001-10000',
+      '10001+',
+    ]);
+  });
+
+  it('links is an optional array of #orgLink refs', () => {
+    const links = properties?.links;
+    expect(links?.type).toBe('array');
+    expect(links?.maxLength).toBe(20);
+    expect(links?.items?.type).toBe('ref');
+    expect(links?.items?.ref).toBe('#orgLink');
+    expect(required).not.toContain('links');
+  });
+
+  it('#orgLink requires a name and a uri-format url', () => {
+    const orgLink = org?.doc.defs.orgLink;
+    expect(orgLink?.type).toBe('object');
+    expect(orgLink?.required).toEqual(['name', 'url']);
+    expect(orgLink?.properties?.name?.type).toBe('string');
+    expect(orgLink?.properties?.url?.type).toBe('string');
+    expect(orgLink?.properties?.url?.format).toBe('uri');
   });
 });

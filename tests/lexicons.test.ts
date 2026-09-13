@@ -1758,4 +1758,30 @@ describe('id.sifa.org.profile owner-editable page fields', () => {
     expect(orgLink?.properties?.url?.type).toBe('string');
     expect(orgLink?.properties?.url?.format).toBe('uri');
   });
+
+  it('industries is an optional array reusing id.sifa.defs#industryDomain', () => {
+    const industries = properties?.industries;
+    expect(industries?.type).toBe('array');
+    expect(industries?.maxLength).toBe(10);
+    expect(industries?.items?.type).toBe('ref');
+    expect(industries?.items?.ref).toBe('id.sifa.defs#industryDomain');
+    expect(required).not.toContain('industries');
+  });
+
+  it('founded is an optional short date-only string', () => {
+    const founded = properties?.founded;
+    expect(founded?.type).toBe('string');
+    expect(founded?.format).toBeUndefined();
+    expect(founded?.maxLength).toBe(10);
+    expect(required).not.toContain('founded');
+  });
+
+  it('aliases is an optional array of capped strings', () => {
+    const aliases = properties?.aliases;
+    expect(aliases?.type).toBe('array');
+    expect(aliases?.maxLength).toBe(20);
+    expect(aliases?.items?.type).toBe('string');
+    expect(aliases?.items?.maxGraphemes).toBe(200);
+    expect(required).not.toContain('aliases');
+  });
 });

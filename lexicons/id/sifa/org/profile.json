@@ -81,6 +81,30 @@
               "ref": "#orgLink"
             }
           },
+          "industries": {
+            "type": "array",
+            "maxLength": 10,
+            "description": "Industry/domain pairs the organization operates in, owner-declared. Each entry has a required industry and an optional domain refinement. Mirrors the person profile's industries field (same id.sifa.defs#industryDomain shape). Self-declared: registry-sourced industry classifications are layered separately by AppViews.",
+            "items": {
+              "type": "ref",
+              "ref": "id.sifa.defs#industryDomain"
+            }
+          },
+          "founded": {
+            "type": "string",
+            "maxLength": 10,
+            "description": "Founding date, owner-declared. A year (YYYY), month (YYYY-MM), or full date (YYYY-MM-DD). Not an ISO 8601 timestamp -- organizations typically remember only the year."
+          },
+          "aliases": {
+            "type": "array",
+            "maxLength": 20,
+            "description": "Alternative names and acronyms the organization is known by (\"also known as\"), owner-declared.",
+            "items": {
+              "type": "string",
+              "maxGraphemes": 200,
+              "maxLength": 2000
+            }
+          },
           "personalProfileVisible": {
             "type": "boolean",
             "default": false,

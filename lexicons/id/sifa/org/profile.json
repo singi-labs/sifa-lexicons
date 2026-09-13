@@ -48,6 +48,63 @@
             "type": "string",
             "description": "Contact email address for the organization. NOT rendered publicly; used for notifications only. Validated as an email address at the app layer."
           },
+          "addresses": {
+            "type": "array",
+            "maxLength": 20,
+            "description": "Physical locations for the organization (headquarters, offices), owner-edited on the org page. Each entry mirrors community.lexicon.location.address, but every field is optional and country is NOT ISO-gated at the lexicon layer; Sifa applies country handling and length caps at the app layer. Distinct from id.sifa.profile.location, which is a person's own location record.",
+            "items": {
+              "type": "ref",
+              "ref": "#orgAddress"
+            }
+          },
+          "companySize": {
+            "type": "string",
+            "maxLength": 64,
+            "knownValues": [
+              "1-10",
+              "11-50",
+              "51-200",
+              "201-500",
+              "501-1000",
+              "1001-5000",
+              "5001-10000",
+              "10001+"
+            ],
+            "description": "Declared organization headcount band, owner-edited on the org page. A self-declared bucket, never a calculated count. knownValues is non-exhaustive by AT Protocol convention."
+          },
+          "links": {
+            "type": "array",
+            "maxLength": 20,
+            "description": "Featured links surfaced on the org page, owner-edited. Each link's url MUST be an http(s) URL.",
+            "items": {
+              "type": "ref",
+              "ref": "#orgLink"
+            }
+          },
+          "industries": {
+            "type": "array",
+            "maxLength": 10,
+            "description": "Industry/domain pairs the organization operates in, owner-declared. Each entry has a required industry and an optional domain refinement. Mirrors the person profile's industries field (same id.sifa.defs#industryDomain shape). Self-declared: registry-sourced industry classifications are layered separately by AppViews.",
+            "items": {
+              "type": "ref",
+              "ref": "id.sifa.defs#industryDomain"
+            }
+          },
+          "founded": {
+            "type": "string",
+            "maxLength": 10,
+            "description": "Founding date, owner-declared. A year (YYYY), month (YYYY-MM), or full date (YYYY-MM-DD). Not an ISO 8601 timestamp -- organizations typically remember only the year."
+          },
+          "aliases": {
+            "type": "array",
+            "maxLength": 20,
+            "description": "Alternative names and acronyms the organization is known by (\"also known as\"), owner-declared.",
+            "items": {
+              "type": "string",
+              "maxGraphemes": 200,
+              "maxLength": 2000
+            }
+          },
           "personalProfileVisible": {
             "type": "boolean",
             "default": false,
@@ -67,6 +124,55 @@
       },
       "x-skos:exactMatch": ["schema:Organization", "org:FormalOrganization"],
       "x-skos:note": "ROR is the value anchor."
+    },
+    "orgAddress": {
+      "type": "object",
+      "description": "A single physical location for the organization. Mirrors community.lexicon.location.address, but every field is optional (country is NOT ISO-gated at the lexicon layer); Sifa applies country handling and length caps at the app layer.",
+      "properties": {
+        "country": {
+          "type": "string",
+          "description": "ISO 3166 country code (preferably the 2-letter code). Enforced at the app layer."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "Postal code of the location."
+        },
+        "region": {
+          "type": "string",
+          "description": "Administrative region of the country (for example, a state or province)."
+        },
+        "locality": {
+          "type": "string",
+          "description": "Locality of the region (for example, a city)."
+        },
+        "street": {
+          "type": "string",
+          "description": "Street address."
+        },
+        "name": {
+          "type": "string",
+          "description": "Optional label for this location (for example, \"Head office\")."
+        }
+      }
+    },
+    "orgLink": {
+      "type": "object",
+      "description": "A featured link surfaced on the org page.",
+      "required": ["name", "url"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxGraphemes": 256,
+          "maxLength": 2560,
+          "description": "Display label for the link."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Link target. MUST be an http(s) URL; other schemes are dropped at the app layer."
+        }
+      }
     }
   }
 }

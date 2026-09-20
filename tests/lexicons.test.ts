@@ -401,6 +401,57 @@ describe.each([
   });
 });
 
+describe('getProfileView agentRef + currentCompanyName view fields', () => {
+  const gpv = lexicons.find((l) => l.doc.id === 'id.sifa.getProfileView');
+
+  it('the getProfileView lexicon exists', () => {
+    expect(gpv).toBeDefined();
+  });
+
+  // Views that mirror their flat entity link as a canonical agentRef ref.
+  // Matches the sifa-api vendored copy (src/lexicons/get-profile-view.ts).
+  const agentRefViews = [
+    'positionView',
+    'educationView',
+    'certificationView',
+    'volunteeringView',
+    'involvementView',
+    'courseView',
+    'honorView',
+  ] as const;
+
+  describe.each(agentRefViews)('%s', (viewName) => {
+    const properties = gpv?.doc.defs[viewName]?.properties;
+    const required = gpv?.doc.defs[viewName]?.required ?? [];
+
+    it('agentRef exists as a ref to id.sifa.defs#agentRef', () => {
+      expect(properties?.agentRef).toBeDefined();
+      expect(properties?.agentRef?.type).toBe('ref');
+      expect(properties?.agentRef?.ref).toBe('id.sifa.defs#agentRef');
+    });
+
+    it('agentRef is not required (additive, optional)', () => {
+      expect(required).not.toContain('agentRef');
+    });
+
+    it('agentRef has a non-empty description', () => {
+      expect(properties?.agentRef?.description).toBeDefined();
+      expect(properties?.agentRef?.description!.length).toBeGreaterThan(0);
+    });
+
+    it('currentCompanyName exists as an optional string', () => {
+      expect(properties?.currentCompanyName).toBeDefined();
+      expect(properties?.currentCompanyName?.type).toBe('string');
+      expect(required).not.toContain('currentCompanyName');
+    });
+
+    it('currentCompanyName has a non-empty description', () => {
+      expect(properties?.currentCompanyName?.description).toBeDefined();
+      expect(properties?.currentCompanyName?.description!.length).toBeGreaterThan(0);
+    });
+  });
+});
+
 describe('Course completedAt field', () => {
   const courseLexicon = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.course');
   const properties = courseLexicon?.doc.defs.main.record?.properties;

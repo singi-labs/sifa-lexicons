@@ -404,6 +404,15 @@
           "type": "string",
           "description": "Resolved canonical company name."
         },
+        "agentRef": {
+          "type": "ref",
+          "ref": "id.sifa.defs#agentRef",
+          "description": "Canonical company reference (name plus optional did/entityRef). Mirrors the flat company/companyDid/entityRef fields during the migration; the two always agree."
+        },
+        "currentCompanyName": {
+          "type": "string",
+          "description": "Current canonical name of the linked entity, when it resolves. The web shows it as a \"Now {name}\" hint when it differs from the saved snapshot name (#516)."
+        },
         "description": {
           "type": "string",
           "description": "Role description."
@@ -504,6 +513,15 @@
           "format": "uri",
           "description": "Pointer URI to the resolved institution entity."
         },
+        "agentRef": {
+          "type": "ref",
+          "ref": "id.sifa.defs#agentRef",
+          "description": "Canonical institution reference (name plus optional did/entityRef). Mirrors the flat institution/institutionDid/entityRef fields during the migration; the two always agree."
+        },
+        "currentCompanyName": {
+          "type": "string",
+          "description": "Current canonical name of the linked entity, when it resolves. The web shows it as a \"Now {name}\" hint when it differs from the saved snapshot name (#516)."
+        },
         "degree": {
           "type": "string",
           "description": "Degree earned."
@@ -579,6 +597,15 @@
           "format": "uri",
           "description": "Pointer URI to the resolved issuer entity."
         },
+        "agentRef": {
+          "type": "ref",
+          "ref": "id.sifa.defs#agentRef",
+          "description": "Canonical issuing-authority reference (name plus optional did/entityRef). Mirrors the flat authority/entityRef fields during the migration; the two always agree."
+        },
+        "currentCompanyName": {
+          "type": "string",
+          "description": "Current canonical name of the linked entity, when it resolves. The web shows it as a \"Now {name}\" hint when it differs from the saved snapshot name (#516)."
+        },
         "issueDate": {
           "type": "string",
           "description": "Issue date. Partial date."
@@ -648,6 +675,15 @@
           "format": "uri",
           "description": "Pointer URI to the resolved organization entity."
         },
+        "agentRef": {
+          "type": "ref",
+          "ref": "id.sifa.defs#agentRef",
+          "description": "Canonical organization reference (name plus optional did/entityRef). Mirrors the flat organization/entityRef fields during the migration; the two always agree."
+        },
+        "currentCompanyName": {
+          "type": "string",
+          "description": "Current canonical name of the linked entity, when it resolves. The web shows it as a \"Now {name}\" hint when it differs from the saved snapshot name (#516)."
+        },
         "role": {
           "type": "string",
           "description": "Role held."
@@ -701,6 +737,15 @@
           "type": "string",
           "format": "uri",
           "description": "URL of the upstream, when provided."
+        },
+        "agentRef": {
+          "type": "ref",
+          "ref": "id.sifa.defs#agentRef",
+          "description": "Canonical upstream reference (name plus optional did/entityRef). Mirrors the flat upstream/upstreamDid/entityRef fields during the migration; the two always agree."
+        },
+        "currentCompanyName": {
+          "type": "string",
+          "description": "Current canonical name of the linked entity, when it resolves. The web shows it as a \"Now {name}\" hint when it differs from the saved snapshot name (#516)."
         },
         "role": {
           "type": "string",
@@ -902,6 +947,15 @@
           "format": "uri",
           "description": "Pointer URI to the resolved institution entity."
         },
+        "agentRef": {
+          "type": "ref",
+          "ref": "id.sifa.defs#agentRef",
+          "description": "Canonical institution reference (name plus optional did/entityRef). Mirrors the flat institution/entityRef fields during the migration; the two always agree."
+        },
+        "currentCompanyName": {
+          "type": "string",
+          "description": "Current canonical name of the linked entity, when it resolves. The web shows it as a \"Now {name}\" hint when it differs from the saved snapshot name (#516)."
+        },
         "credentialRkey": {
           "type": "string",
           "description": "Record key of a linked certification, when present."
@@ -1094,6 +1148,15 @@
           "type": "string",
           "format": "uri",
           "description": "Pointer URI to the resolved issuer entity."
+        },
+        "agentRef": {
+          "type": "ref",
+          "ref": "id.sifa.defs#agentRef",
+          "description": "Canonical issuer reference (name plus optional did/entityRef). Mirrors the flat issuer/entityRef fields during the migration; the two always agree."
+        },
+        "currentCompanyName": {
+          "type": "string",
+          "description": "Current canonical name of the linked entity, when it resolves. The web shows it as a \"Now {name}\" hint when it differs from the saved snapshot name (#516)."
         },
         "description": {
           "type": "string",

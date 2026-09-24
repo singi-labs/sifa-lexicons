@@ -72,6 +72,26 @@
             ],
             "description": "Declared organization headcount band, owner-edited on the org page. A self-declared bucket, never a calculated count. knownValues is non-exhaustive by AT Protocol convention."
           },
+          "companyType": {
+            "type": "string",
+            "maxLength": 64,
+            "knownValues": [
+              "company",
+              "cooperative",
+              "nonprofit",
+              "foundation",
+              "government",
+              "educational",
+              "research_institute",
+              "healthcare_provider",
+              "professional_association",
+              "agency",
+              "religious",
+              "political",
+              "self_employed"
+            ],
+            "description": "Declared organization form/type, owner-edited on the org page. A self-declared bucket, never a registry fact. knownValues is non-exhaustive by AT Protocol convention; AppViews layer registry legalForm and AI-derived type separately."
+          },
           "links": {
             "type": "array",
             "maxLength": 20,

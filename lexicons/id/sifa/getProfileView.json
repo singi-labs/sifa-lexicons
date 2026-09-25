@@ -938,6 +938,10 @@
           "type": "string",
           "description": "Course number or code."
         },
+        "role": {
+          "type": "string",
+          "description": "The user's role in the course (id.sifa.defs#courseRole). Absent means taken."
+        },
         "institution": {
           "type": "string",
           "description": "Institution name."
@@ -959,6 +963,22 @@
         "credentialRkey": {
           "type": "string",
           "description": "Record key of a linked certification, when present."
+        },
+        "completedAt": {
+          "type": "string",
+          "description": "Completion date of a taken course (YYYY-MM or YYYY-MM-DD)."
+        },
+        "startedAt": {
+          "type": "string",
+          "description": "When the user started teaching the course (YYYY, YYYY-MM or YYYY-MM-DD)."
+        },
+        "endedAt": {
+          "type": "string",
+          "description": "When the user last taught the course; absent if ongoing."
+        },
+        "positionRkey": {
+          "type": "string",
+          "description": "Record key of the linked position a taught course belongs to, when present."
         }
       }
     },

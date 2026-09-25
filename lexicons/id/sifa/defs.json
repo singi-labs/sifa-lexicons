@@ -782,6 +782,24 @@
         "id.sifa.defs#involvementOther"
       ]
     },
+    "courseRole": {
+      "type": "string",
+      "description": "The user's role in a course: taking it, teaching it, or assisting with it.",
+      "knownValues": [
+        "id.sifa.defs#courseTaken",
+        "id.sifa.defs#courseTaught",
+        "id.sifa.defs#courseTeachingAssistant"
+      ]
+    },
+    "courseTaken": { "type": "token", "description": "The user took the course as a student." },
+    "courseTaught": {
+      "type": "token",
+      "description": "The user taught the course as an instructor or lecturer."
+    },
+    "courseTeachingAssistant": {
+      "type": "token",
+      "description": "The user assisted with teaching the course, for example as a teaching assistant."
+    },
     "involvementOpenSource": {
       "type": "token",
       "description": "Open-source contribution or maintainership."

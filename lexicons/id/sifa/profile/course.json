@@ -58,9 +58,9 @@
             "description": "The institution or platform offering the course, as a single nested reference mirroring the flat institution / institutionDid / entityRef fields. Additive dual-write: the flat fields remain the source of truth for existing consumers."
           },
           "education": {
-            "type": "ref",
-            "ref": "com.atproto.repo.strongRef",
-            "description": "Reference to the associated id.sifa.profile.education record, if applicable."
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT-URI of the id.sifa.profile.education record the course was part of, such as a course within a degree. A plain at-uri rather than a strongRef so the link tracks the live education record across edits."
           },
           "credential": {
             "type": "string",
@@ -82,7 +82,7 @@
           "position": {
             "type": "string",
             "format": "at-uri",
-            "description": "AT-URI of the id.sifa.profile.position record the course was taught under, if applicable. A plain at-uri rather than a strongRef so the link tracks the live position across edits."
+            "description": "AT-URI of the id.sifa.profile.position record the course was part of: taught under it, or taken as part of the job. A plain at-uri rather than a strongRef so the link tracks the live position across edits."
           },
           "createdAt": {
             "type": "string",

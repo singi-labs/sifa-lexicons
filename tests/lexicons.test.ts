@@ -228,6 +228,8 @@ const DATE_ONLY_FIELDS = new Set([
   'id.sifa.profile.certification.issuedAt',
   'id.sifa.profile.certification.expiresAt',
   'id.sifa.profile.course.completedAt',
+  'id.sifa.profile.course.startedAt',
+  'id.sifa.profile.course.endedAt',
   'id.sifa.profile.honor.awardedAt',
   'id.sifa.profile.publication.publishedAt',
   'id.sifa.org.employmentAttestation.startedAt',
@@ -479,6 +481,7 @@ describe.each([
   ['id.sifa.profile.certification', ['issuedAt', 'expiresAt']],
   ['id.sifa.profile.honor', ['awardedAt']],
   ['id.sifa.profile.publication', ['publishedAt']],
+  ['id.sifa.profile.course', ['startedAt', 'endedAt']],
 ] as const)('%s freeform date fields', (lexiconId, fields) => {
   const lexicon = recordLexicons.find((l) => l.doc.id === lexiconId);
   const properties = lexicon?.doc.defs.main.record?.properties;

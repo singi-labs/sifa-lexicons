@@ -25,6 +25,17 @@
             "description": "Course number or code (e.g., 'CS101').",
             "x-skos:exactMatch": ["schema:courseCode"]
           },
+          "role": {
+            "type": "string",
+            "maxLength": 640,
+            "maxGraphemes": 64,
+            "description": "The user's role in the course. Absent means the user took it. A taught course renders under Teaching.",
+            "knownValues": [
+              "id.sifa.defs#courseTaken",
+              "id.sifa.defs#courseTaught",
+              "id.sifa.defs#courseTeachingAssistant"
+            ]
+          },
           "institution": {
             "type": "string",
             "maxGraphemes": 256,
@@ -58,7 +69,20 @@
           },
           "completedAt": {
             "type": "string",
-            "description": "Date the course was completed, in YYYY-MM or YYYY-MM-DD format. Omit if unknown."
+            "description": "Date the course was completed, in YYYY-MM or YYYY-MM-DD format. Omit if unknown. Applies to a course the user took."
+          },
+          "startedAt": {
+            "type": "string",
+            "description": "When the user started teaching the course, in YYYY, YYYY-MM or YYYY-MM-DD format. Applies to a taught or assisted course."
+          },
+          "endedAt": {
+            "type": "string",
+            "description": "When the user last taught the course, in YYYY, YYYY-MM or YYYY-MM-DD format. Omit if still teaching it."
+          },
+          "position": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "AT-URI of the id.sifa.profile.position record the course was taught under, if applicable. A plain at-uri rather than a strongRef so the link tracks the live position across edits."
           },
           "createdAt": {
             "type": "string",

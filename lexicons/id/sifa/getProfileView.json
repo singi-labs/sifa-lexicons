@@ -983,7 +983,11 @@
         },
         "positionRkey": {
           "type": "string",
-          "description": "Record key of the linked position a taught course belongs to, when present."
+          "description": "Record key of the linked position the course was part of, when present."
+        },
+        "educationRkey": {
+          "type": "string",
+          "description": "Record key of the linked education record the course was part of, when present."
         }
       }
     },

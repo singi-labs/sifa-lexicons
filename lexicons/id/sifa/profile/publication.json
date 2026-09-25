@@ -105,6 +105,13 @@
             "ref": "id.sifa.defs#externalRecordRef",
             "description": "The same publication as recorded on another person's profile. Set when you keep your own entry for work someone else has also recorded, so consumers can tell the two describe one thing rather than showing it twice. Each side stays its own record: the other person cannot edit yours, and yours does not change theirs. Resolve by AT-URI, since they will keep editing their copy."
           },
+          "relatedIdentifiers": {
+            "type": "array",
+            "maxLength": 20,
+            "items": { "type": "ref", "ref": "id.sifa.defs#relatedIdentifier" },
+            "description": "Other versions or forms of this work, such as the published version of a preprint. A consumer can show linked versions as one publication.",
+            "x-skos:closeMatch": ["dcterms:relation"]
+          },
           "authors": {
             "type": "array",
             "maxLength": 50,

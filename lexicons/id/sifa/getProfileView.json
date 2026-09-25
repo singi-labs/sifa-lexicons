@@ -871,6 +871,11 @@
           "type": "string",
           "description": "Verification source, when verified."
         },
+        "relatedIdentifiers": {
+          "type": "array",
+          "items": { "type": "ref", "ref": "id.sifa.defs#relatedIdentifier" },
+          "description": "Other versions or forms of this work: the relations declared on the record plus, for a DOI, those registered with DataCite or Crossref. Clients can fold a preprint under its published version."
+        },
         "orcidCorroborated": {
           "type": "boolean",
           "description": "Whether an ORCID work corroborates a Sifa record."

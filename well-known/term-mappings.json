@@ -306,6 +306,12 @@
     },
     {
       "lexicon": "id.sifa.profile.publication",
+      "field": "relatedIdentifiers",
+      "match": "closeMatch",
+      "terms": ["dcterms:relation"]
+    },
+    {
+      "lexicon": "id.sifa.profile.publication",
       "field": "subtitle",
       "match": "closeMatch",
       "terms": ["schema:alternativeHeadline"]

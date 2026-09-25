@@ -54,7 +54,7 @@
           "date": {
             "type": "string",
             "maxLength": 10,
-            "description": "Calendar date of this delivery as YYYY-MM-DD (day only, no time). Future dates are allowed for upcoming deliveries. The day-only shape is enforced at the app layer. On the linked branch, derived from the event's startsAt in the event's own offset.",
+            "description": "Calendar date of this delivery as YYYY-MM-DD, or YYYY-MM or YYYY when the exact day or month is not known (no time). Future dates are allowed for upcoming deliveries. The shape is enforced at the app layer. On the linked branch, derived from the event's startsAt in the event's own offset, and always a full day.",
             "x-skos:exactMatch": ["schema:startDate", "event:time"]
           },
           "location": {

@@ -638,6 +638,10 @@
           "type": "string",
           "description": "Project name."
         },
+        "role": {
+          "type": "string",
+          "description": "The user's own role on the project."
+        },
         "description": {
           "type": "string",
           "description": "Project description."

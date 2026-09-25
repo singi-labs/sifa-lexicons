@@ -18,6 +18,12 @@
             "maxLength": 2560,
             "description": "Project name."
           },
+          "role": {
+            "type": "string",
+            "maxGraphemes": 256,
+            "maxLength": 2560,
+            "description": "The user's own role on the project (e.g. 'Maintainer', 'Core contributor', 'Project lead'). Roles of other people named on the project live on members."
+          },
           "description": {
             "type": "string",
             "maxGraphemes": 5000,

@@ -706,6 +706,39 @@
         "id.sifa.defs#host"
       ]
     },
+    "relatedIdentifier": {
+      "type": "object",
+      "description": "A typed link from this work to another version or form of it, such as the published version of a preprint. Values mirror the DataCite relatedIdentifier vocabulary so they round-trip with DataCite and Crossref metadata.",
+      "required": ["identifier", "relationType"],
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "maxLength": 2048,
+          "description": "The related work: a bare DOI (\"10.1234/example\"), an AT-URI of another record, or a URL, as named by identifierType."
+        },
+        "identifierType": {
+          "type": "string",
+          "maxLength": 32,
+          "description": "Kind of identifier. Absent means DOI.",
+          "knownValues": ["DOI", "AT-URI", "URL"]
+        },
+        "relationType": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "How this work relates to the identified one, in DataCite relationType terms. For example IsPreprintOf on a preprint points at its published version.",
+          "knownValues": [
+            "IsPreprintOf",
+            "HasPreprint",
+            "IsPublishedIn",
+            "IsVersionOf",
+            "HasVersion",
+            "IsNewVersionOf",
+            "IsPreviousVersionOf",
+            "IsIdenticalTo"
+          ]
+        }
+      }
+    },
     "presenter": {
       "type": "token",
       "description": "Delivered the session as the speaker or presenter (spoken or non-spoken)."

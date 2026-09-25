@@ -526,6 +526,12 @@
           "type": "string",
           "description": "Degree earned."
         },
+        "eqfLevel": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8,
+          "description": "European Qualifications Framework level of the degree (1 to 8, 8 is doctoral), when set."
+        },
         "fieldOfStudy": {
           "type": "string",
           "description": "Field of study."

@@ -61,6 +61,13 @@
     },
     {
       "lexicon": "id.sifa.profile.education",
+      "field": "eqfLevel",
+      "match": "closeMatch",
+      "terms": ["schema:educationalLevel"],
+      "note": "EQF is the value anchor."
+    },
+    {
+      "lexicon": "id.sifa.profile.education",
       "field": "fieldOfStudy",
       "match": "closeMatch",
       "terms": ["schema:educationalCredentialAwarded"],

@@ -49,6 +49,14 @@
             "x-skos:closeMatch": ["schema:educationalCredentialAwarded"],
             "x-skos:note": "ISCED-F is the value anchor."
           },
+          "eqfLevel": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 8,
+            "description": "Level of the qualification on the European Qualifications Framework (EQF), 1 to 8. 6 is bachelor level, 7 is master level, 8 is doctoral level. Omit when unknown. The free-text degree stays the display name.",
+            "x-skos:closeMatch": ["schema:educationalLevel"],
+            "x-skos:note": "EQF is the value anchor."
+          },
           "grade": {
             "type": "string",
             "maxGraphemes": 50,

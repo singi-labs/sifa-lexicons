@@ -1075,10 +1075,11 @@ describe('id.sifa.defs confirmation additions', () => {
       'id.sifa.defs#projectMember',
       'id.sifa.defs#author',
       'id.sifa.defs#collaborator',
+      'id.sifa.defs#colleague',
     ]);
   });
 
-  it.each(['coSpeaker', 'projectMember', 'author', 'collaborator'])(
+  it.each(['coSpeaker', 'projectMember', 'author', 'collaborator', 'colleague'])(
     'declares the %s token',
     (token) => {
       expect(defs.defs[token]?.type).toBe('token');

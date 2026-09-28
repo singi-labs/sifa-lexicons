@@ -44,7 +44,7 @@
           "organizationDid": {
             "type": "string",
             "format": "did",
-            "description": "DID of the organization this project belongs to, if any. Bridges to future company entities."
+            "description": "DID of the organization this project belongs to, if any. Bridges to future organization entities."
           },
           "entityRef": {
             "type": "string",

@@ -630,7 +630,8 @@
         "id.sifa.defs#coSpeaker",
         "id.sifa.defs#projectMember",
         "id.sifa.defs#author",
-        "id.sifa.defs#collaborator"
+        "id.sifa.defs#collaborator",
+        "id.sifa.defs#colleague"
       ]
     },
     "coSpeaker": {
@@ -648,6 +649,10 @@
     "collaborator": {
       "type": "token",
       "description": "The named person worked alongside the claimer on the referenced id.sifa.profile.involvement."
+    },
+    "colleague": {
+      "type": "token",
+      "description": "The confirming person worked with the owner of the referenced id.sifa.profile.position at the same organization, or confirms it on behalf of that organization. Unlike the other relations, the subject record names its owner rather than the confirming person."
     },
     "projectMemberRef": {
       "type": "object",

@@ -1,0 +1,5 @@
+{
+  "lexicon": 1,
+  "id": "id.example.b",
+  "defs": { "main": { "type": "token", "description": "Example token" } }
+}

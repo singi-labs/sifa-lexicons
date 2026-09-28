@@ -3,6 +3,8 @@ name: Publish lexicons
 # Republishes every lexicons/**/*.json as a com.atproto.lexicon.schema record
 # on the authority DID's PDS whenever lexicon JSON changes land on main.
 # Idempotent: scripts/publish-lexicons.ts skips unchanged records.
+# On failure it opens or updates the "Lexicon publishing alert" issue, and
+# lexicon-drift.yml re-checks the published schemas every week.
 #
 # Secrets required (set on singi-labs/sifa-lexicons):
 #   LEXICON_PUBLISHER_DID
@@ -27,6 +29,9 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -49,3 +54,9 @@ jobs:
           # must be re-bootstrapped manually. See sifa-lexicons#58.
           LEXICON_PUBLISHER_SECRETS_PAT: ${{ secrets.LEXICON_PUBLISHER_SECRETS_PAT }}
         run: npm run publish:lexicons
+
+      - name: Open or update alert issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: scripts/report-lexicon-alert.sh "The Publish lexicons workflow failed. The authority PDS may be serving stale schemas."

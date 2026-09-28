@@ -1,0 +1,38 @@
+name: Lexicon drift check
+
+# Compares the com.atproto.lexicon.schema records on the authority PDS with
+# lexicons/**. Read-only public reads, no secrets. Fails when the network is
+# behind the repo, so a silent no-op publish still surfaces. On failure it
+# opens or updates the "Lexicon publishing alert" issue.
+
+on:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          cache: npm
+
+      - run: npm ci
+
+      - name: Compare authority PDS with lexicons/
+        run: npm run drift:check
+
+      - name: Open or update alert issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: scripts/report-lexicon-alert.sh "The scheduled lexicon drift check failed. The schemas on the authority PDS do not match lexicons/ on main, or the check could not read them."

@@ -10,58 +10,11 @@
  *   pnpm tsx scripts/publish-lexicons.ts --check    # listRecords-only verification
  */
 import { Agent } from '@atproto/api';
-import { readFile, readdir } from 'node:fs/promises';
-import { join } from 'node:path';
 import { restoreOAuthSession } from './oauth-session.js';
 import { persistRotatedTokenSet } from './persist-token.js';
+import { COLLECTION, loadLocalLexicons, recordsEqual } from './lexicon-drift.js';
 
 const LEXICONS_DIR = new URL('../lexicons/', import.meta.url).pathname;
-const COLLECTION = 'com.atproto.lexicon.schema';
-
-type LexiconRecord = { id: string; [k: string]: unknown };
-
-async function* walkLexicons(dir: string): AsyncGenerator<string> {
-  for (const entry of await readdir(dir, { withFileTypes: true })) {
-    const path = join(dir, entry.name);
-    if (entry.isDirectory()) {
-      yield* walkLexicons(path);
-    } else if (entry.name.endsWith('.json')) {
-      yield path;
-    }
-  }
-}
-
-function recordsEqual(a: unknown, b: unknown): boolean {
-  return JSON.stringify(stableStringify(a)) === JSON.stringify(stableStringify(b));
-}
-
-function stableStringify(value: unknown): unknown {
-  if (Array.isArray(value)) return value.map(stableStringify);
-  if (value && typeof value === 'object') {
-    const sorted: Record<string, unknown> = {};
-    for (const key of Object.keys(value).sort()) {
-      sorted[key] = stableStringify((value as Record<string, unknown>)[key]);
-    }
-    return sorted;
-  }
-  return value;
-}
-
-async function loadLocalLexicons(): Promise<Map<string, LexiconRecord>> {
-  const records = new Map<string, LexiconRecord>();
-  for await (const path of walkLexicons(LEXICONS_DIR)) {
-    const raw = await readFile(path, 'utf8');
-    const record = JSON.parse(raw) as LexiconRecord;
-    if (!record.id || typeof record.id !== 'string') {
-      throw new Error(`Lexicon ${path} has no string "id" field`);
-    }
-    if (records.has(record.id)) {
-      throw new Error(`Duplicate lexicon id ${record.id} (already seen elsewhere)`);
-    }
-    records.set(record.id, record);
-  }
-  return records;
-}
 
 async function listAllPublishedRkeys(agent: Agent, repo: string): Promise<Set<string>> {
   const rkeys = new Set<string>();
@@ -96,7 +49,7 @@ async function publish() {
   // later failure can't strand it and replay on the next run (sifa-lexicons#58).
   await persistRotatedTokenSet((await readSavedSession())?.tokenSet);
 
-  const local = await loadLocalLexicons();
+  const local = await loadLocalLexicons(LEXICONS_DIR);
   console.log(`Loaded ${local.size} local lexicons`);
 
   if (check) {

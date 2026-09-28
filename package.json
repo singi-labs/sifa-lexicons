@@ -34,6 +34,7 @@
     "publish:bootstrap": "tsx scripts/oauth-bootstrap.ts",
     "publish:lexicons": "tsx scripts/publish-lexicons.ts",
     "publish:check": "tsx scripts/publish-lexicons.ts --check",
+    "drift:check": "tsx scripts/check-lexicon-drift.ts",
     "prepare": "husky",
     "build:term-mappings": "node scripts/build-term-mappings.js"
   },

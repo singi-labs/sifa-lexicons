@@ -16,13 +16,13 @@
             "minLength": 1,
             "maxGraphemes": 256,
             "maxLength": 2560,
-            "description": "Company or organization name. Optional: omit for self-employed, freelance, contract, or independent work that has no separately named or registered entity.",
+            "description": "Organization name. Optional: omit for self-employed, freelance, contract, or independent work that has no separately named or registered entity.",
             "x-skos:exactMatch": ["org:organization", "schema:worksFor"]
           },
           "companyDid": {
             "type": "string",
             "format": "did",
-            "description": "DID of the company's ATproto account, if one exists. Enables verified company linking."
+            "description": "DID of the organization's ATproto account, if one exists. Enables verified organization linking."
           },
           "entityRef": {
             "type": "string",

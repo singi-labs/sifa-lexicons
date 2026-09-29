@@ -388,26 +388,26 @@
         },
         "company": {
           "type": "string",
-          "description": "Company or organization name."
+          "description": "Organization name."
         },
         "companyDid": {
           "type": "string",
           "format": "did",
-          "description": "DID of the company, when known."
+          "description": "DID of the organization, when known."
         },
         "entityRef": {
           "type": "string",
           "format": "uri",
-          "description": "Pointer URI to the resolved company entity."
+          "description": "Pointer URI to the resolved organization entity."
         },
         "entityName": {
           "type": "string",
-          "description": "Resolved canonical company name."
+          "description": "Resolved canonical organization name."
         },
         "agentRef": {
           "type": "ref",
           "ref": "id.sifa.defs#agentRef",
-          "description": "Canonical company reference (name plus optional did/entityRef). Mirrors the flat company/companyDid/entityRef fields during the migration; the two always agree."
+          "description": "Canonical organization reference (name plus optional did/entityRef). Mirrors the flat company/companyDid/entityRef fields during the migration; the two always agree."
         },
         "currentCompanyName": {
           "type": "string",

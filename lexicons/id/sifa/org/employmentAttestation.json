@@ -44,7 +44,7 @@
           "companyDid": {
             "type": "string",
             "format": "did",
-            "description": "DID of the company's ATproto account snapshot from the position record. Pin this when the position carried a companyDid but no entityRef. Part of the identity triple."
+            "description": "DID of the organization's ATproto account snapshot from the position record. Pin this when the position carried a companyDid but no entityRef. Part of the identity triple."
           },
           "endedAt": {
             "type": "string",

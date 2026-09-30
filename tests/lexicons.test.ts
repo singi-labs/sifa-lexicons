@@ -2077,3 +2077,41 @@ describe('employment verification lexicons (sifa-workspace#620)', () => {
     });
   });
 });
+
+describe('Projects link the events they organized', () => {
+  const project = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.project');
+  const events = project?.doc.defs.main.record?.properties?.events as
+    | { type?: string; items?: { type?: string; ref?: string } }
+    | undefined;
+  const projectEvent = project?.doc.defs.projectEvent as
+    | { required?: string[]; properties?: Record<string, { type?: string; ref?: string }> }
+    | undefined;
+
+  // Organizing an event is a project, speaking at it is a delivery. Both point at
+  // the same community.lexicon.calendar.event, so a consumer can merge them.
+  it('declares an optional events array of #projectEvent', () => {
+    expect(events?.type).toBe('array');
+    expect(events?.items?.ref).toBe('#projectEvent');
+    expect(project?.doc.defs.main.record?.required ?? []).not.toContain('events');
+  });
+
+  it('projectEvent requires an event ref and allows a per-occurrence role', () => {
+    expect(projectEvent?.required).toEqual(['event']);
+    expect(projectEvent?.properties?.event?.ref).toBe('id.sifa.defs#externalRecordRef');
+    expect(projectEvent?.properties?.role?.type).toBe('string');
+  });
+
+  it('exposes resolved events on getProfileView#projectView', () => {
+    const view = JSON.parse(readFileSync(join(LEXICONS_DIR, 'getProfileView.json'), 'utf-8')) as {
+      defs: Record<
+        string,
+        {
+          required?: string[];
+          properties?: Record<string, { type?: string; items?: { ref?: string } }>;
+        }
+      >;
+    };
+    expect(view.defs.projectView?.properties?.events?.items?.ref).toBe('#projectEventView');
+    expect(view.defs.projectEventView?.required).toEqual(['uri']);
+  });
+});

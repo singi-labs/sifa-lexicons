@@ -59,6 +59,16 @@
             },
             "description": "Other people who worked on this project. Each entry is a claim by the record author and is not self-verifying: the named person supplies the other half by publishing an id.sifa.confirmation record whose subject is this record and whose relation is id.sifa.defs#projectMember. Until they do, consumers must render the entry without their display name, avatar, or profile link. Confirming never puts this record on the named person's profile: it lives in the author's repository and the author can rename it at any time. A named person who wants the project on their profile keeps their own id.sifa.profile.project record and points its projectRef here."
           },
+          "events": {
+            "type": "array",
+            "maxLength": 200,
+            "items": {
+              "type": "ref",
+              "ref": "#projectEvent"
+            },
+            "description": "Event occurrences this project organized or hosted, for example every edition of a conference or every meetup of a series. Each entry should reference a distinct event; consumers ignore entries that don't resolve to a community.lexicon.calendar.event. A talk the user also gave at one of these events is a separate id.sifa.profile.presentationDelivery whose eventRef points at the same event.",
+            "x-skos:relatedMatch": ["schema:organizer"]
+          },
           "startedAt": {
             "type": "string",
             "description": "Project start date in YYYY-MM or YYYY-MM-DD format."
@@ -84,6 +94,24 @@
         }
       },
       "x-skos:exactMatch": ["schema:Project", "foaf:Project"]
+    },
+    "projectEvent": {
+      "type": "object",
+      "description": "One event occurrence linked to a project.",
+      "required": ["event"],
+      "properties": {
+        "event": {
+          "type": "ref",
+          "ref": "id.sifa.defs#externalRecordRef",
+          "description": "Reference to the community.lexicon.calendar.event. Resolve by AT-URI; the CID is an optional integrity hint."
+        },
+        "role": {
+          "type": "string",
+          "maxGraphemes": 64,
+          "maxLength": 640,
+          "description": "The user's role at this occurrence when it differs from the project's role (e.g. 'Organizer' for one edition, 'Host' for another). Omit to inherit project.role."
+        }
+      }
     }
   }
 }

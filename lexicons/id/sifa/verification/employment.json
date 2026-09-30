@@ -1,0 +1,103 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.verification.employment",
+  "description": "Sifa's own statement that it verified a person's employment. Written only by Sifa's published issuer account, about someone else, the way a trusted verifier writes app.bsky.graph.verification. Consumers trust the issuer DID, not the repository the record appears in: a copy of this record in any other repository carries no meaning.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "Record issued by Sifa stating that it verified the subject's employment in a position. Only records authored by the issuer DID count. Deleting the record is a revocation; status and method changes update the same record. expiresAt is set only while a current position rests on email verification alone. The record carries method tokens only, never an email address or domain. Absence of a record is not a negative signal.",
+      "record": {
+        "type": "object",
+        "required": [
+          "subject",
+          "position",
+          "status",
+          "methods",
+          "title",
+          "startedAt",
+          "verifiedAt",
+          "createdAt"
+        ],
+        "properties": {
+          "subject": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the person whose employment was verified."
+          },
+          "position": {
+            "type": "ref",
+            "ref": "id.sifa.defs#externalRecordRef",
+            "description": "The subject's id.sifa.profile.position record. Resolve the AT-URI live; the CID is an integrity hint."
+          },
+          "status": {
+            "type": "ref",
+            "ref": "id.sifa.defs#employmentStatus",
+            "description": "Whether the verified employment is current or past."
+          },
+          "methods": {
+            "type": "array",
+            "minLength": 1,
+            "maxLength": 4,
+            "items": {
+              "type": "ref",
+              "ref": "id.sifa.defs#verificationMethod"
+            },
+            "description": "Every method that currently backs this verification."
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxGraphemes": 256,
+            "maxLength": 2560,
+            "description": "Job title snapshot from the position at issue time. Consumers compare it with the live position to notice edits."
+          },
+          "startedAt": {
+            "type": "string",
+            "maxLength": 10,
+            "description": "Start date snapshot in YYYY-MM or YYYY-MM-DD format."
+          },
+          "endedAt": {
+            "type": "string",
+            "maxLength": 10,
+            "description": "End date in YYYY-MM or YYYY-MM-DD format when status is past."
+          },
+          "entityRef": {
+            "type": "string",
+            "format": "uri",
+            "description": "Portable identifier (Wikidata Q-ID URI, ROR URI, or LEI URI) of the employing legal entity, when known."
+          },
+          "organization": {
+            "type": "string",
+            "format": "did",
+            "description": "DID of the organization's account, when the organization is on the network."
+          },
+          "evidence": {
+            "type": "array",
+            "maxLength": 20,
+            "items": {
+              "type": "ref",
+              "ref": "id.sifa.defs#externalRecordRef"
+            },
+            "description": "Public records that back the verification, such as the organization's id.sifa.org.employmentAttestation. Never private evidence."
+          },
+          "verifiedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the most recent backing verification was made."
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When this verification lapses unless renewed. Present only while a current position rests on email verification alone. Consumers treat a record past this time as lapsed."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Client-declared timestamp when this record was created."
+          }
+        }
+      }
+    }
+  }
+}

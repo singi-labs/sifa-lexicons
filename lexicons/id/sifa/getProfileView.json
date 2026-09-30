@@ -483,6 +483,35 @@
           "items": {
             "type": "string"
           }
+        },
+        "verification": {
+          "type": "ref",
+          "ref": "#positionVerification",
+          "description": "Sifa's verification of this position, when one is issued. Absent when the position is not verified; absence is not a negative signal."
+        }
+      }
+    },
+    "positionVerification": {
+      "type": "object",
+      "description": "Summary of the id.sifa.verification.employment record Sifa issued for a position.",
+      "required": ["methods", "status", "verifiedAt"],
+      "properties": {
+        "methods": {
+          "type": "array",
+          "description": "Every method that currently backs the verification.",
+          "items": { "type": "ref", "ref": "id.sifa.defs#verificationMethod" }
+        },
+        "status": { "type": "ref", "ref": "id.sifa.defs#employmentStatus" },
+        "verifiedAt": { "type": "string", "format": "datetime" },
+        "expiresAt": {
+          "type": "string",
+          "format": "datetime",
+          "description": "Present only while the verification rests on email alone."
+        },
+        "uri": {
+          "type": "string",
+          "format": "at-uri",
+          "description": "AT-URI of the issued id.sifa.verification.employment record in Sifa's issuer repository."
         }
       }
     },

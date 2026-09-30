@@ -652,7 +652,7 @@
     },
     "colleague": {
       "type": "token",
-      "description": "The confirming person worked with the owner of the referenced id.sifa.profile.position at the same organization, or confirms it on behalf of that organization. Unlike the other relations, the subject record names its owner rather than the confirming person."
+      "description": "The confirming person worked with the owner of the referenced id.sifa.profile.position at the same organization. Unlike the other relations, the subject record names its owner rather than the confirming person. An organization account can write this too, but it stays a colleague-level confirmation: the organization-verified tier comes only from an id.sifa.org.employmentAttestation in the organization's own repository."
     },
     "projectMemberRef": {
       "type": "object",
@@ -997,6 +997,61 @@
           "description": "Optional human-readable label (e.g. 'Merged PR #1234: keep-alive support')."
         }
       }
+    },
+
+    "employmentStatus": {
+      "type": "string",
+      "description": "Whether an employment relationship is ongoing or has ended.",
+      "knownValues": ["id.sifa.defs#employmentCurrent", "id.sifa.defs#employmentPast"]
+    },
+    "employmentCurrent": {
+      "type": "token",
+      "description": "The person currently holds the position."
+    },
+    "employmentPast": {
+      "type": "token",
+      "description": "The person held the position in the past. An end date gives the period."
+    },
+
+    "verificationMethod": {
+      "type": "string",
+      "description": "How Sifa verified an employment: which evidence backs an id.sifa.verification.employment record.",
+      "knownValues": [
+        "id.sifa.defs#verifiedByEmail",
+        "id.sifa.defs#verifiedByOrg",
+        "id.sifa.defs#verifiedByDirectory",
+        "id.sifa.defs#verifiedByPeer"
+      ]
+    },
+    "verifiedByEmail": {
+      "type": "token",
+      "description": "The person proved control of a mailbox at a domain recognized for the employing organization. Time-limited: the issued record carries expiresAt while this is the only method."
+    },
+    "verifiedByOrg": {
+      "type": "token",
+      "description": "The organization's own account wrote an id.sifa.org.employmentAttestation for the position."
+    },
+    "verifiedByDirectory": {
+      "type": "token",
+      "description": "The organization's directory sync wrote the attestation on the organization's behalf."
+    },
+    "verifiedByPeer": {
+      "type": "token",
+      "description": "Enough verified colleagues confirmed the position. Reserved: not published in the first version."
+    },
+
+    "attestationSource": {
+      "type": "string",
+      "description": "How an id.sifa.org.employmentAttestation came to be written. Absent means manual.",
+      "knownValues": ["id.sifa.defs#attestationManual", "id.sifa.defs#attestationDirectory"]
+    },
+    "attestationManual": {
+      "type": "token",
+      "description": "An account holder of the organization confirmed the employment by hand."
+    },
+    "attestationDirectory": {
+      "type": "token",
+      "description": "The organization's directory sync (for example SCIM) wrote the attestation."
     }
   }
 }

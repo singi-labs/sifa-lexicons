@@ -17,6 +17,7 @@ const EXCLUDED_LEXICONS = [
   { file: 'id/sifa/authMeet.json', dictKey: 'IdSifaAuthMeet' },
   { file: 'id/sifa/authConnection.json', dictKey: 'IdSifaAuthConnection' },
   { file: 'id/sifa/authProject.json', dictKey: 'IdSifaAuthProject' },
+  { file: 'id/sifa/authOrg.json', dictKey: 'IdSifaAuthOrg' },
 ];
 
 async function getTypeFiles(dir) {

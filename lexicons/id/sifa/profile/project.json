@@ -64,9 +64,10 @@
             "maxLength": 200,
             "items": {
               "type": "ref",
-              "ref": "id.sifa.defs#externalRecordRef"
+              "ref": "#projectEvent"
             },
-            "description": "Event occurrences this project organized or hosted, each a reference to a community.lexicon.calendar.event (for example every edition of a conference or every meetup of a series). The project record carries the user's organizer or host role; a talk the user also gave at one of these events is a separate id.sifa.profile.presentationDelivery whose eventRef points at the same event. Resolve by AT-URI; the CID is an optional integrity hint."
+            "description": "Event occurrences this project organized or hosted, for example every edition of a conference or every meetup of a series. Each entry should reference a distinct event; consumers ignore entries that don't resolve to a community.lexicon.calendar.event. A talk the user also gave at one of these events is a separate id.sifa.profile.presentationDelivery whose eventRef points at the same event.",
+            "x-skos:relatedMatch": ["schema:organizer"]
           },
           "startedAt": {
             "type": "string",
@@ -93,6 +94,24 @@
         }
       },
       "x-skos:exactMatch": ["schema:Project", "foaf:Project"]
+    },
+    "projectEvent": {
+      "type": "object",
+      "description": "One event occurrence linked to a project.",
+      "required": ["event"],
+      "properties": {
+        "event": {
+          "type": "ref",
+          "ref": "id.sifa.defs#externalRecordRef",
+          "description": "Reference to the community.lexicon.calendar.event. Resolve by AT-URI; the CID is an optional integrity hint."
+        },
+        "role": {
+          "type": "string",
+          "maxGraphemes": 64,
+          "maxLength": 640,
+          "description": "The user's role at this occurrence when it differs from the project's role (e.g. 'Organizer' for one edition, 'Host' for another). Omit to inherit project.role."
+        }
+      }
     }
   }
 }

@@ -694,11 +694,43 @@
           "type": "string",
           "description": "End date. Partial date."
         },
-        "eventUris": {
+        "events": {
           "type": "array",
           "maxLength": 200,
-          "items": { "type": "string", "format": "at-uri" },
-          "description": "AT-URIs of the event records this project organized or hosted (from the record's events field)."
+          "items": { "type": "ref", "ref": "#projectEventView" },
+          "description": "Events this project organized or hosted (from the record's events field), with display fields resolved from the referenced event records."
+        }
+      }
+    },
+    "projectEventView": {
+      "type": "object",
+      "required": ["uri"],
+      "properties": {
+        "uri": {
+          "type": "string",
+          "format": "at-uri",
+          "description": "AT-URI of the linked community.lexicon.calendar.event."
+        },
+        "role": {
+          "type": "string",
+          "description": "The user's role at this occurrence, if it differs from the project's role."
+        },
+        "name": { "type": "string", "description": "Event name, from the event record." },
+        "startsAt": {
+          "type": "string",
+          "format": "datetime",
+          "description": "Event start, from the event record."
+        },
+        "mode": { "type": "string", "description": "Event mode token, from the event record." },
+        "locality": { "type": "string", "description": "City, from the event's first address." },
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code, from the event's first address."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Event website, from the event's first uri."
         }
       }
     },

@@ -1,0 +1,19 @@
+{
+  "lexicon": 1,
+  "id": "id.sifa.authOrg",
+  "description": "OAuth permission set for organization accounts: manage the organization's profile and attest the employment of its people.",
+  "defs": {
+    "main": {
+      "type": "permission-set",
+      "title": "Organization profile and employment attestations",
+      "detail": "Update your organization's profile and confirm who works or worked there.",
+      "permissions": [
+        {
+          "type": "permission",
+          "resource": "repo",
+          "collection": ["id.sifa.org.profile", "id.sifa.org.employmentAttestation"]
+        }
+      ]
+    }
+  }
+}

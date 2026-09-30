@@ -105,6 +105,7 @@ with an `id.sifa.confirmation` record in their own repository.
 | `id.sifa.authMeet`          | Meeting attestation                                  |
 | `id.sifa.authConnection`    | **Deprecated, not implemented.** See the note below. |
 | `id.sifa.authProject`       | Project creation and team management                 |
+| `id.sifa.authOrg`           | Organization profile and employment attestations     |
 
 > **Only `id.sifa.authProfile` and `id.sifa.authMeet` are recognised by the
 > Sifa AppView.** The others are published but unregistered: a PDS granting

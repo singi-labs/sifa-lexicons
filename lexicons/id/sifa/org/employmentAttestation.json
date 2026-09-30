@@ -1,15 +1,15 @@
 {
   "lexicon": 1,
   "id": "id.sifa.org.employmentAttestation",
-  "description": "An organization's attestation that a person is or was employed in a specific position. Lives in the organization's PDS; the organization is implicit (whoever owns the repository). The org asserts this person held the described role. The position identity is pinned via a snapshot triple (title, startedAt, and the entity identifier) so editing the pinned identity fields on the referenced position record voids this attestation. Never pins the free-text company name, which can change in a rebrand without invalidating the attestation.",
+  "description": "An organization's attestation that a person is or was employed by it. Lives in the organization's PDS; the organization is whoever owns the repository. The organization attests employment at the entity, not a job title. The optional title and start-date snapshots let a consumer notice when the referenced position was edited afterwards: a mismatch makes the attestation stale, never void. Never pins the free-text company name, which can change in a rebrand without affecting the attestation.",
   "defs": {
     "main": {
       "type": "record",
-      "description": "Record representing an organization's attestation of a person's employment.",
+      "description": "Record representing an organization's attestation that a person is or was employed at its entity. Deleting the record is a revocation. Updating status from current to past with an end date is offboarding, which keeps the history.",
       "key": "tid",
       "record": {
         "type": "object",
-        "required": ["subject", "position", "status", "title", "startedAt", "createdAt"],
+        "required": ["subject", "status", "createdAt"],
         "properties": {
           "subject": {
             "type": "string",
@@ -19,36 +19,42 @@
           "position": {
             "type": "ref",
             "ref": "com.atproto.repo.strongRef",
-            "description": "StrongRef to the id.sifa.profile.position record being attested. The AT-URI identifies the position, and the CID pins the version for provenance."
+            "description": "StrongRef to the id.sifa.profile.position record being attested. It must belong to subject. Resolve by AT-URI: the CID is the version the organization saw and must not be used as a join key, because the subject editing the position changes its CID. Omit it to attest employment at the entity as a whole, which then matches every position of the subject at that entity with an overlapping period."
           },
           "status": {
-            "type": "string",
-            "description": "Whether the employment is current or past. Accepted values: 'current' or 'past'."
+            "type": "ref",
+            "ref": "id.sifa.defs#employmentStatus",
+            "description": "Whether the employment is current or past."
+          },
+          "source": {
+            "type": "ref",
+            "ref": "id.sifa.defs#attestationSource",
+            "description": "How the attestation was written. Absent means an account holder confirmed it by hand."
           },
           "title": {
             "type": "string",
             "minLength": 1,
             "maxGraphemes": 256,
             "maxLength": 2560,
-            "description": "Job title snapshot from the position record at attestation time. Part of the identity triple: if the position's title later changes, this attestation is voided (the role identity changed)."
+            "description": "Optional job title snapshot from the position at attestation time. If the position's title later differs, the attestation is stale until the organization re-attests."
           },
           "startedAt": {
             "type": "string",
-            "description": "Start date snapshot in YYYY-MM or YYYY-MM-DD format, mirroring the position lexicon's freeform date shape. Part of the identity triple."
+            "description": "Optional start date snapshot in YYYY-MM or YYYY-MM-DD format, mirroring the position lexicon's freeform date shape. Compared at month precision; a later difference makes the attestation stale."
           },
           "entityRef": {
             "type": "string",
             "format": "uri",
-            "description": "Portable entity identifier snapshot (Wikidata Q-ID URI, ROR URI, or LEI URI) from the position record. Pin this when the position carried an entityRef. Part of the identity triple. Never pin the free-text company name."
+            "description": "Portable entity identifier (Wikidata Q-ID URI, ROR URI, or LEI URI) of the employing legal entity. Omit it when the organization account itself is the anchor. Never the free-text company name."
           },
           "companyDid": {
             "type": "string",
             "format": "did",
-            "description": "DID of the organization's ATproto account snapshot from the position record. Pin this when the position carried a companyDid but no entityRef. Part of the identity triple."
+            "description": "Deprecated. The attesting organization is the repository owner, so this field carries no information; readers ignore it. Kept so existing schema readers do not break."
           },
           "endedAt": {
             "type": "string",
-            "description": "End date in YYYY-MM or YYYY-MM-DD format. Required context when status is 'past'."
+            "description": "End date in YYYY-MM or YYYY-MM-DD format. Required context when status is past."
           },
           "comment": {
             "type": "string",

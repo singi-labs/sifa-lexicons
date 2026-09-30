@@ -234,6 +234,8 @@ const DATE_ONLY_FIELDS = new Set([
   'id.sifa.profile.publication.publishedAt',
   'id.sifa.org.employmentAttestation.startedAt',
   'id.sifa.org.employmentAttestation.endedAt',
+  'id.sifa.verification.employment.startedAt',
+  'id.sifa.verification.employment.endedAt',
 ]);
 
 describe('Timestamps use datetime format', () => {
@@ -1838,5 +1840,240 @@ describe('id.sifa.org.profile owner-editable page fields', () => {
     expect(aliases?.items?.type).toBe('string');
     expect(aliases?.items?.maxGraphemes).toBe(200);
     expect(required).not.toContain('aliases');
+  });
+});
+
+describe('employment verification lexicons (sifa-workspace#620)', () => {
+  interface DefsDoc {
+    defs: Record<
+      string,
+      { type: string; description?: string; knownValues?: string[]; required?: string[] }
+    >;
+  }
+  const defs = JSON.parse(readFileSync(join(LEXICONS_DIR, 'defs.json'), 'utf-8')) as DefsDoc;
+  const attestation = lexicons.find((l) => l.doc.id === 'id.sifa.org.employmentAttestation');
+  const aProps = attestation?.doc.defs.main.record?.properties;
+  const aRequired = attestation?.doc.defs.main.record?.required ?? [];
+
+  describe('id.sifa.defs additions', () => {
+    it('employmentStatus is a string with the current and past tokens', () => {
+      expect(defs.defs.employmentStatus?.type).toBe('string');
+      expect(defs.defs.employmentStatus?.knownValues).toEqual([
+        'id.sifa.defs#employmentCurrent',
+        'id.sifa.defs#employmentPast',
+      ]);
+    });
+
+    it('verificationMethod is a string with the four method tokens', () => {
+      expect(defs.defs.verificationMethod?.type).toBe('string');
+      expect(defs.defs.verificationMethod?.knownValues).toEqual([
+        'id.sifa.defs#verifiedByEmail',
+        'id.sifa.defs#verifiedByOrg',
+        'id.sifa.defs#verifiedByDirectory',
+        'id.sifa.defs#verifiedByPeer',
+      ]);
+    });
+
+    it('attestationSource is a string with the manual and directory tokens', () => {
+      expect(defs.defs.attestationSource?.type).toBe('string');
+      expect(defs.defs.attestationSource?.knownValues).toEqual([
+        'id.sifa.defs#attestationManual',
+        'id.sifa.defs#attestationDirectory',
+      ]);
+    });
+
+    it.each([
+      'employmentCurrent',
+      'employmentPast',
+      'verifiedByEmail',
+      'verifiedByOrg',
+      'verifiedByDirectory',
+      'verifiedByPeer',
+      'attestationManual',
+      'attestationDirectory',
+    ])('declares the %s token', (token) => {
+      expect(defs.defs[token]?.type).toBe('token');
+      expect(defs.defs[token]?.description?.length).toBeGreaterThan(0);
+    });
+
+    it('the colleague token points organization accounts at the attestation', () => {
+      expect(defs.defs.colleague?.description).toMatch(/employmentAttestation/);
+    });
+  });
+
+  describe('id.sifa.org.employmentAttestation reshape', () => {
+    it('requires only subject, status and createdAt', () => {
+      expect(aRequired).toEqual(['subject', 'status', 'createdAt']);
+    });
+
+    it('position stays an optional strongRef resolved by AT-URI with the CID as a hint', () => {
+      expect(aProps?.position?.type).toBe('ref');
+      expect(aProps?.position?.ref).toBe('com.atproto.repo.strongRef');
+      expect(aProps?.position?.description).toMatch(/AT-URI/);
+      expect(aProps?.position?.description).toMatch(/join key/);
+      expect(aProps?.position?.description).toMatch(/subject/);
+    });
+
+    it('title and startedAt are optional snapshots that make the attestation stale on drift', () => {
+      expect(aProps?.title?.description).toMatch(/stale/);
+      expect(aProps?.startedAt?.description).toMatch(/stale/);
+      expect(aProps?.title?.description).not.toMatch(/void/);
+    });
+
+    it('status references id.sifa.defs#employmentStatus', () => {
+      expect(aProps?.status?.type).toBe('ref');
+      expect(aProps?.status?.ref).toBe('id.sifa.defs#employmentStatus');
+    });
+
+    it('source is an optional id.sifa.defs#attestationSource', () => {
+      expect(aProps?.source?.type).toBe('ref');
+      expect(aProps?.source?.ref).toBe('id.sifa.defs#attestationSource');
+      expect(aRequired).not.toContain('source');
+    });
+
+    it('companyDid is kept but marked deprecated', () => {
+      expect(aProps?.companyDid?.type).toBe('string');
+      expect(aProps?.companyDid?.description).toMatch(/[Dd]eprecated/);
+    });
+
+    it('the record description states the entity, revocation and offboarding rules', () => {
+      const description = attestation?.doc.defs.main.description ?? '';
+      expect(description).toMatch(/entity/);
+      expect(description).toMatch(/revocation/);
+      expect(description).toMatch(/past/);
+    });
+  });
+
+  describe('id.sifa.confirmation description covers the colleague relation', () => {
+    const confirmation = lexicons.find((l) => l.doc.id === 'id.sifa.confirmation');
+    it("no longer claims the record always lives in the named person's PDS", () => {
+      expect(confirmation?.doc.description).not.toMatch(/never in the claimer's/);
+      expect(confirmation?.doc.description).toMatch(/colleague/);
+    });
+  });
+
+  describe('id.sifa.verification.employment record', () => {
+    const verification = lexicons.find((l) => l.doc.id === 'id.sifa.verification.employment');
+    const props = verification?.doc.defs.main.record?.properties;
+    const required = verification?.doc.defs.main.record?.required ?? [];
+
+    it('exists as a tid-keyed record', () => {
+      expect(verification?.doc.defs.main.type).toBe('record');
+      expect(verification?.doc.defs.main.key).toBe('tid');
+    });
+
+    it('requires subject, position, status, methods, title, startedAt, verifiedAt and createdAt', () => {
+      expect(required).toEqual([
+        'subject',
+        'position',
+        'status',
+        'methods',
+        'title',
+        'startedAt',
+        'verifiedAt',
+        'createdAt',
+      ]);
+    });
+
+    it('subject is a did and position is an externalRecordRef', () => {
+      expect(props?.subject?.format).toBe('did');
+      expect(props?.position?.type).toBe('ref');
+      expect(props?.position?.ref).toBe('id.sifa.defs#externalRecordRef');
+    });
+
+    it('status reuses employmentStatus and methods is a bounded array of verificationMethod', () => {
+      expect(props?.status?.ref).toBe('id.sifa.defs#employmentStatus');
+      expect(props?.methods?.type).toBe('array');
+      expect(props?.methods?.minLength).toBe(1);
+      expect(props?.methods?.maxLength).toBe(4);
+      expect(props?.methods?.items?.ref).toBe('id.sifa.defs#verificationMethod');
+    });
+
+    it('title is a capped snapshot and the date snapshots are short strings', () => {
+      expect(props?.title?.maxGraphemes).toBe(256);
+      expect(props?.startedAt?.maxLength).toBe(10);
+      expect(props?.endedAt?.maxLength).toBe(10);
+    });
+
+    it('optional entityRef is a uri, organization is a did, evidence is a bounded array of externalRecordRef', () => {
+      expect(props?.entityRef?.format).toBe('uri');
+      expect(props?.organization?.format).toBe('did');
+      expect(props?.evidence?.type).toBe('array');
+      expect(props?.evidence?.maxLength).toBe(20);
+      expect(props?.evidence?.items?.ref).toBe('id.sifa.defs#externalRecordRef');
+      expect(required).not.toContain('entityRef');
+      expect(required).not.toContain('organization');
+      expect(required).not.toContain('evidence');
+      expect(required).not.toContain('expiresAt');
+    });
+
+    it('carries no email address or domain field', () => {
+      expect(Object.keys(props ?? {})).not.toContain('emailDomain');
+      expect(Object.keys(props ?? {})).not.toContain('email');
+    });
+
+    it('the description states the issuer gate, revocation and expiry rules', () => {
+      const description = verification?.doc.defs.main.description ?? '';
+      expect(description).toMatch(/issuer/);
+      expect(description).toMatch(/revocation/);
+      expect(description).toMatch(/expiresAt/);
+    });
+  });
+
+  describe('id.sifa.authOrg permission set', () => {
+    interface PermissionSetDoc {
+      defs: {
+        main: {
+          type: string;
+          permissions: Array<{ type: string; resource: string; collection: string[] }>;
+        };
+      };
+    }
+    it('bundles the two organization collections', () => {
+      const authOrg = JSON.parse(
+        readFileSync(join(LEXICONS_DIR, 'authOrg.json'), 'utf-8'),
+      ) as PermissionSetDoc;
+      expect(authOrg.defs.main.type).toBe('permission-set');
+      expect(authOrg.defs.main.permissions).toEqual([
+        {
+          type: 'permission',
+          resource: 'repo',
+          collection: ['id.sifa.org.profile', 'id.sifa.org.employmentAttestation'],
+        },
+      ]);
+    });
+  });
+
+  describe('getProfileView positionView verification', () => {
+    interface ViewDoc {
+      defs: Record<
+        string,
+        {
+          type: string;
+          required?: string[];
+          properties?: Record<string, LexiconProperty>;
+        }
+      >;
+    }
+    const view = JSON.parse(
+      readFileSync(join(LEXICONS_DIR, 'getProfileView.json'), 'utf-8'),
+    ) as ViewDoc;
+
+    it('positionView.verification is an optional ref to #positionVerification', () => {
+      expect(view.defs.positionView?.properties?.verification?.type).toBe('ref');
+      expect(view.defs.positionView?.properties?.verification?.ref).toBe('#positionVerification');
+      expect(view.defs.positionView?.required ?? []).not.toContain('verification');
+    });
+
+    it('#positionVerification carries methods, status, dates and the issued record uri', () => {
+      const pv = view.defs.positionVerification;
+      expect(pv?.type).toBe('object');
+      expect(pv?.required).toEqual(['methods', 'status', 'verifiedAt']);
+      expect(pv?.properties?.methods?.items?.ref).toBe('id.sifa.defs#verificationMethod');
+      expect(pv?.properties?.status?.ref).toBe('id.sifa.defs#employmentStatus');
+      expect(pv?.properties?.verifiedAt?.format).toBe('datetime');
+      expect(pv?.properties?.expiresAt?.format).toBe('datetime');
+      expect(pv?.properties?.uri?.format).toBe('at-uri');
+    });
   });
 });

@@ -693,6 +693,12 @@
         "endDate": {
           "type": "string",
           "description": "End date. Partial date."
+        },
+        "eventUris": {
+          "type": "array",
+          "maxLength": 200,
+          "items": { "type": "string", "format": "at-uri" },
+          "description": "AT-URIs of the event records this project organized or hosted (from the record's events field)."
         }
       }
     },

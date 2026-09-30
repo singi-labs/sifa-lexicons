@@ -2077,3 +2077,25 @@ describe('employment verification lexicons (sifa-workspace#620)', () => {
     });
   });
 });
+
+describe('Projects link the events they organized', () => {
+  const project = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.project');
+  const events = project?.doc.defs.main.record?.properties?.events as
+    | { type?: string; items?: { type?: string; ref?: string } }
+    | undefined;
+
+  // Organizing an event is a project, speaking at it is a delivery. Both point at
+  // the same community.lexicon.calendar.event, so a consumer can merge them.
+  it('declares an optional events array of externalRecordRef', () => {
+    expect(events?.type).toBe('array');
+    expect(events?.items?.ref).toBe('id.sifa.defs#externalRecordRef');
+    expect(project?.doc.defs.main.record?.required ?? []).not.toContain('events');
+  });
+
+  it('exposes eventUris on getProfileView#projectView', () => {
+    const view = JSON.parse(readFileSync(join(LEXICONS_DIR, 'getProfileView.json'), 'utf-8')) as {
+      defs: Record<string, { properties?: Record<string, { type?: string }> }>;
+    };
+    expect(view.defs.projectView?.properties?.eventUris?.type).toBe('array');
+  });
+});

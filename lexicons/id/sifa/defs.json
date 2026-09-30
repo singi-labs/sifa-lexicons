@@ -751,7 +751,10 @@
     "panelist": { "type": "token", "description": "Participated as a member of a panel." },
     "keynote": { "type": "token", "description": "Gave a keynote address." },
     "workshop": { "type": "token", "description": "Led or facilitated a workshop or tutorial." },
-    "host": { "type": "token", "description": "Hosted or moderated the session." },
+    "host": {
+      "type": "token",
+      "description": "Hosted or moderated the session, including acting as MC, moderator, or host of a podcast or livestream recorded there. Organizing the event itself is recorded as an id.sifa.profile.project whose events field references it, not as a delivery role."
+    },
 
     "presentationLinkType": {
       "type": "string",

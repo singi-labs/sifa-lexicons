@@ -2115,3 +2115,25 @@ describe('Projects link the events they organized', () => {
     expect(view.defs.projectEventView?.required).toEqual(['uri']);
   });
 });
+
+describe('Meetings can name the event they happened at', () => {
+  const meeting = recordLexicons.find((l) => l.doc.id === 'id.sifa.meeting');
+  const props = meeting?.doc.defs.main.record?.properties as
+    | Record<string, { type?: string; ref?: string; description?: string }>
+    | undefined;
+
+  // Each side opts in on its own record; "met at" shows only when both match.
+  it('declares an optional event ref, resolved by AT-URI', () => {
+    expect(props?.event?.type).toBe('ref');
+    expect(props?.event?.ref).toBe('id.sifa.defs#externalRecordRef');
+    expect(meeting?.doc.defs.main.record?.required).toEqual([
+      'subject',
+      'meetingToken',
+      'createdAt',
+    ]);
+  });
+
+  it('keeps the meetingToken length limit unchanged', () => {
+    expect((props?.meetingToken as { maxLength?: number } | undefined)?.maxLength).toBe(512);
+  });
+});

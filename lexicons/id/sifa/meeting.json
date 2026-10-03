@@ -6,7 +6,7 @@
     "main": {
       "type": "record",
       "key": "tid",
-      "description": "Attestation of a face-to-face meeting with another user. Both participants create this record in their own PDS. The meeting is only displayed when both records exist (mutual confirmation). Either party can delete their record to remove the meeting.",
+      "description": "Attestation of a face-to-face meeting with another user. Both participants create this record in their own PDS. The meeting is only displayed when both records exist (mutual confirmation). Either party can delete their record to remove the meeting. Like every record in a repository, it is public, including the optional event.",
       "record": {
         "type": "object",
         "required": ["subject", "meetingToken", "createdAt"],
@@ -19,7 +19,12 @@
           "meetingToken": {
             "type": "string",
             "maxLength": 512,
-            "description": "Server-issued JWT proving both parties were authenticated at the time of meeting. Contains both DIDs, timestamp, and server signature."
+            "description": "Server-issued JWT proving both parties were authenticated at the time of meeting. Contains both DIDs, timestamp, and server signature. When the meeting code was shown for an event, the token also commits to that event."
+          },
+          "event": {
+            "type": "ref",
+            "ref": "id.sifa.defs#externalRecordRef",
+            "description": "Optional reference to the community.lexicon.calendar.event where the meeting took place. Each participant decides whether their own record carries it, so consumers show the event only when both records reference the same event AT-URI. Resolve and match by AT-URI; the CID is an optional integrity hint, since organizers can edit event records. The event is chosen when the meeting code is shown and committed to in meetingToken: consumers that can verify the token ignore an event that does not match it. Omit the field to record the meeting without an event."
           },
           "createdAt": {
             "type": "string",

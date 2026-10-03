@@ -1635,6 +1635,27 @@ describe('profile.self namePronunciationAudio', () => {
   });
 });
 
+describe('profile.self avatarSource', () => {
+  const selfDoc = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.self');
+  const prop = selfDoc?.doc.defs.main.record?.properties?.avatarSource;
+
+  it('is an optional string field', () => {
+    expect(prop).toBeDefined();
+    expect(prop?.type).toBe('string');
+    expect(selfDoc?.doc.defs.main.record?.required ?? []).not.toContain('avatarSource');
+  });
+
+  it('names the rpg.actor character record collection as its only known value', () => {
+    expect(prop?.knownValues).toEqual(['actor.rpg.sprite']);
+  });
+
+  it('is bounded and documents the fallback to the avatar blob and the bsky avatar', () => {
+    expect(prop?.maxLength).toBe(128);
+    expect(prop?.description).toMatch(/fall back/i);
+    expect(prop?.description).toContain('app.bsky.actor.profile.avatar');
+  });
+});
+
 describe('defs#agentRef shared entity reference', () => {
   const defsDoc = JSON.parse(readFileSync(join(LEXICONS_DIR, 'defs.json'), 'utf-8')) as LexiconDoc;
   const agentRef = defsDoc.defs.agentRef as LexiconDef & {

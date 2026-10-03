@@ -56,6 +56,11 @@ export const UNMAPPED = [
     reason: 'Sifa indexing control, not a fact about the person.',
   },
   {
+    lexicon: 'id.sifa.profile.self',
+    field: 'avatarSource',
+    reason: 'Rendering instruction for apps, not a fact about the person.',
+  },
+  {
     lexicon: 'id.sifa.profile.position',
     field: 'isPrimary',
     reason: 'Sifa display ordering concern.',

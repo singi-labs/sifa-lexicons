@@ -51,6 +51,12 @@
             "description": "Professional-context avatar image. Overrides app.bsky.actor.profile.avatar when present.",
             "x-skos:exactMatch": ["schema:image", "foaf:depiction"]
           },
+          "avatarSource": {
+            "type": "string",
+            "maxLength": 128,
+            "knownValues": ["actor.rpg.sprite"],
+            "description": "Where the professional-context avatar comes from instead of the avatar blob. 'actor.rpg.sprite' means the user's rpg.actor character: the actor.rpg.sprite record with key self in the same repository, rendered as a picture of the character. Apps that do not support the value, or find no usable record, fall back to avatar, then to app.bsky.actor.profile.avatar. Absent means use avatar. The avatar blob is kept, so removing this field brings it back."
+          },
           "pronouns": {
             "type": "string",
             "maxGraphemes": 20,

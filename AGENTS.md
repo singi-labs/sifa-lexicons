@@ -1,7 +1,7 @@
 # Sifa Lexicons -- AT Protocol Professional Profile Schemas
 
-<!-- Auto-generated from sifa-workspace. To propose changes, edit the source:
-     https://github.com/singi-labs/sifa-workspace -->
+<!-- This file is the source of truth for agent instructions in this repo.
+     To propose changes, edit it here via a pull request. -->
 
 MIT License | Part of [github.com/singi-labs](https://github.com/singi-labs)
 

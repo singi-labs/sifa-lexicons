@@ -33,6 +33,8 @@ AT Protocol lexicon schemas for Sifa -- a decentralized professional identity an
 - Timestamps: ISO 8601, client-declared (not trusted for ordering)
 - Record keys: `tid` for collections, `literal:self` for singletons
 - References between records use `strongRef` pattern (uri + cid)
+- The lexicon is the contract: Sifa indexes every record that is valid against it, whichever client wrote it, and rejects only lexicon-invalid ones. Put constraints that consumers rely on into the lexicon itself. See `engineering/standards/sifa-records.md` in singi-labs/.github
+- sifa-api vendors these files with `scripts/vendor-lexicons.sh`. After a lexicon release, refresh sifa-api so its ingest gate validates against the new version
 
 ---
 

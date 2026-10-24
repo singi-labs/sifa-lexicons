@@ -53,11 +53,11 @@
           },
           "issuedAt": {
             "type": "string",
-            "description": "Date the certification was issued, in YYYY-MM or YYYY-MM-DD format."
+            "description": "Date the certification was issued, in YYYY, YYYY-MM or YYYY-MM-DD format."
           },
           "expiresAt": {
             "type": "string",
-            "description": "Expiry date in YYYY-MM or YYYY-MM-DD format. Omit if the certification does not expire.",
+            "description": "Expiry date in YYYY, YYYY-MM or YYYY-MM-DD format. Omit if the certification does not expire.",
             "x-skos:exactMatch": ["schema:validUntil"]
           },
           "labels": {

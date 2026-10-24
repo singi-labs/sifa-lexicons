@@ -52,11 +52,11 @@
           },
           "startedAt": {
             "type": "string",
-            "description": "Start date in YYYY-MM or YYYY-MM-DD format. Freeform (NOT strict datetime) to allow partial dates and importer writes."
+            "description": "Start date in YYYY, YYYY-MM or YYYY-MM-DD format. Freeform (NOT strict datetime) to allow partial dates and importer writes."
           },
           "endedAt": {
             "type": "string",
-            "description": "End date in YYYY-MM or YYYY-MM-DD format. Omit if ongoing."
+            "description": "End date in YYYY, YYYY-MM or YYYY-MM-DD format. Omit if ongoing."
           },
           "collaborators": {
             "type": "array",

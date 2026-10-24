@@ -105,12 +105,12 @@
           },
           "startedAt": {
             "type": "string",
-            "description": "Start date of the position in YYYY-MM or YYYY-MM-DD format.",
+            "description": "Start date of the position in YYYY, YYYY-MM or YYYY-MM-DD format.",
             "x-skos:exactMatch": ["schema:startDate"]
           },
           "endedAt": {
             "type": "string",
-            "description": "End date of the position in YYYY-MM or YYYY-MM-DD format. Omit if this is a current position.",
+            "description": "End date of the position in YYYY, YYYY-MM or YYYY-MM-DD format. Omit if this is a current position.",
             "x-skos:exactMatch": ["schema:endDate"]
           },
           "skills": {

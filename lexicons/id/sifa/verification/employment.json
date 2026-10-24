@@ -55,12 +55,12 @@
           "startedAt": {
             "type": "string",
             "maxLength": 10,
-            "description": "Start date snapshot in YYYY-MM or YYYY-MM-DD format."
+            "description": "Start date snapshot in YYYY, YYYY-MM or YYYY-MM-DD format."
           },
           "endedAt": {
             "type": "string",
             "maxLength": 10,
-            "description": "End date in YYYY-MM or YYYY-MM-DD format when status is past."
+            "description": "End date in YYYY, YYYY-MM or YYYY-MM-DD format when status is past."
           },
           "entityRef": {
             "type": "string",

@@ -219,6 +219,8 @@ const DATE_ONLY_FIELDS = new Set([
   'id.sifa.profile.education.endedAt',
   'id.sifa.profile.project.startedAt',
   'id.sifa.profile.project.endedAt',
+  'id.sifa.project.self.startedAt',
+  'id.sifa.project.self.endedAt',
   'id.sifa.profile.involvement.startedAt',
   'id.sifa.profile.involvement.endedAt',
   'id.sifa.profile.investment.startedAt',

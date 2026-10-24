@@ -63,13 +63,11 @@
           },
           "startedAt": {
             "type": "string",
-            "format": "datetime",
-            "description": "Project start date."
+            "description": "Project start date in YYYY, YYYY-MM or YYYY-MM-DD format. Freeform (NOT strict datetime) to allow partial dates."
           },
           "endedAt": {
             "type": "string",
-            "format": "datetime",
-            "description": "Project end date. Omit if ongoing."
+            "description": "Project end date in YYYY, YYYY-MM or YYYY-MM-DD format. Omit if ongoing."
           },
           "labels": {
             "type": "union",

@@ -40,7 +40,7 @@
           },
           "startedAt": {
             "type": "string",
-            "description": "Optional start date snapshot in YYYY-MM or YYYY-MM-DD format, mirroring the position lexicon's freeform date shape. Compared at month precision; a later difference makes the attestation stale."
+            "description": "Optional start date snapshot in YYYY, YYYY-MM or YYYY-MM-DD format, mirroring the position lexicon's freeform date shape. Compared at month precision; a later difference makes the attestation stale."
           },
           "entityRef": {
             "type": "string",
@@ -54,7 +54,7 @@
           },
           "endedAt": {
             "type": "string",
-            "description": "End date in YYYY-MM or YYYY-MM-DD format. Required context when status is past."
+            "description": "End date in YYYY, YYYY-MM or YYYY-MM-DD format. Required context when status is past."
           },
           "comment": {
             "type": "string",

@@ -125,7 +125,7 @@
           },
           "publishedAt": {
             "type": "string",
-            "description": "Publication date in YYYY-MM or YYYY-MM-DD format.",
+            "description": "Publication date in YYYY, YYYY-MM or YYYY-MM-DD format.",
             "x-skos:exactMatch": ["dcterms:issued", "schema:datePublished"]
           },
           "isPrimary": {

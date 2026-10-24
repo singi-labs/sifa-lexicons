@@ -1048,7 +1048,7 @@
         },
         "completedAt": {
           "type": "string",
-          "description": "Completion date of a taken course (YYYY-MM or YYYY-MM-DD)."
+          "description": "Completion date of a taken course (YYYY, YYYY-MM or YYYY-MM-DD)."
         },
         "startedAt": {
           "type": "string",

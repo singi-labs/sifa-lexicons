@@ -71,11 +71,11 @@
           },
           "startedAt": {
             "type": "string",
-            "description": "Date of the investment in YYYY-MM or YYYY-MM-DD format. Freeform (NOT strict datetime) to allow partial dates."
+            "description": "Date of the investment in YYYY, YYYY-MM or YYYY-MM-DD format. Freeform (NOT strict datetime) to allow partial dates."
           },
           "endedAt": {
             "type": "string",
-            "description": "Date the position ended, on exit or write-off, in YYYY-MM or YYYY-MM-DD format. Omit while the position is held."
+            "description": "Date the position ended, on exit or write-off, in YYYY, YYYY-MM or YYYY-MM-DD format. Omit while the position is held."
           },
           "description": {
             "type": "string",

@@ -82,11 +82,11 @@
           },
           "startedAt": {
             "type": "string",
-            "description": "Start date in YYYY-MM or YYYY-MM-DD format."
+            "description": "Start date in YYYY, YYYY-MM or YYYY-MM-DD format."
           },
           "endedAt": {
             "type": "string",
-            "description": "End date (graduation or expected graduation) in YYYY-MM or YYYY-MM-DD format. Omit if currently enrolled."
+            "description": "End date (graduation or expected graduation) in YYYY, YYYY-MM or YYYY-MM-DD format. Omit if currently enrolled."
           },
           "labels": {
             "type": "union",

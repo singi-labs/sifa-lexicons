@@ -69,7 +69,7 @@
           },
           "completedAt": {
             "type": "string",
-            "description": "Date the course was completed, in YYYY-MM or YYYY-MM-DD format. Omit if unknown. Applies to a course the user took."
+            "description": "Date the course was completed, in YYYY, YYYY-MM or YYYY-MM-DD format. Omit if unknown. Applies to a course the user took."
           },
           "startedAt": {
             "type": "string",

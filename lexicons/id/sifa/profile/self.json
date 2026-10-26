@@ -65,8 +65,8 @@
           },
           "headline": {
             "type": "string",
-            "maxGraphemes": 120,
-            "maxLength": 1200,
+            "maxGraphemes": 220,
+            "maxLength": 2200,
             "description": "Professional headline (e.g., 'Senior Engineer at Acme Corp'). Distinct from Bluesky's displayName.",
             "x-skos:closeMatch": ["schema:jobTitle"]
           },

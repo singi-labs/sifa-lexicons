@@ -583,6 +583,15 @@ describe('id.sifa.profile.self presentation overrides', () => {
     });
   });
 
+  describe('headline', () => {
+    // Long enough for headlines imported from other professional networks
+    // (220 characters); maxLength keeps the usual 10:1 byte ratio.
+    it('allows 220 graphemes / 2200 bytes', () => {
+      expect(properties?.headline?.maxGraphemes).toBe(220);
+      expect(properties?.headline?.maxLength).toBe(2200);
+    });
+  });
+
   describe('avatar', () => {
     it('exists as an optional blob field', () => {
       expect(properties?.avatar).toBeDefined();

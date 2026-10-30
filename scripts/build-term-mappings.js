@@ -61,6 +61,11 @@ export const UNMAPPED = [
     reason: 'Rendering instruction for apps, not a fact about the person.',
   },
   {
+    lexicon: 'id.sifa.profile.self',
+    field: 'showActivity',
+    reason: 'Rendering instruction for apps, not a fact about the person.',
+  },
+  {
     lexicon: 'id.sifa.profile.position',
     field: 'isPrimary',
     reason: 'Sifa display ordering concern.',

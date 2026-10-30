@@ -1667,6 +1667,23 @@ describe('profile.self avatarSource', () => {
   });
 });
 
+describe('profile.self showActivity', () => {
+  const selfDoc = recordLexicons.find((l) => l.doc.id === 'id.sifa.profile.self');
+  const prop = selfDoc?.doc.defs.main.record?.properties?.showActivity;
+
+  it('is an optional boolean field', () => {
+    expect(prop).toBeDefined();
+    expect(prop?.type).toBe('boolean');
+    expect(selfDoc?.doc.defs.main.record?.required ?? []).not.toContain('showActivity');
+  });
+
+  it('documents the default, the scope over future apps, and that records stay public', () => {
+    expect(prop?.description).toMatch(/default true when absent/i);
+    expect(prop?.description).toMatch(/future/i);
+    expect(prop?.description).toMatch(/remain readable by any client/i);
+  });
+});
+
 describe('defs#agentRef shared entity reference', () => {
   const defsDoc = JSON.parse(readFileSync(join(LEXICONS_DIR, 'defs.json'), 'utf-8')) as LexiconDoc;
   const agentRef = defsDoc.defs.agentRef as LexiconDef & {

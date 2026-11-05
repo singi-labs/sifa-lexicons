@@ -1,0 +1,7 @@
+{
+  "$type": "id.sifa.profile.project",
+  "name": "Open data portal",
+  "skills": [{ "uri": "at://did:plc:abc123/id.sifa.profile.skill/3kabcskill1" }],
+  "tools": [{ "uri": "at://did:plc:abc123/com.example.tool/3kabctool01" }],
+  "createdAt": "2026-11-05T10:00:00.000Z"
+}

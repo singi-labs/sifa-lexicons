@@ -1,0 +1,6 @@
+{
+  "$type": "id.sifa.profile.education",
+  "institution": "Utrecht University",
+  "skills": [{ "uri": "not a uri" }],
+  "createdAt": "2026-11-05T10:00:00.000Z"
+}

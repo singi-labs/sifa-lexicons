@@ -88,6 +88,24 @@
             "type": "string",
             "description": "End date (graduation or expected graduation) in YYYY, YYYY-MM or YYYY-MM-DD format. Omit if currently enrolled."
           },
+          "skills": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "id.sifa.defs#skillRef"
+            },
+            "description": "Skills gained or used in this education. Each entry is a URI reference to an id.sifa.profile.skill record owned by the same DID.",
+            "maxLength": 50
+          },
+          "tools": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "id.sifa.defs#toolRef"
+            },
+            "description": "Tools used in this education. Each entry is a URI reference to one of the owner's tool item records in the same repo. Consumers ignore entries that do not resolve.",
+            "maxLength": 50
+          },
           "labels": {
             "type": "union",
             "description": "Self-label values for this education record.",

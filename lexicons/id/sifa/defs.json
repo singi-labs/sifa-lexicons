@@ -568,6 +568,15 @@
       }
     },
 
+    "contextProfessional": {
+      "type": "token",
+      "description": "The owner uses this skill for work."
+    },
+    "contextPersonal": {
+      "type": "token",
+      "description": "The owner uses this skill in private life or as a hobby."
+    },
+
     "agentRef": {
       "type": "object",
       "description": "A reference to an organization or person named by a record: a human label plus stable machine anchors. The name is a point-in-time snapshot captured when the record was saved; did and entityRef are the durable identity and should be resolved live. Consumers render the name, and follow did or entityRef to reach the current entity.",

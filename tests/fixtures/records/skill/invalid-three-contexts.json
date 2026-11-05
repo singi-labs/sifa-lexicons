@@ -1,0 +1,10 @@
+{
+  "$type": "id.sifa.profile.skill",
+  "name": "Photo editing",
+  "contexts": [
+    "id.sifa.defs#contextProfessional",
+    "id.sifa.defs#contextPersonal",
+    "com.example.defs#contextVolunteer"
+  ],
+  "createdAt": "2026-11-05T10:00:00.000Z"
+}

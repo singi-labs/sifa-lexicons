@@ -1,0 +1,6 @@
+{
+  "$type": "id.sifa.profile.skill",
+  "name": "Photo editing",
+  "tools": [{ "uri": "https://example.com/tool" }],
+  "createdAt": "2026-11-05T10:00:00.000Z"
+}

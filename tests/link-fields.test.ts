@@ -12,6 +12,8 @@ interface LexiconProperty {
   ref?: string;
   maxLength?: number;
   description?: string;
+  knownValues?: string[];
+  enum?: string[];
   items?: LexiconProperty;
 }
 
@@ -21,6 +23,7 @@ interface RawDoc {
     string,
     {
       type: string;
+      description?: string;
       required?: string[];
       properties?: Record<string, LexiconProperty>;
       record?: { required?: string[]; properties?: Record<string, LexiconProperty> };
@@ -39,6 +42,7 @@ const RECORD_FILES: Record<string, string> = {
   'id.sifa.profile.education': 'education.json',
   'id.sifa.profile.involvement': 'involvement.json',
   'id.sifa.profile.position': 'position.json',
+  'id.sifa.profile.skill': 'skill.json',
 };
 
 const records = Object.fromEntries(
@@ -89,16 +93,16 @@ describe('defs#toolRef', () => {
   });
 });
 
+const positionSkills = records['id.sifa.profile.position']!.defs.main!.record!.properties!.skills!;
+const recordOf = (nsid: string) => records[nsid]!.defs.main!.record!;
+
 describe.each([
   'id.sifa.profile.project',
   'id.sifa.profile.education',
   'id.sifa.profile.involvement',
-])('%s link fields', (nsid) => {
-  const record = records[nsid]!.defs.main!.record!;
-  const props = record.properties ?? {};
-  const required = record.required ?? [];
-  const positionSkills =
-    records['id.sifa.profile.position']!.defs.main!.record!.properties!.skills!;
+  'id.sifa.profile.skill',
+])('%s tools field', (nsid) => {
+  const { properties: props = {}, required = [] } = recordOf(nsid);
 
   it('tools is an optional array of defs#toolRef with the skills array limit', () => {
     expect(props.tools?.type).toBe('array');
@@ -107,6 +111,14 @@ describe.each([
     expect(props.tools?.maxLength).toBe(positionSkills.maxLength);
     expect(required).not.toContain('tools');
   });
+});
+
+describe.each([
+  'id.sifa.profile.project',
+  'id.sifa.profile.education',
+  'id.sifa.profile.involvement',
+])('%s skills field', (nsid) => {
+  const { properties: props = {}, required = [] } = recordOf(nsid);
 
   it('skills is an optional array of defs#skillRef shaped like position.skills', () => {
     expect(props.skills?.type).toBe(positionSkills.type);
@@ -158,17 +170,56 @@ describe.each(Object.keys(RECORD_FILES).filter((n) => n !== 'id.sifa.profile.pos
       expect(() => lex.assertValidRecord(nsid, tools(51))).toThrow();
     });
 
-    it('accepts 50 skills and rejects 51', () => {
-      const skills = (n: number) => ({ ...base, skills: refs(n, 'id.sifa.profile.skill') });
-      expect(() => lex.assertValidRecord(nsid, skills(50))).not.toThrow();
-      expect(() => lex.assertValidRecord(nsid, skills(51))).toThrow();
-    });
+    if (recordOf(nsid).properties?.skills) {
+      it('accepts 50 skills and rejects 51', () => {
+        const skills = (n: number) => ({ ...base, skills: refs(n, 'id.sifa.profile.skill') });
+        expect(() => lex.assertValidRecord(nsid, skills(50))).not.toThrow();
+        expect(() => lex.assertValidRecord(nsid, skills(51))).toThrow();
+      });
+    }
 
-    it('still validates without tools or skills (backward compatible)', () => {
+    it('still validates without the link fields (backward compatible)', () => {
       const legacy: Record<string, unknown> = { ...base };
       delete legacy.tools;
       delete legacy.skills;
+      delete legacy.contexts;
       expect(() => lex.assertValidRecord(nsid, legacy)).not.toThrow();
     });
   },
 );
+
+describe('defs context tokens', () => {
+  it.each(['contextProfessional', 'contextPersonal'])('%s is a described token', (name) => {
+    expect(defs.defs[name]?.type).toBe('token');
+    expect(defs.defs[name]?.description?.length).toBeGreaterThan(0);
+  });
+});
+
+describe('id.sifa.profile.skill contexts field', () => {
+  const { properties: props = {}, required = [] } = recordOf('id.sifa.profile.skill');
+
+  it('contexts is an optional array of at most 2 open-set strings', () => {
+    expect(props.contexts?.type).toBe('array');
+    expect(props.contexts?.maxLength).toBe(2);
+    expect(props.contexts?.items?.type).toBe('string');
+    expect(props.contexts?.items?.knownValues).toEqual([
+      'id.sifa.defs#contextProfessional',
+      'id.sifa.defs#contextPersonal',
+    ]);
+    expect(props.contexts?.items?.enum).toBeUndefined();
+    expect(required).not.toContain('contexts');
+  });
+
+  it('contexts description documents who sets it, absence, and that it is a display hint', () => {
+    const description = props.contexts?.description ?? '';
+    expect(description).toMatch(/set by the owner/i);
+    expect(description).toMatch(/never inferred/i);
+    expect(description).toMatch(/unspecified/i);
+    expect(description).toMatch(/display hint/i);
+    expect(description).toMatch(/public/i);
+  });
+
+  it('required fields are unchanged', () => {
+    expect(required).toEqual(['name', 'createdAt']);
+  });
+});

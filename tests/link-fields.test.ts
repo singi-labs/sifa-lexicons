@@ -48,22 +48,30 @@ const records = Object.fromEntries(
   ]),
 );
 
-// Only the docs these records reference, so unrelated lexicons (permission sets
-// and the like) cannot make the validator fail to load. Lexicons rewrites refs
-// in place, so it gets copies and the shape tests keep reading the source JSON.
+function findJsonFiles(dir: string): string[] {
+  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) =>
+    entry.isDirectory()
+      ? findJsonFiles(join(dir, entry.name))
+      : entry.name.endsWith('.json')
+        ? [join(dir, entry.name)]
+        : [],
+  );
+}
+
+// Every own and external lexicon, so new refs resolve without a second
+// dependency list. Permission sets are not record or object schemas, so they
+// stay out. Lexicons rewrites refs in place, so it gets copies and the shape
+// tests keep reading the source JSON.
 const lex = new Lexicons(
-  structuredClone([
-    defs,
-    ...Object.values(records),
-    readDoc('external-lexicons', 'com', 'atproto', 'repo', 'strongRef.json'),
-    readDoc('external-lexicons', 'com', 'atproto', 'label', 'defs.json'),
-    readDoc('external-lexicons', 'community', 'lexicon', 'location', 'address.json'),
-  ]) as unknown as LexiconDoc[],
+  [join(ROOT, 'lexicons'), join(ROOT, 'external-lexicons')]
+    .flatMap(findJsonFiles)
+    .map((f) => JSON.parse(readFileSync(f, 'utf-8')) as RawDoc)
+    .filter((doc) => doc.defs.main?.type !== 'permission-set')
+    .map((doc) => structuredClone(doc)) as unknown as LexiconDoc[],
 );
 
 describe('defs#toolRef', () => {
   const toolRef = defs.defs.toolRef;
-  const skillRef = defs.defs.skillRef;
 
   it('is an object def requiring only uri', () => {
     expect(toolRef?.type).toBe('object');
@@ -74,12 +82,6 @@ describe('defs#toolRef', () => {
     expect(toolRef?.properties?.uri?.type).toBe('string');
     expect(toolRef?.properties?.uri?.format).toBe('at-uri');
     expect(Object.keys(toolRef?.properties ?? {})).toEqual(['uri']);
-  });
-
-  it('mirrors the shape of skillRef', () => {
-    expect(toolRef?.type).toBe(skillRef?.type);
-    expect(toolRef?.required).toEqual(skillRef?.required);
-    expect(toolRef?.properties?.uri?.format).toBe(skillRef?.properties?.uri?.format);
   });
 
   it('tells consumers to ignore references that do not resolve', () => {

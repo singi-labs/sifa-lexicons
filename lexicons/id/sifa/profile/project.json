@@ -92,7 +92,7 @@
               "type": "ref",
               "ref": "id.sifa.defs#toolRef"
             },
-            "description": "Tools used in this project. Each entry is a URI reference to one of the owner's tool item records in the same repo. Consumers ignore entries that do not resolve.",
+            "description": "Tools used in this project. Each entry is a URI reference to a tool item record owned by the same DID. Consumers ignore entries that do not resolve.",
             "maxLength": 50
           },
           "labels": {

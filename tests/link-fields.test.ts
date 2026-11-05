@@ -12,6 +12,8 @@ interface LexiconProperty {
   ref?: string;
   maxLength?: number;
   description?: string;
+  knownValues?: string[];
+  enum?: string[];
   items?: LexiconProperty;
 }
 
@@ -21,6 +23,7 @@ interface RawDoc {
     string,
     {
       type: string;
+      description?: string;
       required?: string[];
       properties?: Record<string, LexiconProperty>;
       record?: { required?: string[]; properties?: Record<string, LexiconProperty> };
@@ -172,3 +175,93 @@ describe.each(Object.keys(RECORD_FILES).filter((n) => n !== 'id.sifa.profile.pos
     });
   },
 );
+
+describe('defs context tokens', () => {
+  it.each(['contextProfessional', 'contextPersonal'])('%s is a described token', (name) => {
+    expect(defs.defs[name]?.type).toBe('token');
+    expect(defs.defs[name]?.description?.length).toBeGreaterThan(0);
+  });
+});
+
+describe('id.sifa.profile.skill pair link fields', () => {
+  const skill = readDoc('lexicons', 'id', 'sifa', 'profile', 'skill.json');
+  const record = skill.defs.main!.record!;
+  const props = record.properties ?? {};
+  const required = record.required ?? [];
+  const positionSkills =
+    records['id.sifa.profile.position']!.defs.main!.record!.properties!.skills!;
+
+  it('tools is an optional array of defs#toolRef with the position.skills limit', () => {
+    expect(props.tools?.type).toBe('array');
+    expect(props.tools?.items?.type).toBe('ref');
+    expect(props.tools?.items?.ref).toBe('id.sifa.defs#toolRef');
+    expect(props.tools?.maxLength).toBe(positionSkills.maxLength);
+    expect(required).not.toContain('tools');
+  });
+
+  it('contexts is an optional array of at most 2 open-set strings', () => {
+    expect(props.contexts?.type).toBe('array');
+    expect(props.contexts?.maxLength).toBe(2);
+    expect(props.contexts?.items?.type).toBe('string');
+    expect(props.contexts?.items?.knownValues).toEqual([
+      'id.sifa.defs#contextProfessional',
+      'id.sifa.defs#contextPersonal',
+    ]);
+    expect(props.contexts?.items?.enum).toBeUndefined();
+    expect(required).not.toContain('contexts');
+  });
+
+  it('contexts description documents who sets it, absence, and that it is a display hint', () => {
+    const description = props.contexts?.description ?? '';
+    expect(description).toMatch(/set by the owner/i);
+    expect(description).toMatch(/never inferred/i);
+    expect(description).toMatch(/unspecified/i);
+    expect(description).toMatch(/display hint/i);
+    expect(description).toMatch(/public/i);
+  });
+
+  it('required fields are unchanged', () => {
+    expect(required).toEqual(['name', 'createdAt']);
+  });
+});
+
+describe('id.sifa.profile.skill fixtures', () => {
+  const nsid = 'id.sifa.profile.skill';
+  const dir = join(FIXTURES_DIR, 'skill');
+  const files = readdirSync(dir).filter((f) => f.endsWith('.json'));
+  const load = (f: string): Record<string, unknown> =>
+    JSON.parse(readFileSync(join(dir, f), 'utf-8')) as Record<string, unknown>;
+
+  it('has valid and invalid fixtures', () => {
+    expect(files.some((f) => f.startsWith('valid-'))).toBe(true);
+    expect(files.some((f) => f.startsWith('invalid-'))).toBe(true);
+  });
+
+  it.each(files.filter((f) => f.startsWith('valid-')))('%s validates', (f) => {
+    expect(() => lex.assertValidRecord(nsid, load(f))).not.toThrow();
+  });
+
+  it.each(files.filter((f) => f.startsWith('invalid-')))('%s is rejected', (f) => {
+    expect(() => lex.assertValidRecord(nsid, load(f))).toThrow();
+  });
+
+  const base = load('valid-tools-and-contexts.json');
+
+  it('accepts 50 tools and rejects 51', () => {
+    const tools = (n: number) => ({
+      ...base,
+      tools: Array.from({ length: n }, (_, i) => ({
+        uri: `at://did:plc:abc123/com.example.tool/3kabc${String(i).padStart(6, '0')}`,
+      })),
+    });
+    expect(() => lex.assertValidRecord(nsid, tools(50))).not.toThrow();
+    expect(() => lex.assertValidRecord(nsid, tools(51))).toThrow();
+  });
+
+  it('still validates without tools or contexts (backward compatible)', () => {
+    const legacy: Record<string, unknown> = { ...base };
+    delete legacy.tools;
+    delete legacy.contexts;
+    expect(() => lex.assertValidRecord(nsid, legacy)).not.toThrow();
+  });
+});

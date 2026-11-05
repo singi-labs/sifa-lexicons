@@ -1,0 +1,6 @@
+{
+  "$type": "id.sifa.profile.skill",
+  "name": "Photo editing",
+  "tools": { "uri": "at://did:plc:abc123/com.example.tool/3kabctool01" },
+  "createdAt": "2026-11-05T10:00:00.000Z"
+}

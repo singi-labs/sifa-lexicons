@@ -37,6 +37,24 @@
             "maxLength": 640,
             "description": "Optional user-defined grouping label nested under category (e.g., 'Frontend', 'Backend', 'Databases'). Freeform: unlike category there are no known values, so renderers can present skills in the user's own groups. Renderers decide the display label."
           },
+          "tools": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "id.sifa.defs#toolRef"
+            },
+            "description": "Tools the owner uses for this skill, for expertise tied to a specific tool. Each entry is a URI reference to a tool item record owned by the same DID. Consumers ignore entries that do not resolve.",
+            "maxLength": 50
+          },
+          "contexts": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "knownValues": ["id.sifa.defs#contextProfessional", "id.sifa.defs#contextPersonal"]
+            },
+            "description": "Where the owner uses this skill: for work, in private life or as a hobby, or both. Set by the owner, never inferred from the skill or its tools. Absent or empty means unspecified. A display hint only: it does not make the skill or anything else private, and all records are public.",
+            "maxLength": 2
+          },
           "createdAt": {
             "type": "string",
             "format": "datetime",

@@ -105,6 +105,15 @@
             "description": "Skills demonstrated by this involvement. Each entry is a URI reference to an id.sifa.profile.skill record owned by the same DID.",
             "maxLength": 50
           },
+          "tools": {
+            "type": "array",
+            "items": {
+              "type": "ref",
+              "ref": "id.sifa.defs#toolRef"
+            },
+            "description": "Tools used in this involvement. Each entry is a URI reference to a tool item record owned by the same DID. Consumers ignore entries that do not resolve.",
+            "maxLength": 50
+          },
           "labels": {
             "type": "union",
             "description": "Self-label values for this record.",

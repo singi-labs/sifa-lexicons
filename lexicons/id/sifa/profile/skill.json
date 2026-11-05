@@ -52,7 +52,7 @@
               "type": "string",
               "knownValues": ["id.sifa.defs#contextProfessional", "id.sifa.defs#contextPersonal"]
             },
-            "description": "Where the owner uses this skill: for work, in private life or as a hobby, or both. Set by the owner, never inferred from the skill or its tools. Absent or empty means unspecified. A display hint only: it does not make the skill or anything else private, and all records are public.",
+            "description": "Where the owner uses this skill: for work, in private life or as a hobby, or both. Set by the owner, never inferred from the skill or its tools. Absent or empty means unspecified. Consumers treat a repeated value as one. A display hint only: it does not make the skill or anything else private, and all records are public.",
             "maxLength": 2
           },
           "createdAt": {

@@ -570,11 +570,11 @@
 
     "contextProfessional": {
       "type": "token",
-      "description": "The owner uses this skill or tool for work."
+      "description": "The owner uses this skill for work."
     },
     "contextPersonal": {
       "type": "token",
-      "description": "The owner uses this skill or tool for private use or as a hobby."
+      "description": "The owner uses this skill in private life or as a hobby."
     },
 
     "agentRef": {

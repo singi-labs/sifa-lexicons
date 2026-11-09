@@ -43,6 +43,7 @@ const RECORD_FILES: Record<string, string> = {
   'id.sifa.profile.involvement': 'involvement.json',
   'id.sifa.profile.position': 'position.json',
   'id.sifa.profile.skill': 'skill.json',
+  'id.sifa.profile.honor': 'honor.json',
 };
 
 const records = Object.fromEntries(
@@ -137,56 +138,57 @@ describe('id.sifa.profile.position has no tools field', () => {
   });
 });
 
-describe.each(Object.keys(RECORD_FILES).filter((n) => n !== 'id.sifa.profile.position'))(
-  '%s fixtures',
-  (nsid) => {
-    const dir = join(FIXTURES_DIR, nsid.split('.').pop()!);
-    const files = readdirSync(dir).filter((f) => f.endsWith('.json'));
-    const load = (f: string): Record<string, unknown> =>
-      JSON.parse(readFileSync(join(dir, f), 'utf-8')) as Record<string, unknown>;
+describe.each(
+  Object.keys(RECORD_FILES).filter(
+    (n) => n !== 'id.sifa.profile.position' && n !== 'id.sifa.profile.honor',
+  ),
+)('%s fixtures', (nsid) => {
+  const dir = join(FIXTURES_DIR, nsid.split('.').pop()!);
+  const files = readdirSync(dir).filter((f) => f.endsWith('.json'));
+  const load = (f: string): Record<string, unknown> =>
+    JSON.parse(readFileSync(join(dir, f), 'utf-8')) as Record<string, unknown>;
 
-    it('has valid and invalid fixtures', () => {
-      expect(files.some((f) => f.startsWith('valid-'))).toBe(true);
-      expect(files.some((f) => f.startsWith('invalid-'))).toBe(true);
+  it('has valid and invalid fixtures', () => {
+    expect(files.some((f) => f.startsWith('valid-'))).toBe(true);
+    expect(files.some((f) => f.startsWith('invalid-'))).toBe(true);
+  });
+
+  it.each(files.filter((f) => f.startsWith('valid-')))('%s validates', (f) => {
+    expect(() => lex.assertValidRecord(nsid, load(f))).not.toThrow();
+  });
+
+  it.each(files.filter((f) => f.startsWith('invalid-')))('%s is rejected', (f) => {
+    expect(() => lex.assertValidRecord(nsid, load(f))).toThrow();
+  });
+
+  const base = load(files.find((f) => f.startsWith('valid-'))!);
+  const refs = (n: number, collection: string) =>
+    Array.from({ length: n }, (_, i) => ({
+      uri: `at://did:plc:abc123/${collection}/3kabc${String(i).padStart(6, '0')}`,
+    }));
+
+  it('accepts 50 tools and rejects 51', () => {
+    const tools = (n: number) => ({ ...base, tools: refs(n, 'com.example.tool') });
+    expect(() => lex.assertValidRecord(nsid, tools(50))).not.toThrow();
+    expect(() => lex.assertValidRecord(nsid, tools(51))).toThrow();
+  });
+
+  if (recordOf(nsid).properties?.skills) {
+    it('accepts 50 skills and rejects 51', () => {
+      const skills = (n: number) => ({ ...base, skills: refs(n, 'id.sifa.profile.skill') });
+      expect(() => lex.assertValidRecord(nsid, skills(50))).not.toThrow();
+      expect(() => lex.assertValidRecord(nsid, skills(51))).toThrow();
     });
+  }
 
-    it.each(files.filter((f) => f.startsWith('valid-')))('%s validates', (f) => {
-      expect(() => lex.assertValidRecord(nsid, load(f))).not.toThrow();
-    });
-
-    it.each(files.filter((f) => f.startsWith('invalid-')))('%s is rejected', (f) => {
-      expect(() => lex.assertValidRecord(nsid, load(f))).toThrow();
-    });
-
-    const base = load(files.find((f) => f.startsWith('valid-'))!);
-    const refs = (n: number, collection: string) =>
-      Array.from({ length: n }, (_, i) => ({
-        uri: `at://did:plc:abc123/${collection}/3kabc${String(i).padStart(6, '0')}`,
-      }));
-
-    it('accepts 50 tools and rejects 51', () => {
-      const tools = (n: number) => ({ ...base, tools: refs(n, 'com.example.tool') });
-      expect(() => lex.assertValidRecord(nsid, tools(50))).not.toThrow();
-      expect(() => lex.assertValidRecord(nsid, tools(51))).toThrow();
-    });
-
-    if (recordOf(nsid).properties?.skills) {
-      it('accepts 50 skills and rejects 51', () => {
-        const skills = (n: number) => ({ ...base, skills: refs(n, 'id.sifa.profile.skill') });
-        expect(() => lex.assertValidRecord(nsid, skills(50))).not.toThrow();
-        expect(() => lex.assertValidRecord(nsid, skills(51))).toThrow();
-      });
-    }
-
-    it('still validates without the link fields (backward compatible)', () => {
-      const legacy: Record<string, unknown> = { ...base };
-      delete legacy.tools;
-      delete legacy.skills;
-      delete legacy.contexts;
-      expect(() => lex.assertValidRecord(nsid, legacy)).not.toThrow();
-    });
-  },
-);
+  it('still validates without the link fields (backward compatible)', () => {
+    const legacy: Record<string, unknown> = { ...base };
+    delete legacy.tools;
+    delete legacy.skills;
+    delete legacy.contexts;
+    expect(() => lex.assertValidRecord(nsid, legacy)).not.toThrow();
+  });
+});
 
 describe('defs context tokens', () => {
   it.each(['contextProfessional', 'contextPersonal'])('%s is a described token', (name) => {
@@ -221,5 +223,79 @@ describe('id.sifa.profile.skill contexts field', () => {
 
   it('required fields are unchanged', () => {
     expect(required).toEqual(['name', 'createdAt']);
+  });
+});
+
+const HONOR_KINDS = [
+  'id.sifa.defs#honorAward',
+  'id.sifa.defs#honorNomination',
+  'id.sifa.defs#honorChampionship',
+  'id.sifa.defs#honorRecord',
+  'id.sifa.defs#honorRecognition',
+];
+
+describe('defs honor tokens', () => {
+  it.each(HONOR_KINDS.map((k) => k.split('#')[1]!))('%s is a described token', (name) => {
+    expect(defs.defs[name]?.type).toBe('token');
+    expect(defs.defs[name]?.description?.length).toBeGreaterThan(0);
+  });
+});
+
+describe('id.sifa.profile.honor kind and links fields', () => {
+  const nsid = 'id.sifa.profile.honor';
+  const { properties: props = {}, required = [] } = recordOf(nsid);
+  const involvementLinks =
+    records['id.sifa.profile.involvement']!.defs.main!.record!.properties!.links!;
+
+  it('kind is an optional open-set string of honor tokens', () => {
+    expect(props.kind?.type).toBe('string');
+    expect(props.kind?.knownValues).toEqual(HONOR_KINDS);
+    expect(props.kind?.enum).toBeUndefined();
+    expect(props.kind?.description).toMatch(/unspecified/i);
+    expect(required).not.toContain('kind');
+  });
+
+  it('links is an optional array of defs#artifactLink shaped like involvement.links', () => {
+    expect(props.links?.type).toBe(involvementLinks.type);
+    expect(props.links?.items).toEqual(involvementLinks.items);
+    expect(props.links?.maxLength).toBe(involvementLinks.maxLength);
+    expect(required).not.toContain('links');
+  });
+
+  it('required fields are unchanged', () => {
+    expect(required).toEqual(['title', 'createdAt']);
+  });
+
+  const dir = join(FIXTURES_DIR, 'honor');
+  const files = readdirSync(dir).filter((f) => f.endsWith('.json'));
+  const load = (f: string): Record<string, unknown> =>
+    JSON.parse(readFileSync(join(dir, f), 'utf-8')) as Record<string, unknown>;
+
+  it('has valid and invalid fixtures', () => {
+    expect(files.some((f) => f.startsWith('valid-'))).toBe(true);
+    expect(files.some((f) => f.startsWith('invalid-'))).toBe(true);
+  });
+
+  it.each(files.filter((f) => f.startsWith('valid-')))('%s validates', (f) => {
+    expect(() => lex.assertValidRecord(nsid, load(f))).not.toThrow();
+  });
+
+  it.each(files.filter((f) => f.startsWith('invalid-')))('%s is rejected', (f) => {
+    expect(() => lex.assertValidRecord(nsid, load(f))).toThrow();
+  });
+
+  const base = load('valid-links-and-kind.json');
+
+  it.each(HONOR_KINDS)('accepts kind %s', (kind) => {
+    expect(() => lex.assertValidRecord(nsid, { ...base, kind })).not.toThrow();
+  });
+
+  it('accepts 50 links and rejects 51', () => {
+    const links = (n: number) => ({
+      ...base,
+      links: Array.from({ length: n }, (_, i) => ({ url: `https://example.com/source/${i}` })),
+    });
+    expect(() => lex.assertValidRecord(nsid, links(50))).not.toThrow();
+    expect(() => lex.assertValidRecord(nsid, links(51))).toThrow();
   });
 });

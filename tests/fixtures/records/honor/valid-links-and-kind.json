@@ -1,0 +1,7 @@
+{
+  "$type": "id.sifa.profile.honor",
+  "title": "Best Community Builder",
+  "kind": "id.sifa.defs#honorAward",
+  "links": [{ "url": "https://example.com/announcement" }],
+  "createdAt": "2026-11-09T10:00:00.000Z"
+}

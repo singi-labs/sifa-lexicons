@@ -883,6 +883,26 @@
       "type": "token",
       "description": "Other uncompensated involvement."
     },
+    "honorAward": {
+      "type": "token",
+      "description": "An award, prize, or grant that was won."
+    },
+    "honorNomination": {
+      "type": "token",
+      "description": "A nomination or shortlisting for an award, without a win."
+    },
+    "honorChampionship": {
+      "type": "token",
+      "description": "A title or medal won in a competition or championship."
+    },
+    "honorRecord": {
+      "type": "token",
+      "description": "A record set or held, such as a national or event record."
+    },
+    "honorRecognition": {
+      "type": "token",
+      "description": "Other recognition, such as an honorary title, fellowship, or listing."
+    },
 
     "investmentRole": {
       "type": "string",

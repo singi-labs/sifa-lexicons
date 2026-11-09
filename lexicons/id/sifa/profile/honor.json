@@ -49,6 +49,26 @@
             "type": "string",
             "description": "Date the honor was awarded, in YYYY, YYYY-MM or YYYY-MM-DD format."
           },
+          "kind": {
+            "type": "string",
+            "description": "What kind of honor this is. Absent means unspecified. Domain-specific details such as category, placing or result stay in the title and description.",
+            "knownValues": [
+              "id.sifa.defs#honorAward",
+              "id.sifa.defs#honorNomination",
+              "id.sifa.defs#honorChampionship",
+              "id.sifa.defs#honorRecord",
+              "id.sifa.defs#honorRecognition"
+            ]
+          },
+          "links": {
+            "type": "array",
+            "maxLength": 50,
+            "description": "Public sources for the honor (announcements, articles, certificates, result lists).",
+            "items": {
+              "type": "ref",
+              "ref": "id.sifa.defs#artifactLink"
+            }
+          },
           "createdAt": {
             "type": "string",
             "format": "datetime",

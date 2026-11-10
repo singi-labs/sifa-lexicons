@@ -64,6 +64,17 @@
           "maxLength": 1280,
           "description": "Family (last) name, when provided."
         },
+        "namePronunciation": {
+          "type": "string",
+          "maxGraphemes": 64,
+          "maxLength": 640,
+          "description": "Free-form phonetic respelling of the name, when provided."
+        },
+        "namePronunciationAudioUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the name-pronunciation audio clip, served from the PDS. Present when a clip is set."
+        },
         "avatar": {
           "type": "string",
           "format": "uri",
@@ -499,10 +510,19 @@
         "methods": {
           "type": "array",
           "description": "Every method that currently backs the verification.",
-          "items": { "type": "ref", "ref": "id.sifa.defs#verificationMethod" }
+          "items": {
+            "type": "ref",
+            "ref": "id.sifa.defs#verificationMethod"
+          }
         },
-        "status": { "type": "ref", "ref": "id.sifa.defs#employmentStatus" },
-        "verifiedAt": { "type": "string", "format": "datetime" },
+        "status": {
+          "type": "ref",
+          "ref": "id.sifa.defs#employmentStatus"
+        },
+        "verifiedAt": {
+          "type": "string",
+          "format": "datetime"
+        },
         "expiresAt": {
           "type": "string",
           "format": "datetime",
@@ -601,6 +621,31 @@
           "ref": "id.sifa.defs#skillCategory",
           "description": "Broad category."
         },
+        "subCategory": {
+          "type": "string",
+          "description": "Freeform user-defined grouping label nested under category."
+        },
+        "cid": {
+          "type": "string",
+          "format": "cid",
+          "description": "CID of the skill record, for referencing it in endorsements."
+        },
+        "endorsementCount": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of confirmed endorsements of this skill."
+        },
+        "endorsed": {
+          "type": "boolean",
+          "description": "Whether this skill has any confirmed endorsements."
+        },
+        "endorsedAs": {
+          "type": "array",
+          "description": "Prior names this skill was endorsed under before it was renamed.",
+          "items": {
+            "type": "string"
+          }
+        },
         "positionRkeys": {
           "type": "array",
           "description": "Record keys of positions this skill is linked to.",
@@ -694,11 +739,76 @@
           "type": "string",
           "description": "End date. Partial date."
         },
+        "members": {
+          "type": "array",
+          "description": "People named as members of this project.",
+          "items": {
+            "type": "ref",
+            "ref": "#projectMemberView"
+          }
+        },
+        "sameAs": {
+          "type": "string",
+          "format": "at-uri",
+          "description": "AT-URI of the same project on another person's profile, when they keep one."
+        },
         "events": {
           "type": "array",
           "maxLength": 200,
-          "items": { "type": "ref", "ref": "#projectEventView" },
+          "items": {
+            "type": "ref",
+            "ref": "#projectEventView"
+          },
           "description": "Events this project organized or hosted (from the record's events field), with display fields resolved from the referenced event records."
+        }
+      }
+    },
+    "projectMemberView": {
+      "type": "object",
+      "description": "A person named as a member of a project.",
+      "required": ["did", "handle"],
+      "properties": {
+        "did": {
+          "type": "string",
+          "format": "did",
+          "description": "DID of the member."
+        },
+        "handle": {
+          "type": "string",
+          "description": "Handle of the member (falls back to the DID when it does not resolve)."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name, when identity may be shown."
+        },
+        "avatar": {
+          "type": "string",
+          "format": "uri",
+          "description": "Avatar URL, when identity may be shown."
+        },
+        "hasSifaProfile": {
+          "type": "boolean",
+          "description": "Whether Sifa has indexed this account (it may be an unclaimed atproto account)."
+        },
+        "claimed": {
+          "type": "boolean",
+          "description": "Whether the member holds a claimed Sifa account. Identity is shown before confirmation when claimed."
+        },
+        "confirmed": {
+          "type": "boolean",
+          "description": "Whether the member has confirmed the claim with an id.sifa.confirmation."
+        },
+        "confirmedStale": {
+          "type": "boolean",
+          "description": "Whether the project changed materially after the member confirmed it."
+        },
+        "role": {
+          "type": "string",
+          "description": "The member's role, as labelled by the project owner."
+        },
+        "title": {
+          "type": "string",
+          "description": "The member's title, as labelled by the project owner."
         }
       }
     },
@@ -715,14 +825,23 @@
           "type": "string",
           "description": "The user's role at this occurrence, if it differs from the project's role."
         },
-        "name": { "type": "string", "description": "Event name, from the event record." },
+        "name": {
+          "type": "string",
+          "description": "Event name, from the event record."
+        },
         "startsAt": {
           "type": "string",
           "format": "datetime",
           "description": "Event start, from the event record."
         },
-        "mode": { "type": "string", "description": "Event mode token, from the event record." },
-        "locality": { "type": "string", "description": "City, from the event's first address." },
+        "mode": {
+          "type": "string",
+          "description": "Event mode token, from the event record."
+        },
+        "locality": {
+          "type": "string",
+          "description": "City, from the event's first address."
+        },
         "country": {
           "type": "string",
           "description": "ISO 3166-1 alpha-2 country code, from the event's first address."
@@ -950,7 +1069,10 @@
         },
         "relatedIdentifiers": {
           "type": "array",
-          "items": { "type": "ref", "ref": "id.sifa.defs#relatedIdentifier" },
+          "items": {
+            "type": "ref",
+            "ref": "id.sifa.defs#relatedIdentifier"
+          },
           "description": "Other versions or forms of this work: the relations declared on the record plus, for a DOI, those registered with DataCite or Crossref. Clients can fold a preprint under its published version."
         },
         "orcidCorroborated": {
@@ -1101,6 +1223,11 @@
             "type": "string"
           }
         },
+        "coverImageUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Renderable URL of the presentation cover image, when set."
+        },
         "links": {
           "type": "array",
           "description": "Related links (slides, recording, etc.).",
@@ -1173,6 +1300,22 @@
           "type": "string",
           "description": "Event location."
         },
+        "locationCountry": {
+          "type": "string",
+          "description": "Resolved country name of the delivery location."
+        },
+        "locationRegion": {
+          "type": "string",
+          "description": "Region or state of the delivery location."
+        },
+        "locationLocality": {
+          "type": "string",
+          "description": "City or locality of the delivery location."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code of the delivery location."
+        },
         "mode": {
           "type": "string",
           "description": "Delivery mode (e.g. in-person, remote, hybrid)."
@@ -1193,6 +1336,11 @@
           "type": "string",
           "format": "at-uri",
           "description": "AT-URI of a linked event record."
+        },
+        "sameAs": {
+          "type": "string",
+          "format": "at-uri",
+          "description": "AT-URI of the same delivery on another person's profile, when they keep one."
         },
         "coSpeakers": {
           "type": "array",
@@ -1230,6 +1378,22 @@
         "name": {
           "type": "string",
           "description": "Free-text co-speaker name, when not linked."
+        },
+        "hasSifaProfile": {
+          "type": "boolean",
+          "description": "Whether Sifa has indexed this account (it may be an unclaimed atproto account)."
+        },
+        "claimed": {
+          "type": "boolean",
+          "description": "Whether the co-speaker holds a claimed Sifa account. Identity is shown before confirmation when claimed."
+        },
+        "confirmed": {
+          "type": "boolean",
+          "description": "Whether the co-speaker has confirmed the claim with an id.sifa.confirmation."
+        },
+        "confirmedStale": {
+          "type": "boolean",
+          "description": "Whether the delivery changed materially after the co-speaker confirmed it."
         }
       }
     },
@@ -1267,6 +1431,25 @@
         "description": {
           "type": "string",
           "description": "Description."
+        },
+        "kind": {
+          "type": "string",
+          "description": "What kind of honor this is. Absent means unspecified.",
+          "knownValues": [
+            "id.sifa.defs#honorAward",
+            "id.sifa.defs#honorNomination",
+            "id.sifa.defs#honorChampionship",
+            "id.sifa.defs#honorRecord",
+            "id.sifa.defs#honorRecognition"
+          ]
+        },
+        "links": {
+          "type": "array",
+          "description": "Public sources for the honor.",
+          "items": {
+            "type": "ref",
+            "ref": "id.sifa.defs#artifactLink"
+          }
         },
         "date": {
           "type": "string",

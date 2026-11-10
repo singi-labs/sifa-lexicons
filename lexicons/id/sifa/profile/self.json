@@ -32,6 +32,21 @@
             "description": "Family (last) name. Maps to Schema.org Person.familyName. Optional.",
             "x-skos:exactMatch": ["schema:familyName", "foaf:family_name"]
           },
+          "honorificPrefix": {
+            "type": "string",
+            "maxGraphemes": 64,
+            "maxLength": 640,
+            "description": "Title shown before the name, such as Dr., Prof. or Sir. Maps to Schema.org Person.honorificPrefix. Optional.",
+            "x-skos:exactMatch": ["schema:honorificPrefix"],
+            "x-skos:closeMatch": ["foaf:title"]
+          },
+          "honorificSuffix": {
+            "type": "string",
+            "maxGraphemes": 64,
+            "maxLength": 640,
+            "description": "Post-nominal letters shown after the name, such as PhD, OBE or FRSA. Maps to Schema.org Person.honorificSuffix. Optional.",
+            "x-skos:exactMatch": ["schema:honorificSuffix"]
+          },
           "namePronunciation": {
             "type": "string",
             "maxGraphemes": 64,

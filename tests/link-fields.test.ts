@@ -232,6 +232,7 @@ const HONOR_KINDS = [
   'id.sifa.defs#honorChampionship',
   'id.sifa.defs#honorRecord',
   'id.sifa.defs#honorRecognition',
+  'id.sifa.defs#honorDecoration',
 ];
 
 describe('defs honor tokens', () => {

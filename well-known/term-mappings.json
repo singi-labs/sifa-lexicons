@@ -16,395 +16,576 @@
     {
       "lexicon": "id.sifa.org.profile",
       "match": "exactMatch",
-      "terms": ["schema:Organization", "org:FormalOrganization"],
+      "terms": [
+        "schema:Organization",
+        "org:FormalOrganization"
+      ],
       "note": "ROR is the value anchor."
     },
     {
       "lexicon": "id.sifa.profile.certification",
       "match": "exactMatch",
-      "terms": ["schema:EducationalOccupationalCredential"]
+      "terms": [
+        "schema:EducationalOccupationalCredential"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.certification",
       "field": "credentialUrl",
       "match": "exactMatch",
-      "terms": ["schema:url"]
+      "terms": [
+        "schema:url"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.certification",
       "field": "expiresAt",
       "match": "exactMatch",
-      "terms": ["schema:validUntil"]
+      "terms": [
+        "schema:validUntil"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.course",
       "match": "exactMatch",
-      "terms": ["schema:Course"]
+      "terms": [
+        "schema:Course"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.course",
       "field": "number",
       "match": "exactMatch",
-      "terms": ["schema:courseCode"]
+      "terms": [
+        "schema:courseCode"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.education",
       "match": "closeMatch",
-      "terms": ["schema:EducationalOccupationalCredential"],
+      "terms": [
+        "schema:EducationalOccupationalCredential"
+      ],
       "note": "One record maps to two schema.org assertions: alumniOf for the institution and hasCredential for the degree."
     },
     {
       "lexicon": "id.sifa.profile.education",
       "field": "degree",
       "match": "closeMatch",
-      "terms": ["schema:hasCredential", "bibo:degree"]
+      "terms": [
+        "schema:hasCredential",
+        "bibo:degree"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.education",
       "field": "eqfLevel",
       "match": "closeMatch",
-      "terms": ["schema:educationalLevel"],
+      "terms": [
+        "schema:educationalLevel"
+      ],
       "note": "EQF is the value anchor."
     },
     {
       "lexicon": "id.sifa.profile.education",
       "field": "fieldOfStudy",
       "match": "closeMatch",
-      "terms": ["schema:educationalCredentialAwarded"],
+      "terms": [
+        "schema:educationalCredentialAwarded"
+      ],
       "note": "ISCED-F is the value anchor."
     },
     {
       "lexicon": "id.sifa.profile.education",
       "field": "institution",
       "match": "exactMatch",
-      "terms": ["schema:alumniOf"]
+      "terms": [
+        "schema:alumniOf"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.externalAccount",
       "match": "exactMatch",
-      "terms": ["schema:sameAs", "foaf:account"]
+      "terms": [
+        "schema:sameAs",
+        "foaf:account"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.honor",
       "match": "broadMatch",
-      "terms": ["schema:award"],
+      "terms": [
+        "schema:award"
+      ],
       "note": "schema:award is a bare string, so issuer and date are lost. No better term exists in BIBO either."
     },
     {
       "lexicon": "id.sifa.profile.involvement",
       "match": "broadMatch",
-      "terms": ["org:Membership"],
+      "terms": [
+        "org:Membership"
+      ],
       "note": "The kind known values have no external equivalent."
     },
     {
       "lexicon": "id.sifa.profile.language",
       "match": "exactMatch",
-      "terms": ["schema:knowsLanguage"]
+      "terms": [
+        "schema:knowsLanguage"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.position",
       "match": "closeMatch",
-      "terms": ["org:Membership", "schema:OrganizationRole"]
+      "terms": [
+        "org:Membership",
+        "schema:OrganizationRole"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.position",
       "field": "company",
       "match": "exactMatch",
-      "terms": ["org:organization", "schema:worksFor"]
+      "terms": [
+        "org:organization",
+        "schema:worksFor"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.position",
       "field": "description",
       "match": "exactMatch",
-      "terms": ["dcterms:description"]
+      "terms": [
+        "dcterms:description"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.position",
       "field": "employmentType",
       "match": "closeMatch",
-      "terms": ["schema:employmentType"],
+      "terms": [
+        "schema:employmentType"
+      ],
       "note": "schema:employmentType is free text. ESCO is the better value anchor."
     },
     {
       "lexicon": "id.sifa.profile.position",
       "field": "endedAt",
       "match": "exactMatch",
-      "terms": ["schema:endDate"]
+      "terms": [
+        "schema:endDate"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.position",
       "field": "entityRef",
       "match": "closeMatch",
-      "terms": ["schema:sameAs"]
+      "terms": [
+        "schema:sameAs"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.position",
       "field": "location",
       "match": "exactMatch",
-      "terms": ["schema:jobLocation"]
+      "terms": [
+        "schema:jobLocation"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.position",
       "field": "startedAt",
       "match": "exactMatch",
-      "terms": ["schema:startDate"]
+      "terms": [
+        "schema:startDate"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.position",
       "field": "title",
       "match": "exactMatch",
-      "terms": ["org:role", "schema:roleName"]
+      "terms": [
+        "org:role",
+        "schema:roleName"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.position",
       "field": "workplaceType",
       "match": "narrowMatch",
-      "terms": ["schema:jobLocationType"],
+      "terms": [
+        "schema:jobLocationType"
+      ],
       "note": "schema.org models only a remote flag; Sifa distinguishes onSite, remote, and hybrid."
     },
     {
       "lexicon": "id.sifa.profile.presentation",
       "match": "closeMatch",
-      "terms": ["bibo:Slideshow", "schema:PresentationDigitalDocument"],
+      "terms": [
+        "bibo:Slideshow",
+        "schema:PresentationDigitalDocument"
+      ],
       "note": "Neither term carries the \"reusable, deliverable more than once\" semantics of the Sifa record."
     },
     {
       "lexicon": "id.sifa.profile.presentation",
       "field": "coverImage",
       "match": "exactMatch",
-      "terms": ["schema:image", "foaf:depiction"]
+      "terms": [
+        "schema:image",
+        "foaf:depiction"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.presentation",
       "field": "description",
       "match": "exactMatch",
-      "terms": ["bibo:abstract", "schema:abstract"]
+      "terms": [
+        "bibo:abstract",
+        "schema:abstract"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.presentation",
       "field": "duration",
       "match": "narrowMatch",
-      "terms": ["schema:timeRequired"],
+      "terms": [
+        "schema:timeRequired"
+      ],
       "note": "The lexicon models a range; schema:timeRequired is a single ISO 8601 duration."
     },
     {
       "lexicon": "id.sifa.profile.presentation",
       "field": "intendedAudiences",
       "match": "closeMatch",
-      "terms": ["schema:audience"]
+      "terms": [
+        "schema:audience"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.presentation",
       "field": "title",
       "match": "exactMatch",
-      "terms": ["dcterms:title", "schema:name"]
+      "terms": [
+        "dcterms:title",
+        "schema:name"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.presentation",
       "field": "writeupRef",
       "match": "closeMatch",
-      "terms": ["dcterms:isReferencedBy", "schema:subjectOf"]
+      "terms": [
+        "dcterms:isReferencedBy",
+        "schema:subjectOf"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.presentationDelivery",
       "match": "closeMatch",
-      "terms": ["schema:Event", "event:Event"],
+      "terms": [
+        "schema:Event",
+        "event:Event"
+      ],
       "note": "BIBO models this relation as bibo:Slideshow bibo:presentedAt event:Event."
     },
     {
       "lexicon": "id.sifa.profile.presentationDelivery",
       "field": "address",
       "match": "exactMatch",
-      "terms": ["schema:location", "event:place"]
+      "terms": [
+        "schema:location",
+        "event:place"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.presentationDelivery",
       "field": "coSpeakers",
       "match": "exactMatch",
-      "terms": ["schema:performer"]
+      "terms": [
+        "schema:performer"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.presentationDelivery",
       "field": "date",
       "match": "exactMatch",
-      "terms": ["schema:startDate", "event:time"]
+      "terms": [
+        "schema:startDate",
+        "event:time"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.presentationDelivery",
       "field": "eventName",
       "match": "closeMatch",
-      "terms": ["schema:superEvent", "bibo:Conference"]
+      "terms": [
+        "schema:superEvent",
+        "bibo:Conference"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.presentationDelivery",
       "field": "mode",
       "match": "exactMatch",
-      "terms": ["schema:eventAttendanceMode"],
+      "terms": [
+        "schema:eventAttendanceMode"
+      ],
       "note": "The community.lexicon.calendar.event known values are already one-to-one with the schema.org enumeration."
     },
     {
       "lexicon": "id.sifa.profile.presentationDelivery",
       "field": "presentationRef",
       "match": "closeMatch",
-      "terms": ["bibo:presentedAt", "schema:workPerformed"]
+      "terms": [
+        "bibo:presentedAt",
+        "schema:workPerformed"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.presentationDelivery",
       "field": "role",
       "match": "closeMatch",
-      "terms": ["bibo:performer", "schema:performer"],
+      "terms": [
+        "bibo:performer",
+        "schema:performer"
+      ],
       "note": "No external vocabulary distinguishes presenter, panelist, keynote, workshop and host at this granularity."
     },
     {
       "lexicon": "id.sifa.profile.presentationDelivery",
       "field": "status",
       "match": "exactMatch",
-      "terms": ["schema:eventStatus"],
+      "terms": [
+        "schema:eventStatus"
+      ],
       "note": "As with mode, already one-to-one with the schema.org enumeration."
     },
     {
       "lexicon": "id.sifa.profile.presentationDelivery",
       "field": "title",
       "match": "exactMatch",
-      "terms": ["dcterms:title", "schema:name"]
+      "terms": [
+        "dcterms:title",
+        "schema:name"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.project",
       "match": "exactMatch",
-      "terms": ["schema:Project", "foaf:Project"]
+      "terms": [
+        "schema:Project",
+        "foaf:Project"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.project",
       "field": "events",
       "match": "relatedMatch",
-      "terms": ["schema:organizer"]
+      "terms": [
+        "schema:organizer"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.publication",
       "match": "broadMatch",
-      "terms": ["bibo:Document", "schema:CreativeWork"],
+      "terms": [
+        "bibo:Document",
+        "schema:CreativeWork"
+      ],
       "note": "Refine to bibo:AcademicArticle, bibo:Book, bibo:Report or bibo:Thesis when a resource type is known. COAR is the value anchor."
     },
     {
       "lexicon": "id.sifa.profile.publication",
       "field": "authors",
       "match": "exactMatch",
-      "terms": ["bibo:authorList", "schema:author"],
+      "terms": [
+        "bibo:authorList",
+        "schema:author"
+      ],
       "note": "bibo:authorList is an ordered rdf:List and preserves author order, which schema:author does not guarantee."
     },
     {
       "lexicon": "id.sifa.profile.publication",
       "field": "description",
       "match": "exactMatch",
-      "terms": ["bibo:abstract", "schema:abstract"]
+      "terms": [
+        "bibo:abstract",
+        "schema:abstract"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.publication",
       "field": "doi",
       "match": "exactMatch",
-      "terms": ["bibo:doi", "prism:doi"],
+      "terms": [
+        "bibo:doi",
+        "prism:doi"
+      ],
       "note": "schema:identifier with a PropertyValue of propertyID 'doi' is the JSON-LD serialization; bibo:doi is the direct term."
     },
     {
       "lexicon": "id.sifa.profile.publication",
       "field": "publishedAt",
       "match": "exactMatch",
-      "terms": ["dcterms:issued", "schema:datePublished"]
+      "terms": [
+        "dcterms:issued",
+        "schema:datePublished"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.publication",
       "field": "publisher",
       "match": "exactMatch",
-      "terms": ["dcterms:publisher", "schema:publisher"]
+      "terms": [
+        "dcterms:publisher",
+        "schema:publisher"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.publication",
       "field": "relatedIdentifiers",
       "match": "closeMatch",
-      "terms": ["dcterms:relation"]
+      "terms": [
+        "dcterms:relation"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.publication",
       "field": "subtitle",
       "match": "closeMatch",
-      "terms": ["schema:alternativeHeadline"]
+      "terms": [
+        "schema:alternativeHeadline"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.publication",
       "field": "title",
       "match": "exactMatch",
-      "terms": ["dcterms:title", "schema:name"]
+      "terms": [
+        "dcterms:title",
+        "schema:name"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.publication",
       "field": "type",
       "match": "closeMatch",
-      "terms": ["dcterms:type", "schema:additionalType"],
+      "terms": [
+        "dcterms:type",
+        "schema:additionalType"
+      ],
       "note": "COAR Resource Types is the anchor a consumer should map to. The values here are ORCID's because that is the vocabulary the data arrives in; deviating from the id.sifa.defs token convention is deliberate, since the vocabulary is ORCID's rather than Sifa's."
     },
     {
       "lexicon": "id.sifa.profile.publication",
       "field": "url",
       "match": "exactMatch",
-      "terms": ["bibo:uri", "schema:url"]
+      "terms": [
+        "bibo:uri",
+        "schema:url"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.self",
       "match": "exactMatch",
-      "terms": ["schema:Person", "foaf:Person"]
+      "terms": [
+        "schema:Person",
+        "foaf:Person"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.self",
       "field": "about",
       "match": "exactMatch",
-      "terms": ["schema:description"]
+      "terms": [
+        "schema:description"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.self",
       "field": "avatar",
       "match": "exactMatch",
-      "terms": ["schema:image", "foaf:depiction"]
+      "terms": [
+        "schema:image",
+        "foaf:depiction"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.self",
       "field": "displayName",
       "match": "exactMatch",
-      "terms": ["schema:name", "foaf:name"]
+      "terms": [
+        "schema:name",
+        "foaf:name"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.self",
       "field": "familyName",
       "match": "exactMatch",
-      "terms": ["schema:familyName", "foaf:family_name"]
+      "terms": [
+        "schema:familyName",
+        "foaf:family_name"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.self",
       "field": "givenName",
       "match": "exactMatch",
-      "terms": ["schema:givenName", "foaf:givenname"]
+      "terms": [
+        "schema:givenName",
+        "foaf:givenname"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.self",
       "field": "headline",
       "match": "closeMatch",
-      "terms": ["schema:jobTitle"]
+      "terms": [
+        "schema:jobTitle"
+      ]
+    },
+    {
+      "lexicon": "id.sifa.profile.self",
+      "field": "honorificPrefix",
+      "match": "exactMatch",
+      "terms": [
+        "schema:honorificPrefix"
+      ]
+    },
+    {
+      "lexicon": "id.sifa.profile.self",
+      "field": "honorificSuffix",
+      "match": "exactMatch",
+      "terms": [
+        "schema:honorificSuffix"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.self",
       "field": "location",
       "match": "closeMatch",
-      "terms": ["schema:homeLocation"]
+      "terms": [
+        "schema:homeLocation"
+      ]
     },
     {
       "lexicon": "id.sifa.profile.skill",
       "match": "closeMatch",
-      "terms": ["schema:knowsAbout", "schema:DefinedTerm"],
+      "terms": [
+        "schema:knowsAbout",
+        "schema:DefinedTerm"
+      ],
       "note": "ESCO is the value anchor."
     },
     {
       "lexicon": "id.sifa.profile.volunteering",
       "match": "closeMatch",
-      "terms": ["org:Membership", "schema:OrganizationRole"]
+      "terms": [
+        "org:Membership",
+        "schema:OrganizationRole"
+      ]
     }
   ],
   "unmapped": [

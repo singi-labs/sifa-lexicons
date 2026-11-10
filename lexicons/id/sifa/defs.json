@@ -903,6 +903,10 @@
       "type": "token",
       "description": "Other recognition, such as an honorary title, fellowship, or listing."
     },
+    "honorDecoration": {
+      "type": "token",
+      "description": "An order, decoration, or title of honour granted by a state, monarch, or similar body, such as a knighthood or an order of merit."
+    },
 
     "investmentRole": {
       "type": "string",

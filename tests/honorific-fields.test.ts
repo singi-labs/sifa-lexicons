@@ -20,6 +20,7 @@ interface Property {
   description?: string;
   'x-skos:exactMatch'?: string[];
 }
+// LexiconDoc types defs loosely; narrow to the record shape this test reads.
 const record = (
   selfDoc as unknown as {
     defs: { main: { record: { required?: string[]; properties: Record<string, Property> } } };

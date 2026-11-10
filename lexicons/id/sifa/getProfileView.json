@@ -76,6 +76,10 @@
           "maxLength": 1280,
           "description": "Post-nominal letters shown after the name (such as PhD or OBE), when provided."
         },
+        "showHonorifics": {
+          "type": "boolean",
+          "description": "Whether to show the honorifics next to the name on the profile. Absent means true."
+        },
         "namePronunciation": {
           "type": "string",
           "maxGraphemes": 64,

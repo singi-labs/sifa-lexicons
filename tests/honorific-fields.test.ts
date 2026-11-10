@@ -61,3 +61,19 @@ describe('id.sifa.profile.self honorific fields', () => {
     ).toThrow();
   });
 });
+
+describe('id.sifa.profile.self showHonorifics', () => {
+  it('is an optional boolean that defaults to showing', () => {
+    const prop = record.properties.showHonorifics;
+    expect(prop?.type).toBe('boolean');
+    expect(prop?.description).toMatch(/absent/i);
+    expect(record.required ?? []).not.toContain('showHonorifics');
+  });
+
+  it('accepts true, false and absent, and rejects a non-boolean', () => {
+    for (const extra of [{ showHonorifics: true }, { showHonorifics: false }, {}]) {
+      expect(() => lex.assertValidRecord(NSID, { ...base, ...extra })).not.toThrow();
+    }
+    expect(() => lex.assertValidRecord(NSID, { ...base, showHonorifics: 'no' })).toThrow();
+  });
+});

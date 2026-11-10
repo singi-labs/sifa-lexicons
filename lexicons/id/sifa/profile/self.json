@@ -47,6 +47,10 @@
             "description": "Post-nominal letters shown after the name, such as PhD, OBE or FRSA. Maps to Schema.org Person.honorificSuffix. Optional.",
             "x-skos:exactMatch": ["schema:honorificSuffix"]
           },
+          "showHonorifics": {
+            "type": "boolean",
+            "description": "Whether the rendering app shows honorificPrefix and honorificSuffix next to the name on the profile. Default true when absent. When false, the name shows without them on the profile itself; the app may still use them elsewhere, for example in CV exports or structured data. A display choice only: the honorifics stay in this public record."
+          },
           "namePronunciation": {
             "type": "string",
             "maxGraphemes": 64,

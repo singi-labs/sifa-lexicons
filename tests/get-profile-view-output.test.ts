@@ -50,6 +50,7 @@ function view(): Record<string, unknown> {
     handle: 'tester.example.com',
     honorificPrefix: 'Dr.',
     honorificSuffix: 'PhD, OBE',
+    showHonorifics: false,
     namePronunciation: 'TES-ter',
     namePronunciationAudioUrl: 'https://pds.example.com/xrpc/com.atproto.sync.getBlob?did=x&cid=y',
     skills: [
@@ -124,6 +125,7 @@ describe('getProfileView output: fields sifa-api emits', () => {
     ['honor links item without a url', ['honors', 0, 'links'], [{ label: 'x' }]],
     ['honor kind not a string', ['honors', 0, 'kind'], 1],
     ['honorificPrefix not a string', ['honorificPrefix'], 1],
+    ['showHonorifics not a boolean', ['showHonorifics'], 'no'],
     ['honorificSuffix over 128 graphemes', ['honorificSuffix'], 'a'.repeat(129)],
   ] as const)('rejects %s', (_name, path, value) => {
     expect(() => lexicons.assertValidXrpcOutput(NSID, withValue([...path], value))).toThrow();

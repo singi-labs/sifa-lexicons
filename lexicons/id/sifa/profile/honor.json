@@ -57,7 +57,8 @@
               "id.sifa.defs#honorNomination",
               "id.sifa.defs#honorChampionship",
               "id.sifa.defs#honorRecord",
-              "id.sifa.defs#honorRecognition"
+              "id.sifa.defs#honorRecognition",
+              "id.sifa.defs#honorDecoration"
             ]
           },
           "links": {

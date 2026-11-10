@@ -391,6 +391,18 @@
     },
     {
       "lexicon": "id.sifa.profile.self",
+      "field": "honorificPrefix",
+      "match": "exactMatch",
+      "terms": ["schema:honorificPrefix"]
+    },
+    {
+      "lexicon": "id.sifa.profile.self",
+      "field": "honorificSuffix",
+      "match": "exactMatch",
+      "terms": ["schema:honorificSuffix"]
+    },
+    {
+      "lexicon": "id.sifa.profile.self",
       "field": "location",
       "match": "closeMatch",
       "terms": ["schema:homeLocation"]

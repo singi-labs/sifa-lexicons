@@ -64,6 +64,18 @@
           "maxLength": 1280,
           "description": "Family (last) name, when provided."
         },
+        "honorificPrefix": {
+          "type": "string",
+          "maxGraphemes": 128,
+          "maxLength": 1280,
+          "description": "Title shown before the name (such as Dr. or Prof.), when provided."
+        },
+        "honorificSuffix": {
+          "type": "string",
+          "maxGraphemes": 128,
+          "maxLength": 1280,
+          "description": "Post-nominal letters shown after the name (such as PhD or OBE), when provided."
+        },
         "namePronunciation": {
           "type": "string",
           "maxGraphemes": 64,
@@ -1440,7 +1452,8 @@
             "id.sifa.defs#honorNomination",
             "id.sifa.defs#honorChampionship",
             "id.sifa.defs#honorRecord",
-            "id.sifa.defs#honorRecognition"
+            "id.sifa.defs#honorRecognition",
+            "id.sifa.defs#honorDecoration"
           ]
         },
         "links": {
